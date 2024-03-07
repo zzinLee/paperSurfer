@@ -17,7 +17,8 @@ export default {
         purpleGray: "#D1C6DE",
         green: "#00C75C",
         yellow: "#FFCF24",
-        red: "FF2424"
+        red: "FF2424",
+        transWhite: "rgba(255, 255, 255, 0.5)",
       },
       borderWidth: px0_10,
       fontSize: px0_100,
