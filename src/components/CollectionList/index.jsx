@@ -1,27 +1,20 @@
-import { useCollectionStore } from "../../stores/collection";
+import { useCollectionStore, useRootCollectionStore } from "../../stores/collection";
+
+import Collection from "../Collection";
 
 function CollectionList() {
-  const { collectionList, deleteCollectionList } = useCollectionStore();
-  const isCollectionListExist = Boolean(collectionList.length);
-  const collectionElemList = collectionList.map((collection) => {
-    return (
-      <li key={collection.key} className="flex flex-row justify-between p-5 bg-transWhite">
-        {collection.collectionName}
-        <button onClick={deleteThisCollection} id={collection.key} className="px-10 py-1 text-sm text-white rounded-md bg-purple">
-          X
-        </button>
-      </li>
-    );
-  });
-
-  function deleteThisCollection(ev) {
-    const deleteCollectionKey = Number(ev.target.id);
-    const deleteCollectionIndex = collectionList.findIndex((collection) => collection.key === deleteCollectionKey);
-
-    if (deleteCollectionIndex !== -1) {
-      deleteCollectionList(deleteCollectionIndex);
-    }
-  }
+  const { collectionList } = useCollectionStore();
+  const { collection } = useRootCollectionStore();
+  const isCollectionListExist = collectionList.length > 0;
+  const rootCollectionKey = collection.key;
+  const collectionElemList = collectionList.map((collection) =>
+    <Collection
+      key={collection.key}
+      collectionName={collection.collectionName}
+      collectionKey={collection.key}
+      isRoot={rootCollectionKey === collection.key}
+    />
+  );
 
   return (
     <>
