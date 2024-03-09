@@ -7,7 +7,7 @@ function Header() {
           className="w-200"
         ></img>
       </div>
-      <div className="text-xl text-center px-30">안녕하세요 연구원님!</div>
+      <div className="text-xl text-center px-30 font-nanumNeo">안녕하세요 연구원님!</div>
     </nav>
   );
 }
