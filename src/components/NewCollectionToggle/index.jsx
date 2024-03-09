@@ -10,7 +10,7 @@ function NewCollectionToggle() {
     setIsClick(!isClick);
   }
 
-  return isClick ? <NewCollectionInput clickButton={onToggleButton} /> : <NewCollectionButton clickButton={onToggleButton} />;
+  return isClick ? <NewCollectionInput toggle={onToggleButton} /> : <NewCollectionButton toggle={onToggleButton} />;
 }
 
 export default NewCollectionToggle;
