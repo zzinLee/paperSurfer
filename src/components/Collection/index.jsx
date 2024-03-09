@@ -3,13 +3,14 @@ import { useCollectionStore, useRootCollectionStore } from "../../stores/collect
 function Collection({ collectionKey, collectionName, isRoot }) {
   const { collectionList, deleteCollectionList } = useCollectionStore();
   const { collection, setCollection } = useRootCollectionStore();
-  const backgroundColor = isRoot ? "bg-sora" : "bg-transWhite";
-  const fontColor = isRoot ? "text-white" : "text-black";
+  const backgroundColor = isRoot ? "bg-backgroundList" : "bg-transWhite";
+  const fontColor = isRoot ? "text-sora" : "text-black";
 
   function deleteCollection(ev) {
     ev.stopPropagation();
 
-    const deleteCollectionKey = Number(ev.target.id);
+    const clickedCollectionId = ev.target.id.replace(/\D/g, "");
+    const deleteCollectionKey = Number(clickedCollectionId);
     const deleteCollectionIndex = collectionList.findIndex((collection) => collection.key === deleteCollectionKey);
 
     if (deleteCollectionIndex !== -1) {
@@ -18,24 +19,35 @@ function Collection({ collectionKey, collectionName, isRoot }) {
     }
   }
 
-  function clickCollection() {
+  function clickCollection(ev) {
     if (collection.key === 0 && collection.collectionName === "") {
       setCollection(collectionName, collectionKey);
-    } else {
-      setCollection("", 0);
+
+      return;
     }
-}
+
+    const clickedCollectionId = ev.target.id.replace(/\D/g, "");
+    const clickedCollectionKey = Number(clickedCollectionId);
+
+    if (collection.key === clickedCollectionKey) {
+      setCollection("", 0);
+    } else {
+      setCollection(collectionName, collectionKey);
+    }
+  }
 
   return (
-    <li
-      className={`flex flex-row justify-between p-5 ${backgroundColor} ${fontColor}`}
+    <li className={`flex flex-row justify-between p-5 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
-      {collectionName}
+      <div
+        className="flex-1 break-words min-w-130 b-5 text-balance"
+        id={`list-${collectionKey}`}
+      >{collectionName}</div>
       <button
         onClick={deleteCollection}
-        id={collectionKey}
-        className="px-10 py-1 text-sm text-white rounded-md bg-purple"
+        id={`delete-${collectionKey}`}
+        className="text-sm text-white rounded-md h-30 w-30 bg-purpleGray min-w-30"
       >
         X
       </button>
