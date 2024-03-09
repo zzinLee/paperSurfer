@@ -7,6 +7,10 @@ const px0_200 = { ...Array.from(Array(201)).map((_, i) => `${i}px`) };
 export default {
   content: ["./index.html", "./src/**/*.jsx"],
   theme: {
+    fontFamily: {
+      pretendard: ["Pretendard-Regular"],
+      nanumNeo: ["NanumSquareNeo-Variable"]
+    },
     extend: {
       colors: {
         backgroundCollection: "#D9D9D9",
