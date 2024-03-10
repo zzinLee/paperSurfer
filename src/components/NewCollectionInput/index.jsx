@@ -55,7 +55,7 @@ function NewCollectionInput({ toggle }) {
           placeholder="컬렉션 이름을 입력하세요..."
         />
         {showAlert && <div className="text-pink-600 text-15 font-nanumNeo">1자 이상 28자 이내로 작성</div>}
-        <button type="submit" className="self-end p-5 text-white rounded-md font-nanumNeo w-60 bg-purple">
+        <button type="submit" className="self-end p-5 text-sm text-white rounded-md w-fit bg-purple font-nanumNeo">
           확인
         </button>
       </form>

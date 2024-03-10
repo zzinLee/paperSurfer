@@ -3,8 +3,8 @@ import { useCollectionStore, useRootCollectionStore } from "../../stores/collect
 function Collection({ collectionKey, collectionName, isRoot }) {
   const { collectionList, deleteCollectionList } = useCollectionStore();
   const { collection, setCollection } = useRootCollectionStore();
-  const backgroundColor = isRoot ? "bg-backgroundList" : "bg-transWhite";
-  const fontColor = isRoot ? "text-sora" : "text-black";
+  const backgroundColor = isRoot ? "bg-sora" : "bg-transWhite";
+  const fontColor = isRoot ? "text-white" : "text-black";
 
   function deleteCollection(ev) {
     ev.stopPropagation();
@@ -37,19 +37,19 @@ function Collection({ collectionKey, collectionName, isRoot }) {
   }
 
   return (
-    <li className={`flex flex-row justify-between p-5 ${backgroundColor} ${fontColor}`}
+    <li
+      className={`flex flex-row justify-between items-center p-4 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
-      <div
-        className="flex-1 break-words min-w-130 b-5 text-balance"
-        id={`list-${collectionKey}`}
-      >{collectionName}</div>
+      <div className="flex-1 px-4 break-words min-w-120 text-balance" id={`list-${collectionKey}`}>
+        {collectionName}
+      </div>
       <button
         onClick={deleteCollection}
         id={`delete-${collectionKey}`}
-        className="text-sm text-white rounded-md h-30 w-30 bg-purpleGray min-w-30"
+        className="rounded-sm h-28 w-28 text-24 font-nanumNeo"
       >
-        X
+        ⓧ
       </button>
     </li>
   );

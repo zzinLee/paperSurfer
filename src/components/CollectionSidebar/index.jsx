@@ -3,7 +3,7 @@ import CollectionList from "../CollectionList";
 
 function CollectionSidebar() {
   return (
-    <section className="flex flex-col items-center w-2/12 h-full shadow-md bg-backgroundCollection min-w-185">
+    <section className="flex flex-col items-center h-full shadow-md bg-backgroundCollection min-w-200">
       <NewCollectionToggle />
       <CollectionList />
     </section>
