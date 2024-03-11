@@ -62,9 +62,9 @@ function NewCollectionInput({ toggle }) {
           )}
           <button
             type="submit"
-            className="inline px-3 ml-6 text-white rounded-md text-14 bg-customPurple font-nanumNeo"
+            className="inline px-6 py-2 ml-3 text-white rounded-md text-15 bg-customPurple font-nanumNeo"
           >
-            확인
+            제출
           </button>
         </div>
       </form>

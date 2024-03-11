@@ -19,11 +19,11 @@ function CollectionList() {
   return (
     <>
       {isCollectionListExist && (
-        <div className="w-full p-5 mb-5 text-white bg-black">
-          <h1 className="ml-10 font-nanumNeo">컬렉션 정보</h1>
+        <div className="self-start p-5 m-5 text-black">
+          <h1 className="font-nanumNeo">컬렉션 리스트</h1>
         </div>
       )}
-      <ul className="flex flex-col w-full gap-5">{collectionElemList}</ul>
+      <ul className="flex flex-col w-full gap-5 font-nanumNeo">{collectionElemList}</ul>
     </>
   );
 }
