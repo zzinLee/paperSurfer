@@ -3,11 +3,26 @@ import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
 const paperListStore = persist(
   (set) => ({
-    paperList: [],
-    addPaperList: (paper) =>
-      set((prev) => ({
-        paperList: [...prev.paperList, paper]
-      })),
+    addPaperList: (paper, key) =>
+      set((prev) => {
+        if (prev[key]) {
+          return {
+            ...prev,
+            [key]: [...prev[key], paper]
+          };
+        } else {
+          return {
+            ...prev,
+            [key]: [paper]
+          };
+        }
+      }),
+    deletePaperList: (key) =>
+      set((prev) => {
+        delete prev[key];
+
+        return prev;
+      })
   }),
   {
     name: "paper-storage",
