@@ -10,7 +10,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" exact element={<Home />}>
-          <Route path="/search/:collectionId" element={<SearchPage />} />
+          <Route path="/:collectionId/search" element={<SearchPage />} />
         </Route>
       </Routes>
     </div>

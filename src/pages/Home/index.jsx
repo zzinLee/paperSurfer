@@ -8,16 +8,16 @@ import { usePaperListStore } from "../../stores/paper";
 
 function Home() {
   const { collection } = useRootCollectionStore();
-  const papers = usePaperListStore();
+  const paperStore = usePaperListStore();
   const isRootCollectionSelected = collection.key !== 0 && collection.collectionName !== "";
-  const isPaperExist = papers.length > 0;
+  const isCurrentCollectionPaperExist = paperStore[collection.key]?.length;
 
   return (
     <div className="relative z-0 flex flex-row h-full bg-bgColor">
       <CollectionSidebar />
       {isRootCollectionSelected && <PaperSidebar />}
-      {isRootCollectionSelected &&  !isPaperExist && <Navigate to={`/search/${collection.key}`} />}
-      {!isRootCollectionSelected && !isPaperExist && <Navigate to="/" />}
+      {isRootCollectionSelected &&  !isCurrentCollectionPaperExist && <Navigate to={`/${collection.key}/search`} />}
+      {!isRootCollectionSelected && !isCurrentCollectionPaperExist && <Navigate to="/" />}
       <Outlet />
     </div>
   );
