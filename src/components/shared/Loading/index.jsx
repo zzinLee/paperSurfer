@@ -2,7 +2,7 @@ function Loading() {
   return (
     <div>
       <img
-        src="assets/loading.gif"
+        src="../assets/loading.gif"
         alt="Loading"
         width="50"
       />
