@@ -1,4 +1,7 @@
+import { useParams } from "react-router-dom";
+
 import { decodedString } from "../../utils/utils";
+import { usePaperListStore } from "../../stores/paper";
 
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
 const CLASS_CARD_PROP = "flex flex-row items-center gap-3 px-10 py-5";
@@ -6,9 +9,11 @@ const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py
 
 function PaperCard({ paper }) {
   const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
+  const { addPaperList } = usePaperListStore();
+  const { collectionId } = useParams();
 
   function savePaperStore() {
-    //TODO: paper store 에 저장
+    addPaperList(paper, collectionId);
   }
 
   function openPopUp() {
@@ -22,12 +27,12 @@ function PaperCard({ paper }) {
       </h1>
       <div className={CLASS_CARD_PROP}>
         <p className={`${CLASS_BADGE} bg-slate-100 text-slate-600`}>저널명</p>
-        <p className="text-sm text-slate-600">{paper?.containerTitle || "저널 정보 없음"}</p>
+        <p className="text-sm text-slate-600">{decodedString(paper?.containerTitle) || "저널 정보 없음"}</p>
       </div>
       <div className="inline-flex">
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
-          <p className="text-sm text-slate-600 text-ellipsis max-w-680">{paper?.authors || "저자 정보 없음"}</p>
+          <p className="text-sm text-slate-600 text-ellipsis max-w-680">{decodedString(paper?.authors) || "저자 정보 없음"}</p>
         </div>
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일자</p>
