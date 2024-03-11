@@ -4,10 +4,10 @@ function NewCollectionButton({ toggle }) {
   return (
     <button
       onClick={toggle}
-      className="flex flex-row items-center w-10/12 p-10 m-10 bg-white shadow-md h-55 min-w-100 rounded-xl justify-evenly"
+      className="flex flex-row items-center p-10 m-10 bg-white shadow-md h-fit rounded-xl w-208"
     >
       <CiCirclePlus className="text-customPurple size-30" />
-      <p className="m-4 text-balance font-nanumNeo">새로운 컬렉션</p>
+      <p className="m-4 ml-10 text-18 font-nanumNeo">새로운 컬렉션</p>
     </button>
   );
 }

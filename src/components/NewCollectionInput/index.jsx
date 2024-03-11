@@ -39,25 +39,34 @@ function NewCollectionInput({ toggle }) {
   }
 
   return (
-    <div className="w-11/12 p-10 m-10 bg-white shadow-m min-w-100 rounded-xl h-fit">
-      <div className="flex flex-row gap-10">
+    <div className="p-10 m-10 bg-white shadow-md w-208 rounded-xl h-fit">
+      <div className="inline-flex">
         <button onClick={toggle}>
           <CiCircleRemove className="text-customPurple size-30" />
         </button>
-        <p className="m-4 font-nanumNeo">새로운 컬렉션</p>
+        <p className="m-4 ml-10 text-18 font-nanumNeo">새로운 컬렉션</p>
       </div>
       <form className="flex flex-col gap-10 p-5" onSubmit={submitCollection}>
         <input
           type="text"
-          className="p-5 rounded-sm bg-backgroundCollection"
+          className="p-5 rounded-sm bg-backgroundCollection text-14"
           onChange={typeInput}
           autoFocus
-          placeholder="컬렉션 이름을 입력하세요..."
+          placeholder="컬렉션 이름을 입력하세요"
         />
-        {showAlert && <div className="text-alert text-15 font-nanumNeo">1자 이상 28자 이내로 작성</div>}
-        <button type="submit" className="self-end p-5 text-sm text-white rounded-md w-fit bg-customPurple font-nanumNeo">
-          확인
-        </button>
+        <div className="w-204">
+          {showAlert ? (
+            <div className="inline text-alert text-12 font-nanumNeo">1자 이상 28자 이내로 작성</div>
+          ) : (
+            <div className="invisible inline text-12 font-nanumNeo">1자 이상 28자 이내로 작성</div>
+          )}
+          <button
+            type="submit"
+            className="inline px-3 ml-6 text-white rounded-md text-14 bg-customPurple font-nanumNeo"
+          >
+            확인
+          </button>
+        </div>
       </form>
     </div>
   );
