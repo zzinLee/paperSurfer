@@ -47,9 +47,9 @@ function Collection({ collectionKey, collectionName, isRoot }) {
       <button
         onClick={deleteCollection}
         id={`delete-${collectionKey}`}
-        className="rounded-sm h-28 w-28 text-24 font-nanumNeo"
+        className="font-bold rounded-sm h-28 w-28 text-24 font-nanumNeo hover:text-customYellow"
       >
-        ⓧ
+        ✘
       </button>
     </li>
   );
