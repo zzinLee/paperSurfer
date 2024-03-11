@@ -1,9 +1,11 @@
 import { useCollectionStore, useRootCollectionStore } from "../../stores/collection";
+import { usePaperListStore } from "../../stores/paper";
 
 function Collection({ collectionKey, collectionName, isRoot }) {
   const { collectionList, deleteCollectionList } = useCollectionStore();
   const { collection, setCollection } = useRootCollectionStore();
-  const backgroundColor = isRoot ? "bg-sora" : "bg-transWhite";
+  const { deletePaperList } = usePaperListStore();
+  const backgroundColor = isRoot ? "bg-violet-500" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
   function deleteCollection(ev) {
@@ -16,6 +18,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
     if (deleteCollectionIndex !== -1) {
       deleteCollectionList(deleteCollectionIndex);
       setCollection("", 0);
+      deletePaperList(collectionKey);
     }
   }
 
@@ -38,7 +41,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
 
   return (
     <li
-      className={`flex flex-row justify-between items-center p-4 ${backgroundColor} ${fontColor}`}
+      className={`inline-flex hover:bg-violet-400 hover:text-white p-8 shadow-md rounded-md mx-10 my-2 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
       <div className="flex-1 px-4 break-words min-w-120 text-balance" id={`list-${collectionKey}`}>
@@ -47,7 +50,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
       <button
         onClick={deleteCollection}
         id={`delete-${collectionKey}`}
-        className="font-bold rounded-sm h-28 w-28 text-24 font-nanumNeo hover:text-customYellow"
+        className="px-5 font-bold rounded-sm text-22 hover:text-violet-950"
       >
         ✘
       </button>
