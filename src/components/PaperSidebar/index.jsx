@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 
 import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
+import Paper from "../Paper";
 
-const CLASS_PAPER_LIST = "m-8 p-8 truncate text-14 font-nanumNeo rounded-md shadow-md bg-white hover:bg-gray-200";
 const CLASS_PAPER_SIDEBAR = "flex flex-col items-center h-full shadow-md bg-backgroundList w-220 font-nanumNeo";
 const CLASS_NO_PAPER_LIST = "p-8 text-white text-14 font-nanumNeo";
 const CLASS_COLLECTION_NAME =
@@ -19,11 +19,8 @@ function PaperSidebar() {
   const paperListElements =
     paperList &&
     paperList.map((paper) => (
-      <li
-        className={CLASS_PAPER_LIST}
-        key={paper.doi}
-      >
-        {paper.title}
+      <li key={paper.doi}>
+        <Paper paper={paper} />
       </li>
     ));
 
@@ -35,7 +32,7 @@ function PaperSidebar() {
           {currentCollection?.collectionName || "컬렉션 제목 내용 없음"}
         </div>
         <ul>
-          {paperList ? paperListElements : <li className={CLASS_NO_PAPER_LIST}>등록된 논문이 없습니다.</li>}
+          {paperListElements?.length ? paperListElements : <li className={CLASS_NO_PAPER_LIST}>등록된 논문이 없습니다.</li>}
         </ul>
       </div>
     </section>
