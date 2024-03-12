@@ -1,20 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
-const rootCollectionStore = (set) => ({
-  collection: {
-    collectionName: "",
-    key: 0
-  },
-  setCollection: (collectionName, key) =>
-    set({
-      collection: {
-        collectionName,
-        key
-      }
-    })
-});
-
 const collectionStore = persist(
   (set) => ({
     collectionList: [],
@@ -39,9 +25,7 @@ const collectionStore = persist(
 );
 
 const useCollectionStore = create(devtools(collectionStore));
-const useRootCollectionStore = create(devtools(rootCollectionStore));
 
 export {
   useCollectionStore,
-  useRootCollectionStore,
 };

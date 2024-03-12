@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { useCollectionStore, useRootCollectionStore } from "../../stores/collection";
+import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
 
-function Collection({ collectionKey, collectionName, isRoot }) {
+function Collection({ collectionKey, collectionName }) {
   const navigator = useNavigate();
+  const { collectionId } = useParams();
   const { collectionList, deleteCollectionList } = useCollectionStore();
-  const { collection, setCollection } = useRootCollectionStore();
   const { deletePaperList } = usePaperListStore();
+  const isRoot = collectionKey === Number(collectionId);
   const backgroundColor = isRoot ? "bg-violet-500" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
@@ -20,7 +21,6 @@ function Collection({ collectionKey, collectionName, isRoot }) {
 
     if (deleteCollectionIndex !== -1) {
       deleteCollectionList(deleteCollectionIndex);
-      setCollection("", 0);
       deletePaperList(collectionKey);
 
       navigator("/");
@@ -28,21 +28,17 @@ function Collection({ collectionKey, collectionName, isRoot }) {
   }
 
   function clickCollection(ev) {
-    if (collection.key === 0 && collection.collectionName === "") {
-      setCollection(collectionName, collectionKey);
+    if (!collectionId) {
       navigator(`/${collectionKey}/search`);
 
       return;
     }
 
     const clickedCollectionId = ev.target.id.replace(/\D/g, "");
-    const clickedCollectionKey = Number(clickedCollectionId);
 
-    if (collection.key === clickedCollectionKey) {
-      setCollection("", 0);
+    if (collectionId === clickedCollectionId) {
       navigator("/");
     } else {
-      setCollection(collectionName, collectionKey);
       navigator(`/${collectionKey}/search`);
     }
   }
@@ -58,7 +54,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
       <button
         onClick={deleteCollection}
         id={`delete-${collectionKey}`}
-        className="px-5 font-bold rounded-sm text-22 hover:text-violet-950"
+        className="px-5 font-bold rounded-sm text-22"
       >
         ✘
       </button>

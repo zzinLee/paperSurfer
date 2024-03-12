@@ -1,18 +1,15 @@
-import { useCollectionStore, useRootCollectionStore } from "../../stores/collection";
+import { useCollectionStore } from "../../stores/collection";
 
 import Collection from "../Collection";
 
 function CollectionList() {
   const { collectionList } = useCollectionStore();
-  const { collection } = useRootCollectionStore();
   const isCollectionListExist = collectionList.length > 0;
-  const rootCollectionKey = collection.key;
   const collectionElemList = collectionList.map((eachCollection) =>
     <Collection
       key={eachCollection.key}
       collectionName={eachCollection.collectionName}
       collectionKey={eachCollection.key}
-      isRoot={rootCollectionKey === eachCollection.key}
     />
   );
 
