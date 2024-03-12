@@ -22,6 +22,8 @@ function Collection({ collectionKey, collectionName, isRoot }) {
       deleteCollectionList(deleteCollectionIndex);
       setCollection("", 0);
       deletePaperList(collectionKey);
+
+      navigator("/");
     }
   }
 
