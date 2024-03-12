@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 import { useCollectionStore, useRootCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
 
 function Collection({ collectionKey, collectionName, isRoot }) {
+  const navigator = useNavigate();
   const { collectionList, deleteCollectionList } = useCollectionStore();
   const { collection, setCollection } = useRootCollectionStore();
   const { deletePaperList } = usePaperListStore();
@@ -25,6 +28,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
   function clickCollection(ev) {
     if (collection.key === 0 && collection.collectionName === "") {
       setCollection(collectionName, collectionKey);
+      navigator(`/${collectionKey}/search`);
 
       return;
     }
@@ -34,8 +38,10 @@ function Collection({ collectionKey, collectionName, isRoot }) {
 
     if (collection.key === clickedCollectionKey) {
       setCollection("", 0);
+      navigator("/");
     } else {
       setCollection(collectionName, collectionKey);
+      navigator(`/${collectionKey}/search`);
     }
   }
 
