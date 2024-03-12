@@ -22,13 +22,23 @@ const paperListStore = persist(
         delete prev[key];
 
         return prev;
-      })
+      }),
+    deleteEachPaper: (key, doi) =>
+      set((prev) => {
+        const deletedArray = [...prev[key]].filter((paper) => paper.doi !== doi);
+
+        return {
+          ...prev,
+          [key]: deletedArray
+        };
+      }),
   }),
   {
     name: "paper-storage",
     storage: createJSONStorage(() => sessionStorage)
   }
 );
+
 const usePaperListStore = create(devtools(paperListStore));
 
 export { usePaperListStore };
