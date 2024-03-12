@@ -6,11 +6,15 @@ import { usePaperListStore } from "../../stores/paper";
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
 const CLASS_CARD_PROP = "flex flex-row items-center gap-3 px-10 py-5";
 const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
+const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shadow-md text-14 w-fit hover:cursor-pointer";
 
 function PaperCard({ paper }) {
   const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
-  const { addPaperList } = usePaperListStore();
+  const paperStore = usePaperListStore();
   const { collectionId } = useParams();
+  const addPaperList = paperStore.addPaperList;
+  const paperList = paperStore[collectionId];
+  const isAlreadyExist = paperList && paperList.some((storedPaper) => storedPaper.doi === paper.doi);
 
   function savePaperStore() {
     addPaperList(paper, collectionId);
@@ -32,7 +36,9 @@ function PaperCard({ paper }) {
       <div className="inline-flex">
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
-          <p className="text-sm text-slate-600 text-ellipsis max-w-680">{decodedString(paper?.authors) || "저자 정보 없음"}</p>
+          <p className="text-sm text-slate-600 text-ellipsis max-w-680">
+            {decodedString(paper?.authors) || "저자 정보 없음"}
+          </p>
         </div>
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일자</p>
@@ -48,16 +54,14 @@ function PaperCard({ paper }) {
         </span>
       </div>
       <div className="inline-flex justify-between mt-4 font-nanumNeo">
-        <button
-          className="px-8 py-4 m-8 text-center text-white bg-purple-500 rounded-lg shadow-md text-14 hover:bg-purple-800 w-fit"
-          onClick={savePaperStore}
-        >
-          이 컬렉션에 추가
-        </button>
-        <a
-          onClick={openPopUp}
-          className="px-8 py-4 m-8 text-center text-white rounded-lg shadow-md text-14 bg-cyan-500 w-fit hover:bg-cyan-700 hover:cursor-pointer"
-        >
+        {isAlreadyExist ? (
+          <div className="px-8 py-4 m-8 border rounded-lg text-slate-400 text-14">이미 추가된 컬렉션 입니다</div>
+        ) : (
+          <button className={`${CLASS_CARD_BUTTON} bg-purple-500 hover:bg-purple-800`} onClick={savePaperStore}>
+            이 컬렉션에 추가
+          </button>
+        )}
+        <a onClick={openPopUp} className={`${CLASS_CARD_BUTTON} bg-cyan-500 hover:bg-cyan-700`}>
           논문 보러 가기 ↗
         </a>
       </div>
