@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { decodedString } from "../../utils/utils";
@@ -11,6 +12,7 @@ const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shado
 function PaperCard({ paper }) {
   const { collectionId } = useParams();
   const { addPaperList, paperList } = usePaperListStore();
+  const [isClick, setIsClick] = useState(false);
   const currentPaperList = paperList[collectionId];
   const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
   const isAlreadyExist = currentPaperList && currentPaperList.some((storedPaper) => storedPaper.doi === paper.doi);
@@ -19,9 +21,18 @@ function PaperCard({ paper }) {
     addPaperList(paper, collectionId);
   }
 
-  function openPopUp() {
-    window.open(paper.url, "_blank", "noopener, noreferrer");
-  }
+  useEffect(() => {
+    function openPopUp() {
+      window.open(paper.url, "_blank", "noopener, noreferrer");
+    }
+
+    if (isClick) {
+      openPopUp();
+      setIsClick(false);
+    }
+
+  }, [isClick, paper.url]);
+
 
   return (
     <div className="flex flex-col p-4 mb-8 bg-white border rounded-lg shadow border-slate-700 max-w-[900px]">
@@ -60,7 +71,11 @@ function PaperCard({ paper }) {
             이 컬렉션에 추가
           </button>
         )}
-        <a onClick={openPopUp} className={`${CLASS_CARD_BUTTON} bg-cyan-500 hover:bg-cyan-700`}>
+        <a onClick={(ev) => {
+          ev.preventDefault();
+
+          setIsClick(true);
+        }} className={`${CLASS_CARD_BUTTON} bg-cyan-500 hover:bg-cyan-700`}>
           논문 보러 가기 ↗
         </a>
       </div>
