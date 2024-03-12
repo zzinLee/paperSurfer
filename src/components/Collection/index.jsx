@@ -50,7 +50,7 @@ function Collection({ collectionKey, collectionName, isRoot }) {
       className={`inline-flex hover:bg-violet-400 hover:text-white p-8 shadow-md rounded-md mx-10 my-2 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
-      <div className="flex-1 px-4 break-words min-w-120 text-balance" id={`list-${collectionKey}`}>
+      <div className="flex-1 px-4 break-words min-w-120 text-balance font-pretendard" id={`list-${collectionKey}`}>
         {collectionName}
       </div>
       <button

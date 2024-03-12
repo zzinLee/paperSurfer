@@ -7,7 +7,8 @@ import { usePaperListStore } from "../../stores/paper";
 const CLASS_PAPER_LIST = "m-8 p-8 truncate text-14 font-nanumNeo rounded-md shadow-md bg-white hover:bg-gray-200";
 const CLASS_PAPER_SIDEBAR = "flex flex-col items-center h-full shadow-md bg-backgroundList w-220 font-nanumNeo";
 const CLASS_NO_PAPER_LIST = "p-8 text-white text-14 font-nanumNeo";
-const CLASS_COLLECTION_NAME = "p-8 m-10 text-white break-words rounded-md shadow-md min-w-130 bg-violet-500";
+const CLASS_COLLECTION_NAME =
+  "p-8 m-10 text-white break-words rounded-md shadow-md min-w-130 bg-violet-500 font-nanumNeo";
 
 function PaperSidebar() {
   const { collectionId } = useParams();

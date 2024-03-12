@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+
 import axios from "axios";
 
 import API from "../../utils/configAPI";
@@ -71,15 +73,15 @@ function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
           ref={searchInput}
           type="search"
           id="search"
-          className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm h-1/12"
+          className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm h-1/12 font-pretendard"
           placeholder="DOI, 제목, 또는 키워드를 검색하세요..."
           required
         />
         <button
           type="submit"
-          className="px-4 py-2 text-base text-white rounded-lg shadow-sm bg-sora font-pretendard hover:bg-purpleGray hover:shadow-md"
+          className="p-8 text-base text-black rounded-full shadow-sm"
         >
-          Search
+          <AiOutlineSearch className="text-30"/>
         </button>
       </div>
     </form>
