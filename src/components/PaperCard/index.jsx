@@ -9,11 +9,11 @@ const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py
 const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shadow-md text-14 w-fit hover:cursor-pointer";
 
 function PaperCard({ paper }) {
-  const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
-  const paperStore = usePaperListStore();
   const { collectionId } = useParams();
+  const paperStore = usePaperListStore();
   const addPaperList = paperStore.addPaperList;
   const paperList = paperStore[collectionId];
+  const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
   const isAlreadyExist = paperList && paperList.some((storedPaper) => storedPaper.doi === paper.doi);
 
   function savePaperStore() {
@@ -36,7 +36,7 @@ function PaperCard({ paper }) {
       <div className="inline-flex">
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
-          <p className="text-sm text-slate-600 text-ellipsis max-w-680">
+          <p className="text-sm text-slate-600 max-w-680">
             {decodedString(paper?.authors) || "저자 정보 없음"}
           </p>
         </div>
