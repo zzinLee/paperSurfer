@@ -1,14 +1,21 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import axios from "axios";
 
 import API from "../../utils/configAPI";
 
 function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
   const searchInput = useRef(null);
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  async function submitSearchForm(ev) {
-    ev.preventDefault();
+  useEffect(() => {
+    if (isSubmit) {
+      submitSearchForm();
+      setIsSubmit(false);
+    }
+  }, [isSubmit]);
 
+
+  async function submitSearchForm() {
     if (isLoading) return;
 
     setIsLoading(true);
@@ -16,7 +23,7 @@ function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
     try {
       const userInput = searchInput.current.value;
       const response = await axios.get(
-        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article&sample=20&query=${encodeURIComponent(userInput)}`
+        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20&query=${encodeURIComponent(userInput)}`
       );
 
       if (response?.data?.status === "ok") {
@@ -51,7 +58,11 @@ function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
   }
 
   return (
-    <form onSubmit={submitSearchForm} className="w-1/2 p-10">
+    <form onSubmit={(ev) => {
+      ev.preventDefault();
+
+      setIsSubmit(true);
+    }} className="w-1/2 p-10">
       <label htmlFor="search">
         <h1 className="m-4 text-xl font-extrabold font-nanumNeo">논문 검색</h1>
       </label>
