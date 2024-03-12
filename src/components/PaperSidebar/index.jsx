@@ -13,12 +13,12 @@ const CLASS_COLLECTION_NAME =
 function PaperSidebar() {
   const { collectionId } = useParams();
   const { collectionList } = useCollectionStore();
-  const papers = usePaperListStore();
+  const { paperList } = usePaperListStore();
   const currentCollection = collectionList.find((paper) => Number(collectionId) === paper.key);
-  const paperList = papers[collectionId];
+  const currentPaperList = paperList[collectionId];
   const paperListElements =
-    paperList &&
-    paperList.map((paper) => (
+    currentPaperList &&
+    currentPaperList.map((paper) => (
       <li key={paper.doi}>
         <Paper paper={paper} />
       </li>

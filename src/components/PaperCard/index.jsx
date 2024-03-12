@@ -10,11 +10,10 @@ const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shado
 
 function PaperCard({ paper }) {
   const { collectionId } = useParams();
-  const paperStore = usePaperListStore();
-  const addPaperList = paperStore.addPaperList;
-  const paperList = paperStore[collectionId];
+  const { addPaperList, paperList } = usePaperListStore();
+  const currentPaperList = paperList[collectionId];
   const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
-  const isAlreadyExist = paperList && paperList.some((storedPaper) => storedPaper.doi === paper.doi);
+  const isAlreadyExist = currentPaperList && currentPaperList.some((storedPaper) => storedPaper.doi === paper.doi);
 
   function savePaperStore() {
     addPaperList(paper, collectionId);

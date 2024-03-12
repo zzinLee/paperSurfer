@@ -3,35 +3,45 @@ import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
 const paperListStore = persist(
   (set) => ({
+    paperList: {},
     addPaperList: (paper, key) =>
       set((prev) => {
-        if (prev[key]) {
+        if (prev.paperList[key]) {
           return {
             ...prev,
-            [key]: [...prev[key], paper]
+            paperList: {
+              ...prev.paperList,
+              [key]: [...prev.paperList[key], paper]
+            }
           };
         } else {
           return {
             ...prev,
-            [key]: [paper]
+            paperList: {
+              ...prev.paperList,
+              [key]: [paper]
+            }
           };
         }
       }),
     deletePaperList: (key) =>
       set((prev) => {
-        delete prev[key];
+        delete prev.paperList[key];
 
         return prev;
       }),
     deleteEachPaper: (key, doi) =>
       set((prev) => {
-        const deletedArray = [...prev[key]].filter((paper) => paper.doi !== doi);
+        const deletedArray = [...prev.paperList[key]].filter((paper) => paper.doi !== doi);
 
         return {
           ...prev,
-          [key]: deletedArray
+          paperList: {
+            ...prev.paperList,
+            [key]: deletedArray
+          }
         };
-      }),
+      })
   }),
   {
     name: "paper-storage",
