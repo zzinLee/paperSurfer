@@ -25,7 +25,7 @@ function SearchPage() {
         {isSearchListExist && <PaperSearchList searchList={searchList} />}
       </section>
       <button className={CLASS_FLOATING_BUTTON}>
-        <GoPencil onClick={() => navigator(`/${collectionId}`)} />
+        <GoPencil onClick={() => navigator(`/${collectionId}/view`)} />
       </button>
     </>
   );
