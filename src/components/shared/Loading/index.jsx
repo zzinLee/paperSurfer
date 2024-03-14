@@ -1,6 +1,6 @@
 function Loading() {
   return (
-    <div>
+    <div className="absolute bottom-0 p-10 -left-60">
       <img
         src="../assets/loading.gif"
         alt="Loading"

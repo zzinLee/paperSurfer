@@ -1,13 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-
 import axios from "axios";
+
+import Loading from "../../components/shared/Loading";
 
 import API from "../../utils/configAPI";
 
-function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
+function PaperSearchBar({ getSearchList }) {
   const searchInput = useRef(null);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isSubmit) {
@@ -60,31 +62,34 @@ function PaperSearchBar({ isLoading, setIsLoading, getSearchList }) {
   }
 
   return (
-    <form onSubmit={(ev) => {
-      ev.preventDefault();
+    <div className="relative w-full left-1/4">
+      {isLoading && <Loading />}
+      <form
+        onSubmit={(ev) => {
+          ev.preventDefault();
 
-      setIsSubmit(true);
-    }} className="w-1/2 p-10">
-      <label htmlFor="search">
-        <h1 className="m-4 text-xl font-extrabold font-nanumNeo">논문 검색</h1>
-      </label>
-      <div className="flex flex-row gap-5">
-        <input
-          ref={searchInput}
-          type="search"
-          id="search"
-          className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm h-1/12 font-pretendard"
-          placeholder="DOI, 제목, 또는 키워드를 검색하세요..."
-          required
-        />
-        <button
-          type="submit"
-          className="p-8 text-base text-black rounded-full shadow-sm"
-        >
-          <AiOutlineSearch className="text-30"/>
-        </button>
-      </div>
-    </form>
+          setIsSubmit(true);
+        }}
+        className="w-1/2 p-10"
+      >
+        <label htmlFor="search">
+          <h1 className="m-4 text-xl font-extrabold font-nanumNeo">논문 검색</h1>
+        </label>
+        <div className="flex flex-row gap-5">
+          <input
+            ref={searchInput}
+            type="search"
+            id="search"
+            className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm h-1/12 font-pretendard"
+            placeholder="DOI, 제목, 또는 키워드를 검색하세요..."
+            required
+          />
+          <button type="submit" className="p-8 text-base text-black rounded-full shadow-sm">
+            <AiOutlineSearch className="text-30" />
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
 
