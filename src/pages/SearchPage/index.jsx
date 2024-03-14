@@ -17,7 +17,7 @@ function SearchPage() {
   return (
     <>
       <PaperSidebar />
-      <section className="flex flex-col items-center justify-center grow">
+      <section className="flex flex-col items-center grow">
         <PaperSearchBar getSearchList={setSearchList} />
         {isSearchListExist && <PaperSearchList searchList={searchList} />}
       </section>

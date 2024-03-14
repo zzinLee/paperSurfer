@@ -5,7 +5,7 @@ import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
 import Paper from "../Paper";
 
-const CLASS_PAPER_SIDEBAR = "flex flex-col items-center h-full shadow-md bg-backgroundList w-220 font-nanumNeo";
+const CLASS_PAPER_SIDEBAR = "flex flex-col items-center h-full shadow-md bg-backgroundList min-w-220 font-nanumNeo";
 const CLASS_NO_PAPER_LIST = "p-8 text-white text-14 font-nanumNeo";
 const CLASS_COLLECTION_NAME =
   "p-8 m-10 text-white break-words rounded-md shadow-md min-w-130 bg-violet-500 font-nanumNeo";
