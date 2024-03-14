@@ -27,7 +27,7 @@ function formattingResponse(response) {
 
 function formattingChartData(paperList, collectionName) {
   return {
-    name: collectionName,
+    title: collectionName,
     children: paperList?.map(
       (paper) => ({
         doi: paper.doi,
@@ -42,4 +42,9 @@ function formattingChartData(paperList, collectionName) {
   };
 }
 
-export { decodedString, formattingResponse, formattingChartData };
+
+export {
+  decodedString,
+  formattingResponse,
+  formattingChartData,
+};
