@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function Chart ({ data }) {
+function PaperChart ({ data }) {
   const chartRef = useRef();
 
   useEffect(() => {
@@ -118,4 +118,4 @@ function drag(simulation) {
   return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
 }
 
-export default Chart;
+export default PaperChart;

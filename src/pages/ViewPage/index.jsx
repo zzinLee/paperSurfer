@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 
 import PaperSidebar from "../../components/PaperSidebar";
-import Chart from "../../components/Chart";
+import PaperChart from "../../components/PaperChart";
 
 import { formattingResponse, formattingChartData } from "../../utils/utils";
 import { usePaperListStore } from "../../stores/paper";
@@ -55,7 +55,7 @@ function ViewPage() {
   return (
     <>
       <PaperSidebar />
-      <Chart data={data} />
+      <PaperChart data={data} />
       <button className={CLASS_FLOATING_BUTTON}>
         <AiOutlineSearch onClick={() => navigator(`/${collectionId}/search`)} />
       </button>
