@@ -1,12 +1,20 @@
 import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
+const PALETTE = {
+  BEIGE: "#ffd050",
+  YELLOW: "#F4B926",
+  MINT: "#53BCBD",
+  KAKI: "#6D583C",
+  DARKMINT: "#246e70",
+};
+
 function PaperChart ({ data }) {
   const chartRef = useRef();
 
   useEffect(() => {
-    const width = 840;
-    const height = 600;
+    const width = "1400";
+    const height = "800";
     const root = d3.hierarchy(data);
     const links = root.links();
     const nodes = root.descendants();
@@ -19,9 +27,9 @@ function PaperChart ({ data }) {
           .forceLink(links)
           .id((d) => d.id)
           .distance(0)
-          .strength(1)
+          .strength(1.5)
       )
-      .force("charge", d3.forceManyBody().strength(-100))
+      .force("charge", d3.forceManyBody().strength(-820))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -34,24 +42,24 @@ function PaperChart ({ data }) {
 
     const link = svg
       .append("g")
-      .attr("stroke", "#bab9bb")
+      .attr("stroke", PALETTE.YELLOW)
       .attr("stroke-opacity", 0.4)
-      .attr("stroke-width", 2.0)
+      .attr("stroke-width", 1.5)
       .selectAll("line")
       .data(links)
       .join("line");
 
     const node = svg
       .append("g")
-      .attr("fill", "#ffcf21")
+      .attr("fill", PALETTE.BEIGE)
       .attr("stroke", "#bab9bb")
       .attr("stroke-width", 1.2)
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("fill", (d) => (d.children ? null : "#ebecea"))
-      .attr("stroke", (d) => (d.children ? null : "#ffcf21"))
-      .attr("r", 5)
+      .attr("fill", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
+      .attr("stroke", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
+      .attr("r", (d) => getNodeRadius(d.data.citations))
       .call(drag(simulation));
 
     const text = svg
@@ -59,10 +67,11 @@ function PaperChart ({ data }) {
       .selectAll("text")
       .data(nodes)
       .join("text")
-      .text((d) => d.data.title)
+      .text((d) => getTitleText(d.data.title))
       .attr("x", (d) => d.x + 10)
       .attr("y", (d) => d.y - 10)
-      .attr("fill", "black")
+      .attr("fill", (d) => (d.children ? PALETTE.DARKMINT : PALETTE.KAKI))
+      .attr("font-weight", (d) => (d.children ? "bold" : "regular"))
       .attr("font-size", 10);
 
     node.append("title").text((d) => d.data.title);
@@ -116,6 +125,29 @@ function drag(simulation) {
   }
 
   return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
+}
+
+function getNodeRadius(citations) {
+  const radiusLimit = [
+    [1, 3],
+    [10, 5],
+    [50, 10],
+    [100, 13],
+    [200, 17],
+    [Infinity, 20],
+  ];
+
+  for (const [limit, radius] of radiusLimit) {
+    if (!citations || citations <= limit) {
+      return radius;
+    }
+  }
+}
+
+function getTitleText(text) {
+  const MAX_LENGTH = 30;
+
+  return text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}...` : text;
 }
 
 export default PaperChart;
