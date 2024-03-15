@@ -1,5 +1,8 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
+
+import Modal from "../../components/shared/Modal";
+import PaperNodeCard from "../PaperNodeCard";
 
 const PALETTE = {
   BEIGE: "#ffd050",
@@ -9,12 +12,22 @@ const PALETTE = {
   DARKMINT: "#246e70",
 };
 
-function PaperChart ({ data }) {
-  const chartRef = useRef();
+function PaperChart({ data }) {
+  const chartRef = useRef(null);
+  const nodeRef = useRef(null);
+  const nodeElem = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function doubleClick(event, d) {
+    nodeRef.current = d.data;
+    nodeElem.current = event.target;
+
+    setIsModalOpen(true);
+  }
 
   useEffect(() => {
-    const width = "1400";
-    const height = "800";
+    const width = "1200";
+    const height = "900";
     const root = d3.hierarchy(data);
     const links = root.links();
     const nodes = root.descendants();
@@ -29,7 +42,7 @@ function PaperChart ({ data }) {
           .distance(0)
           .strength(1.5)
       )
-      .force("charge", d3.forceManyBody().strength(-820))
+      .force("charge", d3.forceManyBody().strength(-920))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -37,7 +50,7 @@ function PaperChart ({ data }) {
       .select(chartRef.current)
       .attr("width", width)
       .attr("height", height)
-      .attr("viewBox", [-width / 3, -height / 2, width, height])
+      .attr("viewBox", [-width / 2, -height / 2, width, height])
       .attr("style", "max-width: 100%; height: auto;");
 
     const link = svg
@@ -60,7 +73,8 @@ function PaperChart ({ data }) {
       .attr("fill", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
       .attr("stroke", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
       .attr("r", (d) => getNodeRadius(d.data.citations))
-      .call(drag(simulation));
+      .call(drag(simulation))
+      .on("dblclick", doubleClick);
 
     const text = svg
       .append("g")
@@ -94,9 +108,16 @@ function PaperChart ({ data }) {
   }, [data]);
 
   return (
-    <div className="p-20 m-12 bg-white rounded-md">
-      <svg ref={chartRef}></svg>
-    </div>
+    <>
+      <div className="p-20 m-12 bg-white rounded-md">
+        {isModalOpen && (
+          <Modal>
+            <PaperNodeCard nodeData={nodeRef.current} nodeElem={nodeElem.current} setModalOpen={setIsModalOpen} />
+          </Modal>
+        )}
+        <svg ref={chartRef}></svg>
+      </div>
+    </>
   );
 }
 
@@ -129,12 +150,12 @@ function drag(simulation) {
 
 function getNodeRadius(citations) {
   const radiusLimit = [
-    [1, 3],
-    [10, 5],
-    [50, 10],
-    [100, 13],
-    [200, 17],
-    [Infinity, 20],
+    [1, 5],
+    [10, 8],
+    [50, 12],
+    [100, 18],
+    [200, 24],
+    [Infinity, 28],
   ];
 
   for (const [limit, radius] of radiusLimit) {
