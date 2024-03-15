@@ -23,6 +23,7 @@ function PaperSidebar() {
         <Paper paper={paper} />
       </li>
     ));
+  const isPaperListExist = paperListElements?.length;
 
   return (
     <section className={CLASS_PAPER_SIDEBAR}>
@@ -32,7 +33,7 @@ function PaperSidebar() {
           {currentCollection?.collectionName || "컬렉션 제목 내용 없음"}
         </div>
         <ul>
-          {paperListElements?.length ? paperListElements : <li className={CLASS_NO_PAPER_LIST}>등록된 논문이 없습니다.</li>}
+          {isPaperListExist ? paperListElements : <li className={CLASS_NO_PAPER_LIST}>등록된 논문이 없습니다.</li>}
         </ul>
       </div>
     </section>
