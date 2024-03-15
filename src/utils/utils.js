@@ -14,7 +14,7 @@ function formattingResponse(response) {
     rawAuthorList
       .filter((author) => author.family && author.given)
       .map((author) => `${author.family} ${author.given}`);
-  const publishedAt = response.created?.["date-parts"]?.join(".");
+  const publishedAt = response.created?.["date-parts"][0].join(". ");
 
   return {
     doi: response.DOI,
@@ -25,7 +25,8 @@ function formattingResponse(response) {
     citations: response["is-referenced-by-count"],
     containerTitle: decodedString(response["container-title"]?.[0]) || "저널 정보 없음",
     authors: decodedString(authorList?.join(", ")) || "저자 정보 없음",
-    refs: response?.reference?.map((value) => value.DOI).filter((val) => val)
+    refs: response?.reference?.map((value) => value.DOI).filter((val) => val),
+    abstract: response?.abstract,
   };
 }
 
