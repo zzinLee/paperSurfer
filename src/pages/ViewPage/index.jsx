@@ -6,25 +6,24 @@ import { AiOutlineSearch } from "react-icons/ai";
 import PaperSidebar from "../../components/PaperSidebar";
 import PaperChart from "../../components/PaperChart";
 
-import { formattingResponse, formattingChartData } from "../../utils/utils";
+import { formattingResponse, formattingChartData, fetchChildrenNodes } from "../../utils/utils";
 import { usePaperListStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 import API from "../../utils/configAPI";
-
 const CLASS_FLOATING_BUTTON = "bg-violet-500 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
 const CLASS_LOADING_CIRCLE =
   "border-4 border-transparent rounded-full h-80 w-80 animate-spin border-sora border-t-customPurple";
 
 function ViewPage() {
-  console.log("View Page RENDER");
   const navigator = useNavigate();
-  const [data, setData] = useState({});
+  const [chartData, setChartData] = useState({});
   const { collectionId } = useParams();
   const { collectionList } = useCollectionStore();
   const { paperList } = usePaperListStore();
-  const isCurrentPaperExist = Object.values(paperList).length > 0;
+  const isCurrentPaperListExist = Object.values(paperList).length > 0;
   const currentCollection = collectionList.find((value) => value.key === Number(collectionId));
   const currentCollectionName = currentCollection.collectionName;
+  const isDataExist = Object.keys(chartData).length > 0;
 
   useEffect(() => {
     const currentPaperList = paperList[collectionId];
@@ -45,28 +44,25 @@ function ViewPage() {
         return formattingResponse(response);
       });
 
-      setData(formattingChartData(allRefsList, currentCollectionName));
+      const rootNode = formattingChartData(allRefsList, currentCollectionName);
+
+      fetchChildrenNodes(rootNode, rootNode.children, setChartData);
     }
 
-    if (!isCurrentPaperExist) {
+    if (!isCurrentPaperListExist) {
       navigator("/");
     }
 
     if (currentPaperList) {
       getRefs(currentPaperList);
     }
-  }, []);
-
-  console.log(data);
-  const isDataExist = Object.keys(data).length > 0;
+  }, [paperList]);
 
   return (
     <>
       <PaperSidebar />
-      <div
-        className="flex flex-row items-center justify-center w-full"
-      >
-        {isDataExist ? <PaperChart data={data} /> : <div className={CLASS_LOADING_CIRCLE}></div>}
+      <div className="flex flex-row items-center justify-center w-full">
+        {isDataExist ? <PaperChart data={chartData} /> : <div className={CLASS_LOADING_CIRCLE}></div>}
       </div>
       <button className={CLASS_FLOATING_BUTTON}>
         <AiOutlineSearch onClick={() => navigator(`/${collectionId}/search`)} />
