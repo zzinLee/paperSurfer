@@ -1,9 +1,10 @@
 import { BsBook } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 
+import Paper from "../Paper";
+
 import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
-import Paper from "../Paper";
 
 const CLASS_PAPER_SIDEBAR = "flex flex-col items-center h-full shadow-md bg-backgroundList min-w-220 font-nanumNeo";
 const CLASS_NO_PAPER_LIST = "p-8 text-white text-14 font-nanumNeo";
