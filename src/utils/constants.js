@@ -1,0 +1,15 @@
+const PALETTE = {
+  BEIGE: "#ffd050",
+  YELLOW: "#F4B926",
+  MINT: "#53BCBD",
+  KAKI: "#6D583C",
+  DARKMINT: "#246e70"
+};
+
+const STATUS = {
+  DEFAULT: PALETTE.BEIGE,
+  READ: PALETTE.MINT,
+  STAR: PALETTE.YELLOW,
+};
+
+export { PALETTE, STATUS };
