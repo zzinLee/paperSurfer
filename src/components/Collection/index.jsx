@@ -2,11 +2,13 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
+import { useChartStore } from "../../stores/chart";
 
 function Collection({ collectionKey, collectionName }) {
   const navigator = useNavigate();
   const { collectionId } = useParams();
   const { collectionList, deleteCollectionList } = useCollectionStore();
+  const { deleteCollectionChartData } = useChartStore();
   const { deletePaperList } = usePaperListStore();
   const isRoot = collectionKey === Number(collectionId);
   const backgroundColor = isRoot ? "bg-violet-500" : "bg-transWhite";
@@ -22,6 +24,7 @@ function Collection({ collectionKey, collectionName }) {
     if (deleteCollectionIndex !== -1) {
       deleteCollectionList(deleteCollectionIndex);
       deletePaperList(collectionKey);
+      deleteCollectionChartData(collectionKey);
 
       navigator("/");
     }

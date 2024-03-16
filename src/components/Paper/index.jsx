@@ -1,17 +1,20 @@
 import { useParams } from "react-router-dom";
 
 import { usePaperListStore } from "../../stores/paper";
+import { useChartStore } from "../../stores/chart";
 import { decodedString } from "../../utils/utils";
 
 function Paper({ paper }) {
-  const { deleteEachPaper } = usePaperListStore();
   const { collectionId } = useParams();
+  const { deleteEachPaper } = usePaperListStore();
+  const { deletePaperChartData } = useChartStore();
   const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
 
   function deletePaper(ev) {
     ev.stopPropagation();
 
     deleteEachPaper(collectionId, paper.doi);
+    deletePaperChartData(collectionId, paper.doi);
   }
 
   return (
