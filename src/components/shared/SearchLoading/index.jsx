@@ -1,4 +1,4 @@
-function Loading() {
+function SearchLoading() {
   return (
     <div className="absolute bottom-0 p-10 -left-60">
       <img
@@ -10,4 +10,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default SearchLoading;

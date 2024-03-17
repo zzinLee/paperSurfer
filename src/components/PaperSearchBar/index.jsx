@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 
-import Loading from "../../components/shared/Loading";
+import SearchLoading from "../../components/shared/SearchLoading";
 
 import API from "../../utils/configAPI";
 
@@ -63,7 +63,7 @@ function PaperSearchBar({ getSearchList }) {
 
   return (
     <div className="relative w-full left-1/4">
-      {isLoading && <Loading />}
+      {isLoading && <SearchLoading />}
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
