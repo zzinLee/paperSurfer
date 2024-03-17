@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 import PaperSidebar from "../../components/PaperSidebar";
 import PaperChart from "../../components/PaperChart";
+import LoadingCircle from "../../components/shared/LoadingCircle";
 
 import API from "../../utils/configAPI";
 import { STATUS } from "../../utils/constants";
@@ -14,22 +15,23 @@ import { useCollectionStore } from "../../stores/collection";
 import { useChartStore } from "../../stores/chart";
 
 const CLASS_FLOATING_BUTTON = "bg-violet-500 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
-const CLASS_LOADING_CIRCLE =
-  "border-4 border-transparent rounded-full h-80 w-80 animate-spin border-sora border-t-customPurple";
 
 async function fetchChildrenNodes(root, initChart, collectionKey) {
+  const COLLECTION_RADIUS = 20;
   const childrenList =
     root.children &&
     root.children.map((node) => ({
       doi: node.doi,
       title: node.title,
       children: node.children,
+      citations: node.citations,
       status: STATUS.STAR,
     }));
 
   const reqUrlList = childrenList.map((node) => {
     const descendants = node.children;
-    return descendants.length
+
+    return descendants?.length
       ? `${API.CROSSREF_WORKS_URL}?filter=doi:${descendants.join(",doi:")}&select=DOI,title,is-referenced-by-count`
       : null;
   });
@@ -50,7 +52,8 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
 
   const newRoot = {
     ...root,
-    status: STATUS.STAR,
+    citations: COLLECTION_RADIUS,
+    status: STATUS.COLLECTION,
     children: childrenList.map((subTree, index) => ({
       ...subTree,
       children: childrenDataList[index]
@@ -128,7 +131,7 @@ function ViewPage() {
     <>
       <PaperSidebar />
       <div className="flex flex-row items-center justify-center w-full">
-        {(isDataExist && isSameData) ? <PaperChart data={chartList[collectionId]} /> : <div className={CLASS_LOADING_CIRCLE}></div>}
+        {(isDataExist && isSameData) ? <PaperChart data={chartList[collectionId]} /> : <LoadingCircle />}
       </div>
       <button className={CLASS_FLOATING_BUTTON}>
         <AiOutlineSearch onClick={() => navigator(`/${collectionId}/search`)} />

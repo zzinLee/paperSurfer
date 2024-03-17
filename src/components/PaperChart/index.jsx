@@ -3,31 +3,29 @@ import * as d3 from "d3";
 
 import Modal from "../../components/shared/Modal";
 import PaperNodeCard from "../PaperNodeCard";
+import LoadingCircle from "../shared/LoadingCircle";
 
-const PALETTE = {
-  BEIGE: "#ffd050",
-  YELLOW: "#F4B926",
-  MINT: "#53BCBD",
-  KAKI: "#6D583C",
-  DARKMINT: "#246e70",
-};
+import { PALETTE, STATUS } from "../../utils/constants";
 
 function PaperChart({ data }) {
   const chartRef = useRef(null);
   const nodeRef = useRef(null);
-  const nodeElem = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function doubleClick(event, d) {
+  function doubleClick(ev, d) {
     nodeRef.current = d.data;
-    nodeElem.current = event.target;
+
+    if (nodeRef.current.doi === "none") {
+      return;
+    }
 
     setIsModalOpen(true);
   }
 
   useEffect(() => {
-    const width = "1200";
-    const height = "900";
+    const width = "1000";
+    const height = "600";
     const root = d3.hierarchy(data);
     const links = root.links();
     const nodes = root.descendants();
@@ -39,10 +37,10 @@ function PaperChart({ data }) {
         d3
           .forceLink(links)
           .id((d) => d.id)
-          .distance(0)
+          .distance(0.7)
           .strength(1.5)
       )
-      .force("charge", d3.forceManyBody().strength(-920))
+      .force("charge", d3.forceManyBody().strength(-700))
       .force("x", d3.forceX())
       .force("y", d3.forceY());
 
@@ -55,23 +53,21 @@ function PaperChart({ data }) {
 
     const link = svg
       .append("g")
-      .attr("stroke", PALETTE.YELLOW)
-      .attr("stroke-opacity", 0.4)
-      .attr("stroke-width", 1.5)
+      .attr("stroke", PALETTE.GRAY)
+      .attr("stroke-opacity", 0.8)
+      .attr("stroke-width", 1.8)
       .selectAll("line")
       .data(links)
       .join("line");
 
     const node = svg
       .append("g")
-      .attr("fill", PALETTE.BEIGE)
-      .attr("stroke", "#bab9bb")
-      .attr("stroke-width", 1.2)
       .selectAll("circle")
       .data(nodes)
       .join("circle")
-      .attr("fill", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
-      .attr("stroke", (d) => (d.children ? PALETTE.MINT : PALETTE.BEIGE))
+      .attr("fill", (d) => d.data.status)
+      .attr("stroke", (d) => getStrokeColor(d.data.status))
+      .attr("stroke-width", 1.2)
       .attr("r", (d) => getNodeRadius(d.data.citations))
       .call(drag(simulation))
       .on("dblclick", doubleClick);
@@ -84,7 +80,7 @@ function PaperChart({ data }) {
       .text((d) => getTitleText(d.data.title))
       .attr("x", (d) => d.x + 10)
       .attr("y", (d) => d.y - 10)
-      .attr("fill", (d) => (d.children ? PALETTE.DARKMINT : PALETTE.KAKI))
+      .attr("fill", (d) => getTextColor(d.data.status))
       .attr("font-weight", (d) => (d.children ? "bold" : "regular"))
       .attr("font-size", 10);
 
@@ -112,7 +108,16 @@ function PaperChart({ data }) {
       <div className="p-20 m-12 bg-white rounded-md">
         {isModalOpen && (
           <Modal>
-            <PaperNodeCard nodeData={nodeRef.current} nodeElem={nodeElem.current} setModalOpen={setIsModalOpen} />
+            <PaperNodeCard
+              nodeData={nodeRef.current}
+              setModalOpen={setIsModalOpen}
+              setIsLoadingChild={setIsLoading}
+            />
+          </Modal>
+        )}
+        {isLoading && (
+          <Modal>
+            <LoadingCircle />
           </Modal>
         )}
         <svg ref={chartRef}></svg>
@@ -122,8 +127,8 @@ function PaperChart({ data }) {
 }
 
 function drag(simulation) {
-  function dragstarted(event, d) {
-    if (!event.active) {
+  function dragstarted(ev, d) {
+    if (!ev.active) {
       simulation.alphaTarget(0.3).restart();
     }
 
@@ -131,13 +136,13 @@ function drag(simulation) {
     d.fy = d.y;
   }
 
-  function dragged(event, d) {
-    d.fx = event.x;
-    d.fy = event.y;
+  function dragged(ev, d) {
+    d.fx = ev.x;
+    d.fy = ev.y;
   }
 
-  function dragended(event, d) {
-    if (!event.active) {
+  function dragended(ev, d) {
+    if (!ev.active) {
       simulation.alphaTarget(0);
     }
 
@@ -155,14 +160,35 @@ function getNodeRadius(citations) {
     [50, 12],
     [100, 18],
     [200, 24],
-    [Infinity, 28],
+    [Infinity, 28]
   ];
 
   for (const [limit, radius] of radiusLimit) {
-    if (!citations || citations <= limit) {
+    if (!citations) {
+      return 5;
+    }
+
+    if (citations <= limit) {
       return radius;
     }
   }
+}
+
+function getTextColor(status) {
+  switch (status) {
+    case STATUS.DEFAULT:
+      return PALETTE.BLACK;
+
+    case STATUS.STAR:
+      return PALETTE.BLUE;
+
+    case STATUS.READ:
+      return PALETTE.GRAY;
+  }
+}
+
+function getStrokeColor(status) {
+  return (status === STATUS.DEFAULT) ? PALETTE.GRAY : status;
 }
 
 function getTitleText(text) {
