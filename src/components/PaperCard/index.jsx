@@ -65,7 +65,7 @@ function PaperCard({ paper }) {
       </div>
       <div className="inline-flex justify-between mt-4 font-nanumNeo">
         {isAlreadyExist ? (
-          <div className="px-8 py-4 m-8 border rounded-lg text-slate-400 text-14">이미 추가된 컬렉션 입니다</div>
+          <div className="px-8 py-4 m-8 border rounded-lg text-slate-400 text-14">이미 추가된 논문 입니다</div>
         ) : (
           <button className={`${CLASS_CARD_BUTTON} bg-purple-500 hover:bg-purple-800`} onClick={savePaperStore}>
             이 컬렉션에 추가

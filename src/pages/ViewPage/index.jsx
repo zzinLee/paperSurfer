@@ -24,7 +24,7 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
       doi: node.doi,
       title: node.title,
       children: node.children,
-      status: STATUS.DEFAULT
+      status: STATUS.STAR,
     }));
 
   const reqUrlList = childrenList.map((node) => {
@@ -50,8 +50,9 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
 
   const newRoot = {
     ...root,
-    children: childrenList.map((sub, index) => ({
-      ...sub,
+    status: STATUS.STAR,
+    children: childrenList.map((subTree, index) => ({
+      ...subTree,
       children: childrenDataList[index]
     }))
   };
