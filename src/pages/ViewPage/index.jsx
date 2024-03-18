@@ -9,7 +9,7 @@ import PaperChart from "../../components/PaperChart";
 import LoadingCircle from "../../components/shared/LoadingCircle";
 
 import API from "../../utils/configAPI";
-import { STATUS } from "../../utils/constants";
+import { STATUS, NONE } from "../../utils/constants";
 import { formattingResponse } from "../../utils/utils";
 import { usePaperListStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
@@ -64,7 +64,7 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
 function formattingChartData(paperList, collectionName) {
   return {
     title: collectionName,
-    doi: "none",
+    doi: NONE,
     status: STATUS.DEFAULT,
     children:
       paperList?.map((paper) => ({

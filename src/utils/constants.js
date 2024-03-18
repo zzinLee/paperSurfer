@@ -18,4 +18,7 @@ const STATUS = {
   COLLECTION: PALETTE.YELLOW,
 };
 
-export { PALETTE, STATUS };
+const COLLECTION_RADIUS = 20;
+const NONE = "none";
+
+export { PALETTE, STATUS, COLLECTION_RADIUS, NONE };

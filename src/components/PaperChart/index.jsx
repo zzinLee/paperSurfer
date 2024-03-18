@@ -5,7 +5,7 @@ import Modal from "../../components/shared/Modal";
 import PaperNodeCard from "../PaperNodeCard";
 import LoadingCircle from "../shared/LoadingCircle";
 
-import { PALETTE, STATUS } from "../../utils/constants";
+import { PALETTE, STATUS, NONE } from "../../utils/constants";
 import { decodedString } from "../../utils/utils";
 
 function PaperChart({ data }) {
@@ -17,7 +17,7 @@ function PaperChart({ data }) {
   function doubleClick(ev, d) {
     nodeRef.current = d.data;
 
-    if (nodeRef.current.doi === "none") {
+    if (nodeRef.current.doi === NONE) {
       return;
     }
 
