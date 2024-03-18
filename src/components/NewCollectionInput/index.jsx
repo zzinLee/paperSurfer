@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CiCircleRemove } from "react-icons/ci";
+import { FaRegFolderOpen } from "react-icons/fa6";
 
 import { useCollectionStore } from "../../stores/collection";
 
@@ -39,30 +39,32 @@ function NewCollectionInput({ toggle }) {
   }
 
   return (
-    <div className="p-10 m-10 bg-white shadow-md w-208 rounded-xl h-fit">
-      <div className="inline-flex">
+    <div className="p-10 m-10 shadow-md w-208 rounded-xl h-fit bg-stone-100">
+      <div className="inline-flex gap-16 text-black">
         <button onClick={toggle}>
-          <CiCircleRemove className="text-customPurple size-30" />
+          <FaRegFolderOpen className="size-24" />
         </button>
-        <p className="m-4 ml-10 text-18 font-nanumNeo">새로운 컬렉션</p>
+        <p className="text-18 font-nanumNeo">새로운 문서</p>
       </div>
-      <form className="flex flex-col gap-10 p-5" onSubmit={submitCollection}>
+      <form className="flex flex-col gap-10" onSubmit={submitCollection}>
         <input
           type="text"
-          className="p-5 rounded-sm bg-backgroundCollection text-14"
+          className="p-5 rounded-sm text-14 focus: outline-violet-400"
           onChange={typeInput}
           autoFocus
-          placeholder="컬렉션 이름을 입력하세요"
+          placeholder="문서 이름을 입력하세요"
         />
-        <div className="w-204">
+        <div
+          className="flex flex-row justify-between w-full font-nanumNeo text-14"
+        >
           {showAlert ? (
-            <div className="inline text-alert text-12 font-nanumNeo">1자 이상 28자 이내로 작성</div>
+            <p className="inline text-violet-700">1자 이상 28자 이내</p>
           ) : (
-            <div className="invisible inline text-12 font-nanumNeo">1자 이상 28자 이내로 작성</div>
+            <p className="invisible inline">1자 이상 28자 이내</p>
           )}
           <button
             type="submit"
-            className="inline px-6 py-2 ml-3 text-white rounded-md text-15 bg-customPurple font-nanumNeo"
+            className="px-6 py-2 text-white rounded-md bg-zinc-900 hover:bg-violet-700"
           >
             제출
           </button>

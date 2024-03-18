@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
+import { FcEmptyTrash } from "react-icons/fc";
 
 import { usePaperListStore } from "../../stores/paper";
 import { useChartStore } from "../../stores/chart";
-import { decodedString } from "../../utils/utils";
 
 function Paper({ paper }) {
   const { collectionId } = useParams();
   const { deleteEachPaper } = usePaperListStore();
   const { deletePaperChartData } = useChartStore();
-  const publishedAt = paper.createdAt && paper.createdAt.join("").replaceAll(",", ".");
+  const publishedAt = paper.createdAt;
 
   function deletePaper(ev) {
     ev.stopPropagation();
@@ -18,13 +18,13 @@ function Paper({ paper }) {
   }
 
   return (
-    <div className="relative p-8 m-10 text-left bg-white rounded-md text-14 w-204 hover:bg-gray-200">
-      <div className="font-extrabold truncate">{decodedString(paper?.title[0]) || "제목 정보 없음"}</div>
-      <div className="text-sm truncate text-10">{decodedString(paper?.authors) || "저자 정보 없음"}</div>
+    <div className="relative p-8 m-10 text-left bg-white rounded-sm shadow-md w-200">
+      <div className="font-extrabold truncate text-14">{paper?.title || "제목 정보 없음"}</div>
+      <div className="truncate text-10 text-stone-400">{paper?.authors || "저자 정보 없음"}</div>
       <div className="inline-flex justify-between w-full">
         <p className="text-10">{publishedAt || "출판일 정보 없음"}</p>
-        <button className="p-2 text-20" onClick={deletePaper}>
-          ✘
+        <button className="p-2 text-20">
+          <FcEmptyTrash onClick={deletePaper} className="size-28"/>
         </button>
       </div>
     </div>

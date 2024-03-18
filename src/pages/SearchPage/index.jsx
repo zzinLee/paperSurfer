@@ -6,7 +6,7 @@ import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
 
-const CLASS_FLOATING_BUTTON = "bg-violet-500 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
+const CLASS_FLOATING_BUTTON = "bg-violet-700 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
 
 function SearchPage() {
   const navigator = useNavigate();
@@ -22,7 +22,10 @@ function SearchPage() {
         {isSearchListExist && <PaperSearchList searchList={searchList} />}
       </section>
       <button className={CLASS_FLOATING_BUTTON}>
-        <GoPencil onClick={() => navigator(`/${collectionId}/view`)} />
+        <GoPencil
+          className="size-28"
+          onClick={() => navigator(`/${collectionId}/view`)}
+        />
       </button>
     </>
   );

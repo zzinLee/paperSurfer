@@ -14,7 +14,7 @@ import { usePaperListStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 import { useChartStore } from "../../stores/chart";
 
-const CLASS_FLOATING_BUTTON = "bg-violet-500 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
+const CLASS_FLOATING_BUTTON = "bg-violet-700 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
 
 async function fetchChildrenNodes(root, initChart, collectionKey) {
   const COLLECTION_RADIUS = 20;
@@ -134,7 +134,10 @@ function ViewPage() {
         {(isDataExist && isSameData) ? <PaperChart data={chartList[collectionId]} /> : <LoadingCircle />}
       </div>
       <button className={CLASS_FLOATING_BUTTON}>
-        <AiOutlineSearch onClick={() => navigator(`/${collectionId}/search`)} />
+        <AiOutlineSearch
+          className="size-28"
+          onClick={() => navigator(`/${collectionId}/search`)}
+        />
       </button>
     </>
   );

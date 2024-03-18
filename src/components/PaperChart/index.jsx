@@ -6,6 +6,7 @@ import PaperNodeCard from "../PaperNodeCard";
 import LoadingCircle from "../shared/LoadingCircle";
 
 import { PALETTE, STATUS } from "../../utils/constants";
+import { decodedString } from "../../utils/utils";
 
 function PaperChart({ data }) {
   const chartRef = useRef(null);
@@ -24,8 +25,9 @@ function PaperChart({ data }) {
   }
 
   useEffect(() => {
-    const width = "1000";
-    const height = "600";
+    const width = window.innerWidth;
+    const height = window.innerHeight;    
+
     const root = d3.hierarchy(data);
     const links = root.links();
     const nodes = root.descendants();
@@ -37,8 +39,8 @@ function PaperChart({ data }) {
         d3
           .forceLink(links)
           .id((d) => d.id)
-          .distance(0.7)
-          .strength(1.5)
+          .distance(1)
+          .strength(0.7)
       )
       .force("charge", d3.forceManyBody().strength(-700))
       .force("x", d3.forceX())
@@ -46,16 +48,16 @@ function PaperChart({ data }) {
 
     const svg = d3
       .select(chartRef.current)
-      .attr("width", width)
+      .attr("width", width - 222)
       .attr("height", height)
-      .attr("viewBox", [-width / 2, -height / 2, width, height])
-      .attr("style", "max-width: 100%; height: auto;");
+      .attr("viewBox", [-width/2, -height/2, width, height])
+      .attr("style", "max-width: 100%; max-height: 100%");
 
     const link = svg
       .append("g")
       .attr("stroke", PALETTE.GRAY)
       .attr("stroke-opacity", 0.8)
-      .attr("stroke-width", 1.8)
+      .attr("stroke-width", 2.5)
       .selectAll("line")
       .data(links)
       .join("line");
@@ -67,7 +69,7 @@ function PaperChart({ data }) {
       .join("circle")
       .attr("fill", (d) => d.data.status)
       .attr("stroke", (d) => getStrokeColor(d.data.status))
-      .attr("stroke-width", 1.2)
+      .attr("stroke-width", 1)
       .attr("r", (d) => getNodeRadius(d.data.citations))
       .call(drag(simulation))
       .on("dblclick", doubleClick);
@@ -84,7 +86,7 @@ function PaperChart({ data }) {
       .attr("font-weight", (d) => (d.children ? "bold" : "regular"))
       .attr("font-size", 10);
 
-    node.append("title").text((d) => d.data.title);
+    node.append("title").text((d) => getTitleText(d.data.title)) ;
 
     simulation.on("tick", () => {
       link
@@ -105,7 +107,7 @@ function PaperChart({ data }) {
 
   return (
     <>
-      <div className="p-20 m-12 bg-white rounded-md">
+      <div className="w-full h-full p-20 m-12 rounded-md">
         {isModalOpen && (
           <Modal>
             <PaperNodeCard
@@ -155,12 +157,12 @@ function drag(simulation) {
 
 function getNodeRadius(citations) {
   const radiusLimit = [
-    [1, 5],
-    [10, 8],
+    [1, 4],
+    [10, 10],
     [50, 12],
-    [100, 18],
-    [200, 24],
-    [Infinity, 28]
+    [100, 14],
+    [200, 16],
+    [Infinity, 18]
   ];
 
   for (const [limit, radius] of radiusLimit) {
@@ -177,13 +179,16 @@ function getNodeRadius(citations) {
 function getTextColor(status) {
   switch (status) {
     case STATUS.DEFAULT:
-      return PALETTE.BLACK;
+      return PALETTE.DARKER;
 
     case STATUS.STAR:
-      return PALETTE.BLUE;
+      return PALETTE.TEXT_POINT_PURPLE;
 
     case STATUS.READ:
-      return PALETTE.GRAY;
+      return PALETTE.TEXT_PURPLE;
+
+    case STATUS.COLLECTION:
+      return PALETTE.POINT_PURPLE;
   }
 }
 
@@ -192,9 +197,9 @@ function getStrokeColor(status) {
 }
 
 function getTitleText(text) {
-  const MAX_LENGTH = 30;
+  const MAX_LENGTH = 20;
 
-  return text.length > MAX_LENGTH ? `${text.slice(0, MAX_LENGTH)}...` : text;
+  return text.length > MAX_LENGTH ? decodedString(`${text.slice(0, MAX_LENGTH)}...`) : decodedString(text);
 }
 
 export default PaperChart;

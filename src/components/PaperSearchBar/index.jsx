@@ -5,6 +5,7 @@ import axios from "axios";
 import SearchLoading from "../../components/shared/SearchLoading";
 
 import API from "../../utils/configAPI";
+import { decodedString } from "../../utils/utils";
 
 function PaperSearchBar({ getSearchList }) {
   const searchInput = useRef(null);
@@ -46,11 +47,11 @@ function PaperSearchBar({ getSearchList }) {
         return {
           doi: eachPaper.DOI,
           url: eachPaper.URL,
-          title: eachPaper.title,
+          title: decodedString(eachPaper?.title[0]),
           references: eachPaper["reference-count"],
           citations: eachPaper["is-referenced-by-count"],
-          createdAt: eachPaper?.created["date-parts"],
-          containerTitle: eachPaper["container-title"],
+          createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join("."),
+          containerTitle: eachPaper?.["container-title"]?.[0],
           authors: authorList?.join(", ")
         };
       });
@@ -62,15 +63,14 @@ function PaperSearchBar({ getSearchList }) {
   }
 
   return (
-    <div className="relative w-full left-1/4">
-      {isLoading && <SearchLoading />}
+    <div className="w-full pb-8 pl-8">
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
 
           setIsSubmit(true);
         }}
-        className="w-1/2 p-10"
+        className="w-2/3 p-10"
       >
         <label htmlFor="search">
           <h1 className="m-4 text-xl font-extrabold font-nanumNeo">논문 검색</h1>
@@ -80,13 +80,17 @@ function PaperSearchBar({ getSearchList }) {
             ref={searchInput}
             type="search"
             id="search"
-            className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm h-1/12 font-pretendard"
-            placeholder="DOI, 제목, 또는 키워드를 검색하세요..."
+            className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm font-pretendard focus:outline-violet-400"
+            placeholder="키워드를 검색하세요..."
             required
           />
-          <button type="submit" className="p-8 text-base text-black rounded-full shadow-sm">
-            <AiOutlineSearch className="text-30" />
-          </button>
+          {isLoading ? (
+            <SearchLoading />
+          ) : (
+            <button type="submit" className="px-6 py-2 text-base text-black w-50">
+              <AiOutlineSearch className="size-28" />
+            </button>
+          )}
         </div>
       </form>
     </div>

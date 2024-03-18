@@ -1,13 +1,13 @@
-import { CiCirclePlus } from "react-icons/ci";
+import { FaFolderPlus } from "react-icons/fa6";
 
 function NewCollectionButton({ toggle }) {
   return (
     <button
       onClick={toggle}
-      className="flex flex-row items-center p-10 m-10 bg-white shadow-md h-fit rounded-xl w-208"
+      className="flex flex-row gap-16 p-10 m-10 shadow-md rounded-xl w-208 font-nanumNeo bg-stone-100"
     >
-      <CiCirclePlus className="text-customPurple size-30" />
-      <p className="m-4 ml-10 text-18 font-nanumNeo">새로운 컬렉션</p>
+      <FaFolderPlus className="size-24" />
+      <p className="">새로운 문서</p>
     </button>
   );
 }

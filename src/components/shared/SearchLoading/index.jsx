@@ -1,10 +1,10 @@
 function SearchLoading() {
   return (
-    <div className="absolute bottom-0 p-10 -left-60">
+    <div className="px-6">
       <img
         src="../assets/loading.gif"
         alt="Loading"
-        width="50"
+        width="40"
       />
     </div>
   );

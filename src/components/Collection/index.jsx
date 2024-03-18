@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 import { useCollectionStore } from "../../stores/collection";
 import { usePaperListStore } from "../../stores/paper";
@@ -11,7 +12,7 @@ function Collection({ collectionKey, collectionName }) {
   const { deleteCollectionChartData } = useChartStore();
   const { deletePaperList } = usePaperListStore();
   const isRoot = collectionKey === Number(collectionId);
-  const backgroundColor = isRoot ? "bg-violet-500" : "bg-transWhite";
+  const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
   function deleteCollection(ev) {
@@ -48,18 +49,18 @@ function Collection({ collectionKey, collectionName }) {
 
   return (
     <li
-      className={`inline-flex hover:bg-violet-400 hover:text-white p-8 shadow-md rounded-md mx-10 my-2 ${backgroundColor} ${fontColor}`}
+      className={`inline-flex hover:bg-violet-400 hover:text-white p-8 shadow-md rounded-sm mx-10 my-2 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
       <div className="flex-1 px-4 break-words min-w-120 text-balance font-pretendard" id={`list-${collectionKey}`}>
         {collectionName}
       </div>
-      <button
-        onClick={deleteCollection}
-        id={`delete-${collectionKey}`}
-        className="px-5 font-bold rounded-sm text-22"
-      >
-        ✘
+      <button className="px-5 font-bold rounded-sm text-22">
+        <FaDeleteLeft
+          className="size-24"
+          onClick={deleteCollection}
+          id={`delete-${collectionKey}`}
+        />
       </button>
     </li>
   );
