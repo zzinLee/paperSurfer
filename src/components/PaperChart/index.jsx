@@ -26,7 +26,7 @@ function PaperChart({ data }) {
 
   useEffect(() => {
     const width = window.innerWidth;
-    const height = window.innerHeight;    
+    const height = window.innerHeight;
 
     const root = d3.hierarchy(data);
     const links = root.links();

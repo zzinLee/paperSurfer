@@ -10,7 +10,7 @@ function Collection({ collectionKey, collectionName }) {
   const { collectionId } = useParams();
   const { collectionList, deleteCollectionList } = useCollectionStore();
   const { deleteCollectionChartData } = useChartStore();
-  const { deletePaperList } = usePaperListStore();
+  const { deleteAllPaperList } = usePaperListStore();
   const isRoot = collectionKey === Number(collectionId);
   const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
@@ -24,7 +24,7 @@ function Collection({ collectionKey, collectionName }) {
 
     if (deleteCollectionIndex !== -1) {
       deleteCollectionList(deleteCollectionIndex);
-      deletePaperList(collectionKey);
+      deleteAllPaperList(collectionKey);
       deleteCollectionChartData(collectionKey);
 
       navigator("/");
