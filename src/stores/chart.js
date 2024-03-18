@@ -39,7 +39,8 @@ function transplantChildren(root, target, childrenList) {
 const chartStore = persist(
   immer((set) => ({
     chartList: {},
-    initChart: (root, key) =>
+    starList: {},
+    initChart: (key, root) =>
       set((state) => {
         state.chartList = {
           ...state.chartList,
@@ -58,10 +59,26 @@ const chartStore = persist(
       set((state) => {
         state.chartList[key] = searchDoi(state.chartList[key], nodeData, status);
       }),
-    addChildrenToChart: (key, nodeData, childrenList) => set((state) => {
-      state.chartList[key] = transplantChildren(state.chartList[key], nodeData, childrenList);
-      state.findAndChangeNodeStatus(key, nodeData, STATUS.READ);
-    }),
+    addChildrenToChart: (key, nodeData, childrenList) =>
+      set((state) => {
+        state.chartList[key] = transplantChildren(state.chartList[key], nodeData, childrenList);
+        state.findAndChangeNodeStatus(key, nodeData, STATUS.READ);
+      }),
+    addStar: (key, paper) =>
+      set((state) => {
+        if (state.starList[key]) {
+          state.starList[key] = [...state.starList[key], paper];
+        } else {
+          state.starList = {
+            ...state.starList,
+            [key]: [paper]
+          };
+        }
+      }),
+    deletePaperFromStar: (key, doi) =>
+      set((state) => {
+        state.starList[key] = state.starList[key].filter((paper) => paper.doi !== doi);
+      }),
   })),
   {
     name: "chart-storage",
