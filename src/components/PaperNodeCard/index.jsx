@@ -5,7 +5,6 @@ import axios from "axios";
 import LoadingCircle from "../shared/LoadingCircle";
 
 import { useChartStore } from "../../stores/chart";
-import { usePaperListStore } from "../../stores/paper";
 import API from "../../utils/configAPI";
 import { STATUS } from "../../utils/constants";
 import { formattingResponse, decodedString } from "../../utils/utils";
@@ -18,7 +17,7 @@ const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:curso
 
 function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const { collectionId } = useParams();
-  const { findAndChangeNodeStatus, addChildrenToChart } = useChartStore();
+  const { findAndChangeNodeStatus, addChildrenToChart, addStar } = useChartStore();
 
   const [paper, setPaper] = useState(null);
   const [isLinkClick, setIsLinkClick] = useState(false);
@@ -44,7 +43,6 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     const paperRefList = response?.items?.[0]?.reference;
 
     if (!paperRefList) {
-      //TO DO: reference 내역이 없다는 것을 사용자에게 알립니다.
       setIsLoadingChild(false);
 
       return;
@@ -60,7 +58,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     );
     const childrenResponse = childrenRes.data.message;
     const childrenList = childrenResponse?.items;
-    const formattedChildrenList = childrenList.map((child) => {
+    const formattedChildrenList = childrenList?.map((child) => {
       const rawAuthorList = child.author;
       const authorList =
         rawAuthorList &&
@@ -69,7 +67,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
           .map((author) => `${author.family} ${author.given}`);
 
       return {
-        title: decodedString(child?.title[0]) || "제목 정보 없음",
+        title: decodedString(child?.title?.[0]) || "제목 정보 없음",
         citations: child?.["is-referenced-by-count"],
         status: STATUS.DEFAULT,
         doi: child?.DOI,
@@ -100,7 +98,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       getChildrenNode(collectionId, nodeData, addChildrenToChart);
     }
 
-    // addPaperList(paper, collectionId);
+    addStar(collectionId, paper);
     findAndChangeNodeStatus(collectionId, nodeData, STATUS.STAR);
     setModalOpen(false);
   }
@@ -162,7 +160,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
               <p className="text-sm text-slate-600 min-w-80">{paper?.createdAt || "출판일 정보 없음"}</p>
             </div>
             <div className="inline-flex">
-              <div className={`${CLASS_CARD_PROP}`}>
+              <div className={CLASS_CARD_PROP}>
                 <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
                 <p className="text-sm text-slate-600 max-w-680">{decodedString(paper?.authors) || "저자 정보 없음"}</p>
               </div>

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { LuRefreshCw } from "react-icons/lu";
 
 import PaperSidebar from "../../components/PaperSidebar";
 import PaperChart from "../../components/PaperChart";
@@ -14,10 +15,9 @@ import { usePaperListStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 import { useChartStore } from "../../stores/chart";
 
-const CLASS_FLOATING_BUTTON = "bg-violet-700 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
+const CLASS_FLOATING_BUTTON = "bg-violet-700 p-8 rounded-full shadow-xl text-32 text-white";
 
 async function fetchChildrenNodes(root, initChart, collectionKey) {
-  const COLLECTION_RADIUS = 20;
   const childrenList =
     root.children &&
     root.children.map((node) => ({
@@ -52,15 +52,13 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
 
   const newRoot = {
     ...root,
-    citations: COLLECTION_RADIUS,
-    status: STATUS.COLLECTION,
     children: childrenList.map((subTree, index) => ({
       ...subTree,
       children: childrenDataList[index]
     }))
   };
 
-  initChart(newRoot, collectionKey);
+  initChart(collectionKey, newRoot);
 }
 
 function formattingChartData(paperList, collectionName) {
@@ -84,15 +82,19 @@ function formattingChartData(paperList, collectionName) {
 function ViewPage() {
   const navigator = useNavigate();
   const { collectionId } = useParams();
-  const { chartList, initChart } = useChartStore();
+  const { chartList, initChart, starList } = useChartStore();
   const { collectionList } = useCollectionStore();
-  const { paperList } = usePaperListStore();
+  const { paperList, initPaperList } = usePaperListStore();
   const isCurrentPaperListExist = Object.values(paperList).length > 0;
   const currentCollection = collectionList.find((value) => value.key === Number(collectionId));
   const currentCollectionName = currentCollection.collectionName;
   const isDataExist = chartList[collectionId] && Object.keys(chartList[collectionId]).length > 0;
   const isSameData = paperList[collectionId] &&
     paperList[collectionId].length === chartList[collectionId]?.children?.length;
+
+  function clickRefresh() {
+    initPaperList(collectionId, starList[collectionId]);
+  }
 
   useEffect(() => {
     const currentPaperList = paperList[collectionId];
@@ -131,13 +133,13 @@ function ViewPage() {
     <>
       <PaperSidebar />
       <div className="flex flex-row items-center justify-center w-full">
-        {(isDataExist && isSameData) ? <PaperChart data={chartList[collectionId]} /> : <LoadingCircle />}
+        {isDataExist && isSameData ? <PaperChart data={chartList[collectionId]} /> : <LoadingCircle />}
       </div>
-      <button className={CLASS_FLOATING_BUTTON}>
-        <AiOutlineSearch
-          className="size-28"
-          onClick={() => navigator(`/${collectionId}/search`)}
-        />
+      <button className={`${CLASS_FLOATING_BUTTON} absolute top-30 right-30`}>
+        <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />
+      </button>
+      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-90 right-30">
+        <LuRefreshCw className="size-28" onClick={clickRefresh} />
       </button>
     </>
   );

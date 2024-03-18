@@ -6,15 +6,16 @@ import { useChartStore } from "../../stores/chart";
 
 function Paper({ paper }) {
   const { collectionId } = useParams();
-  const { deleteEachPaper } = usePaperListStore();
-  const { deletePaperChartData } = useChartStore();
+  const { deletePaperFromStore } = usePaperListStore();
+  const { deletePaperChartData, deletePaperFromStar } = useChartStore();
   const publishedAt = paper.createdAt;
 
   function deletePaper(ev) {
     ev.stopPropagation();
 
-    deleteEachPaper(collectionId, paper.doi);
+    deletePaperFromStore(collectionId, paper.doi);
     deletePaperChartData(collectionId, paper.doi);
+    deletePaperFromStar(collectionId, paper.doi);
   }
 
   return (
