@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom";
 import Paper from "../Paper";
 
 import { useCollectionStore } from "../../stores/collection";
-import { usePaperListStore } from "../../stores/paper";
+import { usePaperStore } from "../../stores/paper";
 
 function PaperSidebar() {
   const { collectionId } = useParams();
   const { collection } = useCollectionStore();
-  const { paperList } = usePaperListStore();
+  const { paperCollection } = usePaperStore();
   const currentCollectionName = collection[collectionId];
-  const currentPaperList = paperList[collectionId];
+  const currentPaperCollection = paperCollection[collectionId];
   const paperListElements =
-    currentPaperList &&
-    currentPaperList.map((paper) => (
+    currentPaperCollection &&
+    currentPaperCollection.map((paper) => (
       <li key={paper.doi}>
         <Paper paper={paper} />
       </li>

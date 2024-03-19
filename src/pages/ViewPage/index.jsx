@@ -11,7 +11,7 @@ import LoadingCircle from "../../components/shared/LoadingCircle";
 import API from "../../utils/configAPI";
 import { STATUS, NONE, COLLECTION_RADIUS } from "../../utils/constants";
 import { formattingResponse } from "../../utils/utils";
-import { usePaperListStore } from "../../stores/paper";
+import { usePaperStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 import { useChartStore } from "../../stores/chart";
 
@@ -85,19 +85,19 @@ function ViewPage() {
   const { collectionId } = useParams();
   const { chartList, initChart, starList } = useChartStore();
   const { collection } = useCollectionStore();
-  const { paperList, initPaperList } = usePaperListStore();
-  const isCurrentPaperListExist = Object.values(paperList).length > 0;
+  const { paperCollection, initPaperCollection } = usePaperStore();
+  const isCurrentPaperListExist = Object.values(paperCollection).length > 0;
   const currentCollectionName = collection[collectionId];
   const isDataExist = chartList[collectionId] && Object.keys(chartList[collectionId]).length > 0;
-  const isSameData = paperList[collectionId] &&
-    paperList[collectionId].length === chartList[collectionId]?.children?.length;
+  const isSameData =
+    paperCollection[collectionId] && paperCollection[collectionId].length === chartList[collectionId]?.children?.length;
 
   function clickRefresh() {
-    initPaperList(collectionId, starList[collectionId]);
+    initPaperCollection(collectionId, starList[collectionId]);
   }
 
   useEffect(() => {
-    const currentPaperList = paperList[collectionId];
+    const currentPaperList = paperCollection[collectionId];
 
     async function getRefs(currentPaperList) {
       const getRefPromiseList = currentPaperList.map((paper) => {
@@ -127,7 +127,7 @@ function ViewPage() {
     if (currentPaperList && (!isDataExist || !isSameData)) {
       getRefs(currentPaperList);
     }
-  }, [paperList]);
+  }, [paperCollection]);
 
   return (
     <>

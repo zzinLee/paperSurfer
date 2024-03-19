@@ -1,19 +1,19 @@
 import { useParams } from "react-router-dom";
 import { FcEmptyTrash } from "react-icons/fc";
 
-import { usePaperListStore } from "../../stores/paper";
+import { usePaperStore } from "../../stores/paper";
 import { useChartStore } from "../../stores/chart";
 
 function Paper({ paper }) {
   const { collectionId } = useParams();
-  const { deletePaperFromStore } = usePaperListStore();
+  const { deletePaperFromCollection } = usePaperStore();
   const { deletePaperFromChartList, deletePaperFromStar } = useChartStore();
   const publishedAt = paper.createdAt;
 
   function deletePaper(ev) {
     ev.stopPropagation();
 
-    deletePaperFromStore(collectionId, paper.doi);
+    deletePaperFromCollection(collectionId, paper.doi);
     deletePaperFromChartList(collectionId, paper.doi);
     deletePaperFromStar(collectionId, paper.doi);
   }

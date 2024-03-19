@@ -2,32 +2,32 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-const paperListStore = persist(
+const paperStore = persist(
   immer((set) => ({
-    paperList: {},
-    addPaper: (key, paper) => set((state) => {
-      if (state.paperList[key]) {
-        state.paperList = {
-          ...state.paperList,
-          [key]: [...state.paperList[key], paper],
+    paperCollection: {},
+    addPaperToCollection: (key, paper) => set((state) => {
+      if (state.paperCollection[key]) {
+        state.paperCollection = {
+          ...state.paperCollection,
+          [key]: [...state.paperCollection[key], paper],
         };
       } else {
-        state.paperList = {
-          ...state.paperList,
+        state.paperCollection = {
+          ...state.paperCollection,
           [key]: [paper],
         };
       }
     }),
-    deleteAllPaperList: (key) => set((state) => {
-      delete state.paperList[key];
+    deleteAllPaperFromCollection: (key) => set((state) => {
+      delete state.paperCollection[key];
     }),
-    deletePaperFromStore: (key, doi) => set((state) => {
-      const deletedArray = state.paperList[key].filter((paper) => paper.doi !== doi);
+    deletePaperFromCollection: (key, doi) => set((state) => {
+      const deletedArray = state.paperCollection[key].filter((paper) => paper.doi !== doi);
 
-      state.paperList[key] = deletedArray;
+      state.paperCollection[key] = deletedArray;
     }),
-    initPaperList: (key, starPaperList) => set((state) => {
-      state.paperList[key] = starPaperList;
+    initPaperCollection: (key, starPaperCollection) => set((state) => {
+      state.paperCollection[key] = starPaperCollection;
     }),
   })),
   {
@@ -36,6 +36,6 @@ const paperListStore = persist(
   }
 );
 
-const usePaperListStore = create(devtools(paperListStore));
+const usePaperStore = create(devtools(paperStore));
 
-export { usePaperListStore };
+export { usePaperStore };

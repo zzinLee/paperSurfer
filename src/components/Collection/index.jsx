@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
 
 import { useCollectionStore } from "../../stores/collection";
-import { usePaperListStore } from "../../stores/paper";
+import { usePaperStore } from "../../stores/paper";
 import { useChartStore } from "../../stores/chart";
 
 function Collection({ collectionKey, collectionName }) {
@@ -10,7 +10,7 @@ function Collection({ collectionKey, collectionName }) {
   const { collectionId } = useParams();
   const { deleteCollectionFromStore } = useCollectionStore();
   const { deleteCollectionFromChartList, deleteStarList } = useChartStore();
-  const { deleteAllPaperList } = usePaperListStore();
+  const { deleteAllPaperFromCollection } = usePaperStore();
   const isRoot = collectionKey === collectionId;
   const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
@@ -19,7 +19,7 @@ function Collection({ collectionKey, collectionName }) {
     ev.stopPropagation();
 
     deleteCollectionFromStore(collectionKey);
-    deleteAllPaperList(collectionKey);
+    deleteAllPaperFromCollection(collectionKey);
     deleteCollectionFromChartList(collectionKey);
     deleteStarList(collectionKey);
 

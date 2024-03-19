@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useCollectionStore } from "../../stores/collection";
-import { usePaperListStore } from "../../stores/paper";
+import { usePaperStore } from "../../stores/paper";
 import { useChartStore } from "../../stores/chart";
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
 
@@ -14,14 +14,14 @@ const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shado
 function PaperCard({ paper }) {
   const { collectionId } = useParams();
   const { collection } = useCollectionStore();
-  const { addPaper, paperList } = usePaperListStore();
+  const { addPaperToCollection, paperCollection } = usePaperStore();
   const { addStarPaper, initChart } = useChartStore();
 
   const [isClick, setIsClick] = useState(false);
   const currentCollectionName = collection[collectionId];
-  const currentPaperList = paperList[collectionId];
-  const isAlreadyExist = currentPaperList &&
-    currentPaperList.some((storedPaper) => storedPaper.doi === paper.doi);
+  const currentPaperCollection = paperCollection[collectionId];
+  const isAlreadyExist = currentPaperCollection &&
+    currentPaperCollection.some((storedPaper) => storedPaper.doi === paper.doi);
 
   function savePaperStore() {
     const tempRoot = {
@@ -31,7 +31,7 @@ function PaperCard({ paper }) {
       children: [],
     };
 
-    addPaper(collectionId, paper);
+    addPaperToCollection(collectionId, paper);
     addStarPaper(collectionId, paper);
     initChart(collectionId, tempRoot);
   }
