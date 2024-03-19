@@ -7,15 +7,15 @@ import { useChartStore } from "../../stores/chart";
 function Paper({ paper }) {
   const { collectionId } = useParams();
   const { deletePaperFromCollection } = usePaperStore();
-  const { deletePaperFromChartList, deletePaperFromStar } = useChartStore();
+  const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore();
   const publishedAt = paper.createdAt;
 
   function deletePaper(ev) {
     ev.stopPropagation();
 
     deletePaperFromCollection(collectionId, paper.doi);
-    deletePaperFromChartList(collectionId, paper.doi);
-    deletePaperFromStar(collectionId, paper.doi);
+    deletePaperFromChart(collectionId, paper.doi);
+    deletePaperFromStarCollection(collectionId, paper.doi);
   }
 
   return (

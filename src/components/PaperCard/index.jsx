@@ -15,7 +15,7 @@ function PaperCard({ paper }) {
   const { collectionId } = useParams();
   const { collection } = useCollectionStore();
   const { addPaperToCollection, paperCollection } = usePaperStore();
-  const { addStarPaper, initChart } = useChartStore();
+  const { initChart, addStarPaper } = useChartStore();
 
   const [isClick, setIsClick] = useState(false);
   const currentCollectionName = collection[collectionId];

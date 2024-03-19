@@ -83,17 +83,17 @@ function formattingRoot(paperList, collectionName) {
 function ViewPage() {
   const navigator = useNavigate();
   const { collectionId } = useParams();
-  const { chartList, initChart, starList } = useChartStore();
+  const { rootCollection, initChart, starCollection } = useChartStore();
   const { collection } = useCollectionStore();
   const { paperCollection, initPaperCollection } = usePaperStore();
   const isCurrentPaperListExist = Object.values(paperCollection).length > 0;
   const currentCollectionName = collection[collectionId];
-  const isDataExist = chartList[collectionId] && Object.keys(chartList[collectionId]).length > 0;
+  const isDataExist = rootCollection[collectionId] && Object.keys(rootCollection[collectionId]).length > 0;
   const isSameData =
-    paperCollection[collectionId] && paperCollection[collectionId].length === chartList[collectionId]?.children?.length;
+    paperCollection[collectionId] && paperCollection[collectionId].length === rootCollection[collectionId]?.children?.length;
 
   function clickRefresh() {
-    initPaperCollection(collectionId, starList[collectionId]);
+    initPaperCollection(collectionId, starCollection[collectionId]);
   }
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function ViewPage() {
     <>
       <PaperSidebar />
       <div className="flex flex-row items-center justify-center w-full">
-        {isDataExist && isSameData ? <PaperChart data={chartList[collectionId]} /> : <LoadingCircle />}
+        {isDataExist && isSameData ? <PaperChart data={rootCollection[collectionId]} /> : <LoadingCircle />}
       </div>
       <button className={`${CLASS_FLOATING_BUTTON} absolute top-30 right-30`}>
         <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />

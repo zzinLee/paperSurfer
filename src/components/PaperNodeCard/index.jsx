@@ -17,7 +17,7 @@ const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:curso
 
 function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const { collectionId } = useParams();
-  const { findAndChangeChartNodeStatus, addChildrenToChart, addStarPaper } = useChartStore();
+  const { changeNodeStatus, addChildrenToNode, addStarPaper } = useChartStore();
 
   const [paper, setPaper] = useState(null);
   const [isLinkClick, setIsLinkClick] = useState(false);
@@ -77,7 +77,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     });
 
     setIsLoadingChild(false);
-    addChildrenToChart(collectionId, parentNode, formattedChildrenList);
+    addChildrenToNode(collectionId, parentNode, formattedChildrenList);
   }
 
   useEffect(() => {
@@ -95,11 +95,11 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     const isChildrenExist = nodeData?.children && nodeData.children.length > 0;
 
     if (!isChildrenExist) {
-      getChildrenNode(collectionId, nodeData, addChildrenToChart);
+      getChildrenNode(collectionId, nodeData, addChildrenToNode);
     }
 
     addStarPaper(collectionId, paper);
-    findAndChangeChartNodeStatus(collectionId, nodeData, STATUS.STAR);
+    changeNodeStatus(collectionId, nodeData, STATUS.STAR);
     setModalOpen(false);
   }
 
@@ -114,7 +114,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       return;
     }
 
-    findAndChangeChartNodeStatus(collectionId, nodeData, STATUS.READ);
+    changeNodeStatus(collectionId, nodeData, STATUS.READ);
 
     setModalOpen(false);
   }
