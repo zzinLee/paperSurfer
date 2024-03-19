@@ -83,11 +83,10 @@ function ViewPage() {
   const navigator = useNavigate();
   const { collectionId } = useParams();
   const { chartList, initChart, starList } = useChartStore();
-  const { collectionList } = useCollectionStore();
+  const { collection } = useCollectionStore();
   const { paperList, initPaperList } = usePaperListStore();
   const isCurrentPaperListExist = Object.values(paperList).length > 0;
-  const currentCollection = collectionList.find((value) => value.key === Number(collectionId));
-  const currentCollectionName = currentCollection.collectionName;
+  const currentCollectionName = collection[collectionId];
   const isDataExist = chartList[collectionId] && Object.keys(chartList[collectionId]).length > 0;
   const isSameData = paperList[collectionId] &&
     paperList[collectionId].length === chartList[collectionId]?.children?.length;

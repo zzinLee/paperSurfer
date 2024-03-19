@@ -8,39 +8,32 @@ import { useChartStore } from "../../stores/chart";
 function Collection({ collectionKey, collectionName }) {
   const navigator = useNavigate();
   const { collectionId } = useParams();
-  const { collectionList, deleteCollectionList } = useCollectionStore();
-  const { deleteCollectionChartData } = useChartStore();
+  const { deleteCollectionFromStore } = useCollectionStore();
+  const { deleteCollectionFromChartList, deleteStarList } = useChartStore();
   const { deleteAllPaperList } = usePaperListStore();
-  const isRoot = collectionKey === Number(collectionId);
+  const isRoot = collectionKey === collectionId;
   const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
   function deleteCollection(ev) {
     ev.stopPropagation();
 
-    const clickedCollectionId = ev.target.id.replace(/\D/g, "");
-    const deleteCollectionKey = Number(clickedCollectionId);
-    const deleteCollectionIndex = collectionList.findIndex((collection) => collection.key === deleteCollectionKey);
+    deleteCollectionFromStore(collectionKey);
+    deleteAllPaperList(collectionKey);
+    deleteCollectionFromChartList(collectionKey);
+    deleteStarList(collectionKey);
 
-    if (deleteCollectionIndex !== -1) {
-      deleteCollectionList(deleteCollectionIndex);
-      deleteAllPaperList(collectionKey);
-      deleteCollectionChartData(collectionKey);
-
-      navigator("/");
-    }
+    navigator("/");
   }
 
-  function clickCollection(ev) {
+  function clickCollection() {
     if (!collectionId) {
       navigator(`/${collectionKey}/search`);
 
       return;
     }
 
-    const clickedCollectionId = ev.target.id.replace(/\D/g, "");
-
-    if (collectionId === clickedCollectionId) {
+    if (collectionId === collectionKey) {
       navigator("/");
     } else {
       navigator(`/${collectionKey}/search`);

@@ -3,19 +3,18 @@ import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
 const collectionStore = persist(
   (set) => ({
-    collectionList: [],
-    setCollectionList: (newCollection) =>
+    collection: {},
+    setCollection: (key, name) =>
       set((prev) => ({
-        collectionList: [...prev.collectionList, newCollection]
+        collection: {
+          ...prev.collection,
+          [key]: name,
+        }
       })),
-    deleteCollectionList: (index) => set((prev) => {
-      const deletedCollectionList = [...prev.collectionList];
+    deleteCollectionFromStore: (key) => set((prev) => {
+      delete prev.collection[key];
 
-      deletedCollectionList.splice(index, 1);
-
-      return {
-        collectionList: deletedCollectionList
-      };
+      return prev;
     }),
   }),
   {

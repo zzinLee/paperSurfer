@@ -3,13 +3,14 @@ import { useCollectionStore } from "../../stores/collection";
 import Collection from "../Collection";
 
 function CollectionList() {
-  const { collectionList } = useCollectionStore();
+  const { collection } = useCollectionStore();
+  const collectionList = Object.entries(collection);
   const isCollectionListExist = collectionList.length > 0;
-  const collectionElemList = collectionList.map((eachCollection) =>
+  const collectionElemList = collectionList.map(([key, name]) =>
     <Collection
-      key={eachCollection.key}
-      collectionName={eachCollection.collectionName}
-      collectionKey={eachCollection.key}
+      key={key}
+      collectionName={name}
+      collectionKey={key}
     />
   );
 

@@ -4,7 +4,7 @@ import { FaRegFolderOpen } from "react-icons/fa6";
 import { useCollectionStore } from "../../stores/collection";
 
 function NewCollectionInput({ toggle }) {
-  const { setCollectionList } = useCollectionStore();
+  const { setCollection } = useCollectionStore();
   const [showAlert, setShowAlert] = useState(false);
   const [collectionName, setCollectionName] = useState("");
 
@@ -15,12 +15,8 @@ function NewCollectionInput({ toggle }) {
       return;
     }
 
-    const newCollection = {
-      collectionName,
-      key: Date.now(),
-    };
-
-    setCollectionList(newCollection);
+    const collectionKey = Date.now();
+    setCollection(collectionKey, collectionName);
     toggle();
   }
 

@@ -7,9 +7,9 @@ import { usePaperListStore } from "../../stores/paper";
 
 function PaperSidebar() {
   const { collectionId } = useParams();
-  const { collectionList } = useCollectionStore();
+  const { collection } = useCollectionStore();
   const { paperList } = usePaperListStore();
-  const currentCollection = collectionList.find((paper) => Number(collectionId) === paper.key);
+  const currentCollectionName = collection[collectionId];
   const currentPaperList = paperList[collectionId];
   const paperListElements =
     currentPaperList &&
@@ -24,7 +24,7 @@ function PaperSidebar() {
     <aside className="flex flex-col items-center h-full overflow-auto min-w-220 font-nanumNeo bg-violet-50">
       <div className="w-full text-center break-words">
         <div className="p-8 m-10 text-white rounded-sm min-w-130 bg-violet-700">
-          {currentCollection?.collectionName || "제목 내용 없음"}
+          {currentCollectionName || "제목 내용 없음"}
         </div>
         <ul>
           {isPaperListExist ? paperListElements : <li className="p-8 text-14">등록된 논문이 없습니다.</li>}
