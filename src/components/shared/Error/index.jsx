@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { BiX } from "react-icons/bi";
 
-function Error() {
+function Error({ message }) {
   const navigator = useNavigate();
 
   return (
@@ -12,7 +12,7 @@ function Error() {
         </button>
         <div className="my-20">
           <h1 className="font-extrabold text-red-600">에러가 발생했습니다</h1>
-          <p>다시 한번 시도해보세요</p>
+          {message ? <p>{message}</p>: <p>다시 한번 시도해보세요</p>}
         </div>
       </div>
     </div>
