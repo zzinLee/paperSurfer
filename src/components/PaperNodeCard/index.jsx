@@ -41,8 +41,9 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     const res = await axios.get(`${API.CROSSREF_WORKS_URL}?filter=doi:${parentNode.doi}&select=reference`);
     const response = res.data.message;
     const paperRefList = response?.items?.[0]?.reference;
+    const isRefExist = paperRefList && paperRefList.length > 0;
 
-    if (!paperRefList) {
+    if (!isRefExist) {
       setIsLoadingChild(false);
 
       return;
@@ -58,6 +59,14 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     );
     const childrenResponse = childrenRes.data.message;
     const childrenList = childrenResponse?.items;
+    const isChildrenExist = childrenList && childrenList.length > 0;
+
+    if (!isChildrenExist) {
+      setIsLoadingChild(false);
+
+      return;
+    }
+
     const formattedChildrenList = childrenList?.map((child) => {
       const rawAuthorList = child.author;
       const authorList =

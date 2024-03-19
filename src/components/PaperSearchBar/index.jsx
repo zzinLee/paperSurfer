@@ -29,9 +29,11 @@ function PaperSearchBar({ getSearchList }) {
 
     try {
       const userInput = searchInput.current.value;
-      const response = await axios.get(
-        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20&query=${encodeURIComponent(userInput)}`
-      );
+      const searchUrl =
+        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20&` +
+        `query=${encodeURIComponent(userInput)}` +
+        `&select=DOI,title,is-referenced-by-count,created,author,URL,container-title,references-count`;
+      const response = await axios.get(searchUrl);
 
       if (response?.data?.status === "ok") {
         setIsLoading(false);
@@ -50,7 +52,7 @@ function PaperSearchBar({ getSearchList }) {
           doi: eachPaper.DOI,
           url: eachPaper.URL,
           title: decodedString(eachPaper?.title[0]) || "제목 정보 없음",
-          references: eachPaper["reference-count"],
+          references: eachPaper["references-count"],
           citations: eachPaper["is-referenced-by-count"],
           createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join(".") || "출판일 정보 없음",
           containerTitle: eachPaper?.["container-title"]?.[0] || "저널 정보 없음",
