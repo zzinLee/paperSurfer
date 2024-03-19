@@ -47,24 +47,24 @@ const chartStore = persist(
           [key]: root
         };
       }),
-    deleteCollectionChartData: (key) =>
+    deleteCollectionFromChartList: (key) =>
       set((state) => {
         delete state.chartList[key];
       }),
-    deletePaperChartData: (key, doi) =>
+    deletePaperFromChartList: (key, doi) =>
       set((state) => {
         state.chartList[key].children = state.chartList[key].children.filter((paper) => paper.doi !== doi);
       }),
-    findAndChangeNodeStatus: (key, nodeData, status) =>
+    findAndChangeChartNodeStatus: (key, nodeData, status) =>
       set((state) => {
         state.chartList[key] = searchDoi(state.chartList[key], nodeData, status);
       }),
     addChildrenToChart: (key, nodeData, childrenList) =>
       set((state) => {
         state.chartList[key] = transplantChildren(state.chartList[key], nodeData, childrenList);
-        state.findAndChangeNodeStatus(key, nodeData, STATUS.READ);
+        state.findAndChangeChartNodeStatus(key, nodeData, STATUS.READ);
       }),
-    addStar: (key, paper) =>
+    addStarPaper: (key, paper) =>
       set((state) => {
         if (state.starList[key]) {
           state.starList[key] = [...state.starList[key], paper];
@@ -78,6 +78,10 @@ const chartStore = persist(
     deletePaperFromStar: (key, doi) =>
       set((state) => {
         state.starList[key] = state.starList[key].filter((paper) => paper.doi !== doi);
+      }),
+    deleteStarList: (key) =>
+      set((state) => {
+        delete state.starList[key];
       }),
   })),
   {
