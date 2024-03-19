@@ -17,7 +17,7 @@ const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:curso
 
 function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const { collectionId } = useParams();
-  const { findAndChangeNodeStatus, addChildrenToChart, addStar } = useChartStore();
+  const { findAndChangeChartNodeStatus, addChildrenToChart, addStarPaper } = useChartStore();
 
   const [paper, setPaper] = useState(null);
   const [isLinkClick, setIsLinkClick] = useState(false);
@@ -98,8 +98,8 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       getChildrenNode(collectionId, nodeData, addChildrenToChart);
     }
 
-    addStar(collectionId, paper);
-    findAndChangeNodeStatus(collectionId, nodeData, STATUS.STAR);
+    addStarPaper(collectionId, paper);
+    findAndChangeChartNodeStatus(collectionId, nodeData, STATUS.STAR);
     setModalOpen(false);
   }
 
@@ -114,7 +114,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       return;
     }
 
-    findAndChangeNodeStatus(collectionId, nodeData, STATUS.READ);
+    findAndChangeChartNodeStatus(collectionId, nodeData, STATUS.READ);
 
     setModalOpen(false);
   }
