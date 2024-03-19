@@ -49,12 +49,12 @@ function PaperSearchBar({ getSearchList }) {
         return {
           doi: eachPaper.DOI,
           url: eachPaper.URL,
-          title: decodedString(eachPaper?.title[0]),
+          title: decodedString(eachPaper?.title[0]) || "제목 정보 없음",
           references: eachPaper["reference-count"],
           citations: eachPaper["is-referenced-by-count"],
-          createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join("."),
-          containerTitle: eachPaper?.["container-title"]?.[0],
-          authors: authorList?.join(", ")
+          createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join(".") || "출판일 정보 없음",
+          containerTitle: eachPaper?.["container-title"]?.[0] || "저널 정보 없음",
+          authors: authorList?.join(", ") || "저자 정보 없음",
         };
       });
 

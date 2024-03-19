@@ -52,20 +52,20 @@ function PaperCard({ paper }) {
   return (
     <div className="flex flex-col p-4 mb-8 bg-white border rounded-lg shadow border-slate-700 max-w-[900px]">
       <h1 className="px-12 py-4 m-2 font-semibold tracking-tight">
-        <p className="p-4">{paper.title || "제목 정보 없음"}</p>
+        <p className="p-4">{paper.title}</p>
       </h1>
       <div className={CLASS_CARD_PROP}>
         <p className={`${CLASS_BADGE} bg-slate-100 text-slate-600`}>저널명</p>
-        <p className="text-sm text-slate-600">{paper.containerTitle || "저널 정보 없음"}</p>
+        <p className="text-sm text-slate-600">{paper.containerTitle}</p>
       </div>
       <div className="inline-flex">
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
-          <p className="text-sm text-slate-600 max-w-680">{paper.authors || "저자 정보 없음"}</p>
+          <p className="text-sm text-slate-600 max-w-680">{paper.authors}</p>
         </div>
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일자</p>
-          <p className="text-sm text-slate-600">{paper.createdAt || "출판일 정보 없음"}</p>
+          <p className="text-sm text-slate-600">{paper.createdAt}</p>
         </div>
       </div>
       <div className="inline-flex m-8">
