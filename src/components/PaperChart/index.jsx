@@ -162,6 +162,8 @@ function getNodeRadius(citations) {
     [50, 12],
     [100, 14],
     [200, 16],
+    [400, 20],
+    [800, 24],
     [Infinity, 18]
   ];
 

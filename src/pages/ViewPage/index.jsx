@@ -9,7 +9,7 @@ import PaperChart from "../../components/PaperChart";
 import LoadingCircle from "../../components/shared/LoadingCircle";
 
 import API from "../../utils/configAPI";
-import { STATUS, NONE } from "../../utils/constants";
+import { STATUS, NONE, COLLECTION_RADIUS } from "../../utils/constants";
 import { formattingResponse } from "../../utils/utils";
 import { usePaperListStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
@@ -61,11 +61,12 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
   initChart(collectionKey, newRoot);
 }
 
-function formattingChartData(paperList, collectionName) {
+function formattingRoot(paperList, collectionName) {
   return {
     title: collectionName,
     doi: NONE,
-    status: STATUS.DEFAULT,
+    status: STATUS.COLLECTION,
+    citations: COLLECTION_RADIUS,
     children:
       paperList?.map((paper) => ({
         doi: paper.doi,
@@ -114,7 +115,7 @@ function ViewPage() {
         return formattingResponse(response);
       });
 
-      const rootNode = formattingChartData(allRefsList, currentCollectionName);
+      const rootNode = formattingRoot(allRefsList, currentCollectionName);
 
       fetchChildrenNodes(rootNode, initChart, collectionId);
     }
