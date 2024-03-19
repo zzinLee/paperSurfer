@@ -24,7 +24,7 @@ function PaperCard({ paper }) {
     currentPaperList.some((storedPaper) => storedPaper.doi === paper.doi);
 
   function savePaperStore() {
-    const initRoot = {
+    const tempRoot = {
       citations: COLLECTION_RADIUS,
       title: currentCollectionName || "문서명 없음",
       status: STATUS.COLLECTION,
@@ -33,7 +33,7 @@ function PaperCard({ paper }) {
 
     addPaper(collectionId, paper);
     addStarPaper(collectionId, paper);
-    initChart(collectionId, initRoot);
+    initChart(collectionId, tempRoot);
   }
 
   useEffect(() => {

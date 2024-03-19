@@ -45,14 +45,13 @@ function Collection({ collectionKey, collectionName }) {
       className={`inline-flex hover:bg-violet-400 hover:text-white p-8 shadow-md rounded-sm mx-10 my-2 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
-      <div className="flex-1 px-4 break-words min-w-120 text-balance font-pretendard" id={`list-${collectionKey}`}>
+      <div className="flex-1 px-4 break-words min-w-120 text-balance font-pretendard">
         {collectionName}
       </div>
-      <button className="px-5 font-bold rounded-sm text-22">
+      <button className="font-bold rounded-sm text-22">
         <FaDeleteLeft
           className="size-24"
           onClick={deleteCollection}
-          id={`delete-${collectionKey}`}
         />
       </button>
     </li>
