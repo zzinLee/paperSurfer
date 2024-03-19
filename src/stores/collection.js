@@ -14,7 +14,7 @@ const collectionStore = persist(
     deleteCollectionFromStore: (key) => set((prev) => {
       delete prev.collection[key];
 
-      return prev;
+      return { ...prev };
     }),
   }),
   {
