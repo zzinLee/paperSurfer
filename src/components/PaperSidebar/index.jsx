@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { LuPrinter } from "react-icons/lu";
 
 import Paper from "../Paper";
 
@@ -18,7 +19,7 @@ function PaperSidebar() {
         <Paper paper={paper} />
       </li>
     ));
-  const isPaperListExist = paperListElements?.length;
+  const isPaperListExist = paperListElements?.length > 0;
 
   return (
     <aside className="flex flex-col items-center h-full overflow-auto min-w-220 font-nanumNeo bg-violet-50">
@@ -26,10 +27,15 @@ function PaperSidebar() {
         <div className="p-8 m-10 text-white rounded-sm min-w-130 bg-violet-700">
           {currentCollectionName || "제목 내용 없음"}
         </div>
-        <ul>
-          {isPaperListExist ? paperListElements : <li className="p-8 text-14">등록된 논문이 없습니다.</li>}
-        </ul>
+        <ul>{isPaperListExist ? paperListElements : <li className="p-8 text-14">등록된 논문이 없습니다.</li>}</ul>
       </div>
+      {isPaperListExist && (
+        <Link to={`/${collectionId}/print`}>
+          <button className="absolute bottom-30 left-[380px] p-8 text-white rounded-full shadow-xl bg-violet-700 text-32">
+            <LuPrinter className="size-28" />
+          </button>
+        </Link>
+      )}
     </aside>
   );
 }
