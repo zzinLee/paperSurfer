@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
@@ -8,6 +9,7 @@ import API from "../../utils/configAPI";
 import { decodedString } from "../../utils/utils";
 
 function PaperSearchBar({ getSearchList }) {
+  const navigator = useNavigate();
   const searchInput = useRef(null);
   const [isSubmit, setIsSubmit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +60,7 @@ function PaperSearchBar({ getSearchList }) {
 
       getSearchList(searchList);
     } catch (err) {
-      console.error(err);
+      navigator("/error");
     }
   }
 
