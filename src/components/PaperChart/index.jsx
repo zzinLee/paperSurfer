@@ -193,11 +193,7 @@ function PaperChart({ data }) {
             />
           </Modal>
         )}
-        {isLoading && (
-          <Modal>
-            <LoadingCircle />
-          </Modal>
-        )}
+        {isLoading && (<Modal><LoadingCircle /></Modal>)}
         <svg ref={chartRef}></svg>
       </div>
     </>

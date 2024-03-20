@@ -100,7 +100,7 @@ function ViewPage() {
 
     const getReferences = async (currentPaperList) => {
       const getReferencesPromiseList = currentPaperList.map((paper) => {
-        
+
         return axios.get(`${API.CROSSREF_WORKS_URL}/${API.PAPER_URL}/${paper.doi}`);
       });
 

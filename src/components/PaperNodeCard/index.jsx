@@ -28,7 +28,6 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const isStar = nodeData.status === STATUS.STAR;
 
   const fetchPaperInformation = async (doi, setPaper) => {
-    
     const res = await axios.get(`${API.CROSSREF_WORKS_URL}/${doi}`);
     const response = res?.data?.message;
     const paper = formattingResponse(response);
@@ -38,7 +37,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
 
   const getChildrenNode = async (collectionId, parentNode) => {
     setIsLoadingChild(true);
-    
+
     const res = await axios.get(
       `${API.CROSSREF_WORKS_URL}?filter=doi:${parentNode.doi}&select=reference&mailto=${MAILTO}`
     );
@@ -57,7 +56,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       .filter((ref) => ref)
       .slice(0, 20)
       .join(",doi:");
-    
+
     const childrenRes = await axios.get(
       `${API.CROSSREF_WORKS_URL}?filter=doi:${requestDoiString}&select=DOI,title,is-referenced-by-count,created,author&mailto=${MAILTO}`
     );

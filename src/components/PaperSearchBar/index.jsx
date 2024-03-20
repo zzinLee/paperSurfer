@@ -34,7 +34,6 @@ function PaperSearchBar({ getSearchList }) {
         `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20` +
         `&query=${encodeURIComponent(userInput)}` +
         `&select=DOI,title,is-referenced-by-count,created,author,URL,container-title,references-count&mailto=${MAILTO}`;
-      
       const response = await axios.get(searchUrl);
 
       if (response?.data?.status === "ok") {
