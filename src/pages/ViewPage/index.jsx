@@ -7,15 +7,16 @@ import { LuRefreshCw } from "react-icons/lu";
 import PaperSidebar from "../../components/PaperSidebar";
 import PaperChart from "../../components/PaperChart";
 import LoadingCircle from "../../components/shared/LoadingCircle";
+import Modal from "../../components/shared/Modal";
 
 import API from "../../utils/configAPI";
 import { STATUS, NONE, COLLECTION_RADIUS } from "../../utils/constants";
 import { formattingResponse } from "../../utils/utils";
-import { usePaperStore } from "../../stores/paper";
-import { useCollectionStore } from "../../stores/collection";
-import { useChartStore } from "../../stores/chart";
+import usePaperStore from "../../stores/paper";
+import useCollectionStore from "../../stores/collection";
+import useChartStore from "../../stores/chart";
 
-async function fetchChildrenNodes(root, initChart, collectionKey) {
+const fetchChildrenNodes = async (root, initChart, collectionKey) => {
   const childrenList =
     root.children &&
     root.children.map((node) => ({
@@ -57,9 +58,9 @@ async function fetchChildrenNodes(root, initChart, collectionKey) {
   };
 
   initChart(collectionKey, newRoot);
-}
+};
 
-function formattingRoot(paperList, collectionName) {
+const formattingRoot = (paperList, collectionName)=>  {
   return {
     title: collectionName,
     doi: NONE,
@@ -76,7 +77,7 @@ function formattingRoot(paperList, collectionName) {
         children: paper.refs
       })) || []
   };
-}
+};
 
 function ViewPage() {
   const navigator = useNavigate();
@@ -90,20 +91,21 @@ function ViewPage() {
   const isSameData =
     paperCollection[collectionId] && paperCollection[collectionId].length === rootCollection[collectionId]?.children?.length;
 
-  function clickRefresh() {
+  const clickRefresh = () => {
     initPaperCollection(collectionId, starCollection[collectionId]);
-  }
+  };
 
   useEffect(() => {
     const currentPaperList = paperCollection[collectionId];
 
-    async function getRefs(currentPaperList) {
-      const getRefPromiseList = currentPaperList.map((paper) => {
+    const getReferences = async (currentPaperList) => {
+      const getReferencesPromiseList = currentPaperList.map((paper) => {
+        
         return axios.get(`${API.CROSSREF_WORKS_URL}/${API.PAPER_URL}/${paper.doi}`);
       });
 
-      const allResponse = await Promise.all(getRefPromiseList);
-      const allRefsList = allResponse.map((res) => {
+      const allResponse = await Promise.all(getReferencesPromiseList);
+      const allReferencesList = allResponse.map((res) => {
         if (res?.data?.status !== "ok") {
           return;
         }
@@ -113,17 +115,17 @@ function ViewPage() {
         return formattingResponse(response);
       });
 
-      const rootNode = formattingRoot(allRefsList, currentCollectionName);
+      const rootNode = formattingRoot(allReferencesList, currentCollectionName);
 
       fetchChildrenNodes(rootNode, initChart, collectionId);
-    }
+    };
 
     if (!isCurrentPaperListExist) {
       navigator("/");
     }
 
-    if (currentPaperList && (!isDataExist || !isSameData)) {
-      getRefs(currentPaperList);
+    if (currentPaperList && !isDataExist || !isSameData) {
+      getReferences(currentPaperList);
     }
   }, [paperCollection]);
 
@@ -131,7 +133,13 @@ function ViewPage() {
     <>
       <PaperSidebar />
       <div className="flex flex-row items-center justify-center w-full">
-        {isDataExist && isSameData ? <PaperChart data={rootCollection[collectionId]} /> : <LoadingCircle />}
+        {isDataExist && isSameData ? (
+          <PaperChart data={rootCollection[collectionId]} />
+        ) : (
+          <Modal>
+            <LoadingCircle />
+          </Modal>
+        )}
       </div>
       <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
         <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />

@@ -20,5 +20,6 @@ const STATUS = {
 
 const COLLECTION_RADIUS = 100;
 const NONE = "none";
+const MAILTO = "sujin951017@gmail.com";
 
-export { PALETTE, STATUS, COLLECTION_RADIUS, NONE };
+export { PALETTE, STATUS, COLLECTION_RADIUS, NONE, MAILTO };

@@ -7,6 +7,7 @@ import SearchLoading from "../../components/shared/SearchLoading";
 
 import API from "../../utils/configAPI";
 import { decodedString } from "../../utils/utils";
+import { MAILTO } from "../../utils/constants";
 
 function PaperSearchBar({ getSearchList }) {
   const navigator = useNavigate();
@@ -30,9 +31,10 @@ function PaperSearchBar({ getSearchList }) {
     try {
       const userInput = searchInput.current.value;
       const searchUrl =
-        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20&` +
-        `query=${encodeURIComponent(userInput)}` +
-        `&select=DOI,title,is-referenced-by-count,created,author,URL,container-title,references-count`;
+        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1&sample=20` +
+        `&query=${encodeURIComponent(userInput)}` +
+        `&select=DOI,title,is-referenced-by-count,created,author,URL,container-title,references-count&mailto=${MAILTO}`;
+      
       const response = await axios.get(searchUrl);
 
       if (response?.data?.status === "ok") {

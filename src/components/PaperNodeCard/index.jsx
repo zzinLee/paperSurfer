@@ -4,16 +4,16 @@ import axios from "axios";
 
 import LoadingCircle from "../shared/LoadingCircle";
 
-import { useChartStore } from "../../stores/chart";
+import useChartStore from "../../stores/chart";
 import API from "../../utils/configAPI";
-import { STATUS } from "../../utils/constants";
+import { STATUS, MAILTO } from "../../utils/constants";
 import { formattingResponse, decodedString } from "../../utils/utils";
 
+const CLASS_CARD_PROP = "flex flex-row gap-3 px-10 py-5";
+const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:cursor-pointer text-16";
+const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
 const CLASS_BADGE =
   "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
-const CLASS_CARD_PROP = "flex flex-row gap-3 px-10 py-5";
-const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
-const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:cursor-pointer text-16";
 
 function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const { collectionId } = useParams();
@@ -27,19 +27,22 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
   const formattedAbstract = abstract ? abstract + "..." : "초록 정보 없음";
   const isStar = nodeData.status === STATUS.STAR;
 
-  async function getDoiPaper(doi, setPaper) {
+  const fetchPaperInformation = async (doi, setPaper) => {
+    
     const res = await axios.get(`${API.CROSSREF_WORKS_URL}/${doi}`);
     const response = res?.data?.message;
     const paper = formattingResponse(response);
 
     setPaper(paper);
-  }
+  };
 
-  async function getChildrenNode(collectionId, parentNode) {
+  const getChildrenNode = async (collectionId, parentNode) => {
     setIsLoadingChild(true);
-
-    const res = await axios.get(`${API.CROSSREF_WORKS_URL}?filter=doi:${parentNode.doi}&select=reference`);
-    const response = res.data.message;
+    
+    const res = await axios.get(
+      `${API.CROSSREF_WORKS_URL}?filter=doi:${parentNode.doi}&select=reference&mailto=${MAILTO}`
+    );
+    const response = res?.data?.message;
     const paperRefList = response?.items?.[0]?.reference;
     const isRefExist = paperRefList && paperRefList.length > 0;
 
@@ -52,12 +55,13 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     const requestDoiString = paperRefList
       .map((ref) => ref.DOI)
       .filter((ref) => ref)
+      .slice(0, 20)
       .join(",doi:");
-
+    
     const childrenRes = await axios.get(
-      `${API.CROSSREF_WORKS_URL}?filter=doi:${requestDoiString}&select=DOI,title,is-referenced-by-count,created,author`
+      `${API.CROSSREF_WORKS_URL}?filter=doi:${requestDoiString}&select=DOI,title,is-referenced-by-count,created,author&mailto=${MAILTO}`
     );
-    const childrenResponse = childrenRes.data.message;
+    const childrenResponse = childrenRes?.data?.message;
     const childrenList = childrenResponse?.items;
     const isChildrenExist = childrenList && childrenList.length > 0;
 
@@ -87,36 +91,39 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
 
     setIsLoadingChild(false);
     addChildrenToNode(collectionId, parentNode, formattedChildrenList);
-  }
+  };
 
   useEffect(() => {
-    getDoiPaper(nodeData.doi, setPaper);
+    fetchPaperInformation(nodeData.doi, setPaper);
   }, [nodeData.doi]);
 
   useEffect(() => {
     if (isLinkClick) {
       window.open(paper.url, "_blank", "noopener, noreferrer");
+
+      setIsLinkClick(false);
     }
   }, [isLinkClick, paper]);
 
 
-  function clickStar() {
+  const clickStar = () => {
     const isChildrenExist = nodeData?.children && nodeData.children.length > 0;
+    const isReferenceExist = paper.references > 0;
 
-    if (!isChildrenExist) {
+    if (!isChildrenExist && isReferenceExist) {
       getChildrenNode(collectionId, nodeData, addChildrenToNode);
     }
 
-    addStarPaper(collectionId, paper);
     changeNodeStatus(collectionId, nodeData, STATUS.STAR);
+    addStarPaper(collectionId, paper);
     setModalOpen(false);
-  }
+  };
 
-  function clickClose() {
+  const clickClose = ()  => {
     setModalOpen(false);
-  }
+  };
 
-  function clickRead() {
+  const clickRead = () =>  {
     if (nodeData.status === STATUS.STAR) {
       setModalOpen(false);
 
@@ -126,13 +133,13 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
     changeNodeStatus(collectionId, nodeData, STATUS.READ);
 
     setModalOpen(false);
-  }
+  };
 
-  function clickPaperLink(ev) {
+  const clickPaperLink = (ev) => {
     ev.preventDefault();
 
     setIsLinkClick(true);
-  }
+  };
 
   return (
     <>
