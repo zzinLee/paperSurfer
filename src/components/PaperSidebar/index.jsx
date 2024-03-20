@@ -3,8 +3,8 @@ import { FaTable } from "react-icons/fa";
 
 import Paper from "../Paper";
 
-import { useCollectionStore } from "../../stores/collection";
-import { usePaperStore } from "../../stores/paper";
+import useCollectionStore from "../../stores/collection";
+import usePaperStore from "../../stores/paper";
 
 function PaperSidebar() {
   const { collectionId } = useParams();

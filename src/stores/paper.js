@@ -38,4 +38,4 @@ const paperStore = persist(
 
 const usePaperStore = create(devtools(paperStore));
 
-export { usePaperStore };
+export default usePaperStore;

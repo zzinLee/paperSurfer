@@ -25,6 +25,4 @@ const collectionStore = persist(
 
 const useCollectionStore = create(devtools(collectionStore));
 
-export {
-  useCollectionStore,
-};
+export default useCollectionStore;

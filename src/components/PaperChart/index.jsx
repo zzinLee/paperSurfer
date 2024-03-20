@@ -8,6 +8,82 @@ import LoadingCircle from "../shared/LoadingCircle";
 import { PALETTE, STATUS, NONE } from "../../utils/constants";
 import { decodedString } from "../../utils/utils";
 
+const getStrokeColor = (status) => {
+  return status === STATUS.DEFAULT ? PALETTE.GRAY : status;
+};
+
+const getTitleText = (text) => {
+  const MAX_LENGTH = 20;
+
+  return text.length > MAX_LENGTH ? decodedString(`${text.slice(0, MAX_LENGTH)}...`) : decodedString(text);
+};
+
+const getNodeRadius = (citations) => {
+  const radiusLimit = [
+    [1, 4],
+    [10, 10],
+    [50, 12],
+    [100, 14],
+    [200, 16],
+    [400, 20],
+    [800, 24],
+    [Infinity, 18]
+  ];
+
+  for (const [limit, radius] of radiusLimit) {
+    if (!citations) {
+      return 5;
+    }
+
+    if (citations <= limit) {
+      return radius;
+    }
+  }
+};
+
+const getTextColor = (status) => {
+  switch (status) {
+    case STATUS.DEFAULT:
+      return PALETTE.DARKER;
+
+    case STATUS.STAR:
+      return PALETTE.TEXT_POINT_PURPLE;
+
+    case STATUS.READ:
+      return PALETTE.TEXT_PURPLE;
+
+    case STATUS.COLLECTION:
+      return PALETTE.POINT_PURPLE;
+  }
+};
+
+const drag = (simulation) => {
+  const dragstarted = (ev, d) => {
+    if (!ev.active) {
+      simulation.alphaTarget(0.3).restart();
+    }
+
+    d.fx = d.x;
+    d.fy = d.y;
+  };
+
+  const dragged = (ev, d) => {
+    d.fx = ev.x;
+    d.fy = ev.y;
+  };
+
+  const dragended = (ev, d) => {
+    if (!ev.active) {
+      simulation.alphaTarget(0);
+    }
+
+    d.fx = null;
+    d.fy = null;
+  };
+
+  return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
+};
+
 function PaperChart({ data }) {
   const chartRef = useRef(null);
   const nodeRef = useRef(null);
@@ -126,82 +202,6 @@ function PaperChart({ data }) {
       </div>
     </>
   );
-}
-
-function drag(simulation) {
-  function dragstarted(ev, d) {
-    if (!ev.active) {
-      simulation.alphaTarget(0.3).restart();
-    }
-
-    d.fx = d.x;
-    d.fy = d.y;
-  }
-
-  function dragged(ev, d) {
-    d.fx = ev.x;
-    d.fy = ev.y;
-  }
-
-  function dragended(ev, d) {
-    if (!ev.active) {
-      simulation.alphaTarget(0);
-    }
-
-    d.fx = null;
-    d.fy = null;
-  }
-
-  return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
-}
-
-function getNodeRadius(citations) {
-  const radiusLimit = [
-    [1, 4],
-    [10, 10],
-    [50, 12],
-    [100, 14],
-    [200, 16],
-    [400, 20],
-    [800, 24],
-    [Infinity, 18]
-  ];
-
-  for (const [limit, radius] of radiusLimit) {
-    if (!citations) {
-      return 5;
-    }
-
-    if (citations <= limit) {
-      return radius;
-    }
-  }
-}
-
-function getTextColor(status) {
-  switch (status) {
-    case STATUS.DEFAULT:
-      return PALETTE.DARKER;
-
-    case STATUS.STAR:
-      return PALETTE.TEXT_POINT_PURPLE;
-
-    case STATUS.READ:
-      return PALETTE.TEXT_PURPLE;
-
-    case STATUS.COLLECTION:
-      return PALETTE.POINT_PURPLE;
-  }
-}
-
-function getStrokeColor(status) {
-  return (status === STATUS.DEFAULT) ? PALETTE.GRAY : status;
-}
-
-function getTitleText(text) {
-  const MAX_LENGTH = 20;
-
-  return text.length > MAX_LENGTH ? decodedString(`${text.slice(0, MAX_LENGTH)}...`) : decodedString(text);
 }
 
 export default PaperChart;

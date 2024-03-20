@@ -5,8 +5,8 @@ import { useParams } from "react-router-dom";
 import TableRow from "../../components/TableRow";
 import ErrorPage from "../ErrorPage";
 
-import { usePaperStore } from "../../stores/paper";
-import { useCollectionStore } from "../../stores/collection";
+import usePaperStore from "../../stores/paper";
+import useCollectionStore from "../../stores/collection";
 
 function PrintPage() {
   const navigator = useNavigate();

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { useCollectionStore } from "../../stores/collection";
-import { usePaperStore } from "../../stores/paper";
-import { useChartStore } from "../../stores/chart";
+import useCollectionStore from "../../stores/collection";
+import usePaperStore from "../../stores/paper";
+import useChartStore from "../../stores/chart";
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
 
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
-const CLASS_CARD_PROP = "flex flex-row items-center gap-3 px-10 py-5";
 const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
+const CLASS_CARD_PROP = "flex flex-row items-center gap-3 px-10 py-5";
 const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shadow-md text-14 w-fit hover:cursor-pointer";
 
 function PaperCard({ paper }) {
@@ -20,10 +20,10 @@ function PaperCard({ paper }) {
   const [isLinkClick, setIsLinkClick] = useState(false);
   const currentCollectionName = collection[collectionId];
   const currentPaperCollection = paperCollection[collectionId];
-  const isAlreadyExist = currentPaperCollection &&
+  const isPaperExistAlready = currentPaperCollection &&
     currentPaperCollection.some((storedPaper) => storedPaper.doi === paper.doi);
 
-  function savePaperStore() {
+  const savePaperStore = () => {
     const tempRoot = {
       citations: COLLECTION_RADIUS,
       title: currentCollectionName || "문서명 없음",
@@ -34,18 +34,14 @@ function PaperCard({ paper }) {
     addPaperToCollection(collectionId, paper);
     addStarPaper(collectionId, paper);
     initChart(collectionId, tempRoot);
-  }
+  };
 
   useEffect(() => {
-    function openPopUp() {
-      window.open(paper.url, "_blank", "noopener, noreferrer");
-    }
-
     if (isLinkClick) {
-      openPopUp();
+      window.open(paper.url, "_blank", "noopener, noreferrer");
+
       setIsLinkClick(false);
     }
-
   }, [isLinkClick, paper.url]);
 
 
@@ -77,7 +73,7 @@ function PaperCard({ paper }) {
         </span>
       </div>
       <div className="inline-flex justify-between mt-4 font-nanumNeo">
-        {isAlreadyExist ? (
+        {isPaperExistAlready ? (
           <div className="px-8 py-4 m-8 border rounded-lg text-slate-400 text-14">이미 추가된 논문 입니다</div>
         ) : (
           <button className={`${CLASS_CARD_BUTTON} bg-purple-500 hover:bg-purple-800`} onClick={savePaperStore}>
@@ -87,6 +83,7 @@ function PaperCard({ paper }) {
         <a
           onClick={(ev) => {
             ev.preventDefault();
+            ev.stopPropagation();
 
             setIsLinkClick(true);
           }}

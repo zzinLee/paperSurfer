@@ -5,29 +5,28 @@ import { FcEmptyTrash } from "react-icons/fc";
 import Modal from "../shared/Modal";
 import PaperCard from "../PaperCard";
 
-import { usePaperStore } from "../../stores/paper";
-import { useChartStore } from "../../stores/chart";
+import usePaperStore from "../../stores/paper";
+import useChartStore from "../../stores/chart";
 
 function Paper({ paper }) {
   const [isPaperCardOpen, setIsPaperCardOpen] = useState(false);
   const { collectionId } = useParams();
   const { deletePaperFromCollection } = usePaperStore();
   const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore();
-  const publishedAt = paper.createdAt;
 
-  function deletePaper(ev) {
+  const deletePaper = (ev) => {
     ev.stopPropagation();
 
     deletePaperFromCollection(collectionId, paper.doi);
     deletePaperFromChart(collectionId, paper.doi);
     deletePaperFromStarCollection(collectionId, paper.doi);
-  }
+  };
 
-  function clickPaper(ev) {
+  const clickPaper = (ev) => {
     ev.preventDefault();
 
     setIsPaperCardOpen(!isPaperCardOpen);
-  }
+  };
 
   return (
     <div
@@ -38,7 +37,7 @@ function Paper({ paper }) {
       <div className="font-extrabold truncate text-14">{paper?.title || "제목 정보 없음"}</div>
       <div className="truncate text-10 text-stone-400">{paper?.authors || "저자 정보 없음"}</div>
       <div className="inline-flex justify-between w-full">
-        <p className="text-10">{publishedAt || "출판일 정보 없음"}</p>
+        <p className="text-10">{paper?.createdAt || "출판일 정보 없음"}</p>
         <button className="p-2 text-20">
           <FcEmptyTrash onClick={deletePaper} className="size-28"/>
         </button>

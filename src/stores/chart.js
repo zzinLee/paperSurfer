@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-function changeTargetStatus(root, target, status) {
+const changeTargetStatus = (root, target, status) => {
   if (root.doi === target.doi) {
     root.status = status;
 
@@ -16,9 +16,9 @@ function changeTargetStatus(root, target, status) {
   }
 
   return root;
-}
+};
 
-function transplantChildren(root, target, childrenList) {
+const transplantChildren = (root, target, childrenList) => {
   if (root.doi === target.doi) {
     root.children = childrenList;
 
@@ -32,7 +32,7 @@ function transplantChildren(root, target, childrenList) {
   }
 
   return root;
-}
+};
 
 const chartStore = persist(
   immer((set) => ({
@@ -89,4 +89,4 @@ const chartStore = persist(
 
 const useChartStore = create(devtools(chartStore));
 
-export { useChartStore };
+export default useChartStore;

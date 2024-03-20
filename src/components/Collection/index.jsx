@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
 
-import { useCollectionStore } from "../../stores/collection";
-import { usePaperStore } from "../../stores/paper";
-import { useChartStore } from "../../stores/chart";
+import useCollectionStore from "../../stores/collection";
+import usePaperStore from "../../stores/paper";
+import useChartStore from "../../stores/chart";
 
 function Collection({ collectionKey, collectionName }) {
   const navigator = useNavigate();
@@ -15,7 +15,7 @@ function Collection({ collectionKey, collectionName }) {
   const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
-  function deleteCollection(ev) {
+  const deleteCollection = (ev) => {
     ev.stopPropagation();
 
     deleteCollectionFromStore(collectionKey);
@@ -24,9 +24,9 @@ function Collection({ collectionKey, collectionName }) {
     deleteStarCollection(collectionKey);
 
     navigator("/");
-  }
+  };
 
-  function clickCollection() {
+  const clickCollection = () => {
     if (!collectionId) {
       navigator(`/${collectionKey}/search`);
 
@@ -38,7 +38,7 @@ function Collection({ collectionKey, collectionName }) {
     } else {
       navigator(`/${collectionKey}/search`);
     }
-  }
+  };
 
   return (
     <li

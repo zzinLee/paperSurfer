@@ -1,4 +1,4 @@
-import { useCollectionStore } from "../../stores/collection";
+import useCollectionStore from "../../stores/collection";
 
 import Collection from "../Collection";
 

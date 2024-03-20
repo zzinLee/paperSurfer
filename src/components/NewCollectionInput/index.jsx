@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa6";
 
-import { useCollectionStore } from "../../stores/collection";
+import useCollectionStore from "../../stores/collection";
 
 function NewCollectionInput({ toggle }) {
   const { setCollection } = useCollectionStore();
   const [showAlert, setShowAlert] = useState(false);
   const [collectionName, setCollectionName] = useState("");
 
-  function submitCollection (ev) {
+  const submitCollection = (ev) => {
     ev.preventDefault();
 
     if (!collectionName.length || collectionName.length > 28) {
@@ -16,11 +16,12 @@ function NewCollectionInput({ toggle }) {
     }
 
     const collectionKey = Date.now();
+
     setCollection(collectionKey, collectionName);
     toggle();
-  }
+  };
 
-  function typeInput(ev) {
+  const typeInput = (ev) => {
     if (showAlert) {
       setShowAlert(false);
     }
@@ -32,7 +33,7 @@ function NewCollectionInput({ toggle }) {
     const userInput = ev.target.value;
 
     setCollectionName(userInput.trim());
-  }
+  };
 
   return (
     <div className="p-10 m-10 shadow-md w-208 rounded-xl h-fit bg-stone-100">
