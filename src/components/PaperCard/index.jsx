@@ -17,7 +17,7 @@ function PaperCard({ paper }) {
   const { addPaperToCollection, paperCollection } = usePaperStore();
   const { initChart, addStarPaper } = useChartStore();
 
-  const [isClick, setIsClick] = useState(false);
+  const [isLinkClick, setIsLinkClick] = useState(false);
   const currentCollectionName = collection[collectionId];
   const currentPaperCollection = paperCollection[collectionId];
   const isAlreadyExist = currentPaperCollection &&
@@ -41,12 +41,12 @@ function PaperCard({ paper }) {
       window.open(paper.url, "_blank", "noopener, noreferrer");
     }
 
-    if (isClick) {
+    if (isLinkClick) {
       openPopUp();
-      setIsClick(false);
+      setIsLinkClick(false);
     }
 
-  }, [isClick, paper.url]);
+  }, [isLinkClick, paper.url]);
 
 
   return (
@@ -88,7 +88,7 @@ function PaperCard({ paper }) {
           onClick={(ev) => {
             ev.preventDefault();
 
-            setIsClick(true);
+            setIsLinkClick(true);
           }}
           className={`${CLASS_CARD_BUTTON} bg-cyan-500 hover:bg-cyan-700`}
         >

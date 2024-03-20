@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { GoPencil } from "react-icons/go";
+import { HiOutlinePaintBrush } from "react-icons/hi2";
 
 import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
-
-const CLASS_FLOATING_BUTTON = "bg-violet-700 absolute p-8 rounded-full shadow-xl top-30 right-30 text-32 text-white";
 
 function SearchPage() {
   const navigator = useNavigate();
@@ -21,8 +19,8 @@ function SearchPage() {
         <PaperSearchBar getSearchList={setSearchList} />
         {isSearchListExist && <PaperSearchList searchList={searchList} />}
       </section>
-      <button className={CLASS_FLOATING_BUTTON}>
-        <GoPencil
+      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 top-30 right-30 text-32">
+        <HiOutlinePaintBrush
           className="size-28"
           onClick={() => navigator(`/${collectionId}/view`)}
         />

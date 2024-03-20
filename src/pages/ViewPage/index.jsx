@@ -15,8 +15,6 @@ import { usePaperStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 import { useChartStore } from "../../stores/chart";
 
-const CLASS_FLOATING_BUTTON = "bg-violet-700 p-8 rounded-full shadow-xl text-32 text-white";
-
 async function fetchChildrenNodes(root, initChart, collectionKey) {
   const childrenList =
     root.children &&
@@ -135,7 +133,7 @@ function ViewPage() {
       <div className="flex flex-row items-center justify-center w-full">
         {isDataExist && isSameData ? <PaperChart data={rootCollection[collectionId]} /> : <LoadingCircle />}
       </div>
-      <button className={`${CLASS_FLOATING_BUTTON} absolute top-30 right-30`}>
+      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
         <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />
       </button>
       <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-90 right-30">
