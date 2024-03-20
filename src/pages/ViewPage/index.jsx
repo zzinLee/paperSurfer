@@ -98,6 +98,10 @@ function ViewPage() {
   useEffect(() => {
     const currentPaperList = paperCollection[collectionId];
 
+    if (!isCurrentPaperListExist) {
+      navigator("/");
+    }
+
     const getReferences = async (currentPaperList) => {
       const getReferencesPromiseList = currentPaperList.map((paper) => {
 
@@ -120,11 +124,7 @@ function ViewPage() {
       fetchChildrenNodes(rootNode, initChart, collectionId);
     };
 
-    if (!isCurrentPaperListExist) {
-      navigator("/");
-    }
-
-    if (currentPaperList && !isDataExist || !isSameData) {
+    if (isCurrentPaperListExist && (!isDataExist || !isSameData)) {
       getReferences(currentPaperList);
     }
   }, [paperCollection]);
