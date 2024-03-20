@@ -30,7 +30,7 @@ function PaperSidebar() {
         <ul>{isPaperListExist ? paperListElements : <li className="p-8 text-14">등록된 논문이 없습니다.</li>}</ul>
       </div>
       {isPaperListExist && (
-        <Link to={`/${collectionId}/print`}>
+        <Link to={`/${collectionId}/table`}>
           <button className="absolute p-8 text-white rounded-full shadow-xl top-90 right-30 bg-violet-700 text-32">
             <FaTable className="size-28" />
           </button>

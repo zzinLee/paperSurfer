@@ -8,15 +8,15 @@ import ErrorPage from "../ErrorPage";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 
-function PrintPage() {
+function TablePage() {
   const navigator = useNavigate();
   const { collection } = useCollectionStore();
   const { paperCollection } = usePaperStore();
   const { collectionId } = useParams();
   const paperList = paperCollection[collectionId];
-  const isPrintDataExist = paperList?.length > 0;
+  const isTableDataExist = paperList?.length > 0;
 
-  if (!isPrintDataExist) {
+  if (!isTableDataExist) {
     const message = "출력할 수 있는 정보가 없습니다.";
 
     return <ErrorPage message={message} />;
@@ -61,4 +61,4 @@ function PrintPage() {
   );
 }
 
-export default PrintPage;
+export default TablePage;

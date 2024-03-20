@@ -4,7 +4,7 @@ import Header from "../components/Header";
 import SearchPage from "../pages/SearchPage";
 import ViewPage from "../pages/ViewPage";
 import Home from "../pages/Home";
-import PrintPage from "../pages/PrintPage";
+import TablePage from "../pages/TablePage";
 import ErrorPage from "../pages/ErrorPage";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Route path="/" exact element={<Home />}>
           <Route path="/:collectionId/search" element={<SearchPage />} />
           <Route path="/:collectionId/view" element={<ViewPage />} />
-          <Route path="/:collectionId/print" element={<PrintPage />} />
+          <Route path="/:collectionId/table" element={<TablePage />} />
           <Route path="/error" element={<ErrorPage />} />
         </Route>
       </Routes>
