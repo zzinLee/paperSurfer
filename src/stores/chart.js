@@ -36,8 +36,8 @@ function transplantChildren(root, target, childrenList) {
 
 const chartStore = persist(
   immer((set) => ({
-    rootCollection: {}, //chartList
-    starCollection: {}, //starList
+    rootCollection: {},
+    starCollection: {},
     initChart: (key, root) =>
       set((state) => {
         state.rootCollection = {
