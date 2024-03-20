@@ -136,7 +136,7 @@ function ViewPage() {
       <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
         <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />
       </button>
-      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-90 right-30">
+      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-150 right-30">
         <LuRefreshCw className="size-28" onClick={clickRefresh} />
       </button>
     </>

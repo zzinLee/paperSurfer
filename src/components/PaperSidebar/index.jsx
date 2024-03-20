@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { LuPrinter } from "react-icons/lu";
+import { FaTable } from "react-icons/fa";
 
 import Paper from "../Paper";
 
@@ -31,8 +31,8 @@ function PaperSidebar() {
       </div>
       {isPaperListExist && (
         <Link to={`/${collectionId}/print`}>
-          <button className="absolute bottom-30 left-[380px] p-8 text-white rounded-full shadow-xl bg-violet-700 text-32">
-            <LuPrinter className="size-28" />
+          <button className="absolute p-8 text-white rounded-full shadow-xl top-90 right-30 bg-violet-700 text-32">
+            <FaTable className="size-28" />
           </button>
         </Link>
       )}

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { RiArrowGoBackLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 
 import TableRow from "../../components/TableRow";
@@ -7,6 +9,7 @@ import { usePaperStore } from "../../stores/paper";
 import { useCollectionStore } from "../../stores/collection";
 
 function PrintPage() {
+  const navigator = useNavigate();
   const { collection } = useCollectionStore();
   const { paperCollection } = usePaperStore();
   const { collectionId } = useParams();
@@ -23,6 +26,9 @@ function PrintPage() {
 
   return (
     <div className="content-center my-auto">
+      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
+        <RiArrowGoBackLine className="size-28" onClick={() => navigator(-1)} />
+      </button>
       <div className="relative mx-10 overflow-x-auto font-nanumNeo">
         <h1 className="py-10 text-center text-white bg-black">{collection[collectionId]}</h1>
         <table className="w-full text-sm text-left text-gray-500 rtl:text-right">
@@ -48,9 +54,7 @@ function PrintPage() {
               </th>
             </tr>
           </thead>
-          <tbody>
-            {tableRowElemList}
-          </tbody>
+          <tbody>{tableRowElemList}</tbody>
         </table>
       </div>
     </div>
