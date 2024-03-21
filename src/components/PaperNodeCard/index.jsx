@@ -51,14 +51,18 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
       return;
     }
 
-    const requestDoiString = paperRefList
+    const requestDoiList = paperRefList
       .map((ref) => ref.DOI)
-      .filter((ref) => ref)
-      .slice(0, 20)
-      .join(",doi:");
+      .filter((ref) => ref);
+
+    if (!requestDoiList.length) {
+      setIsLoadingChild(false);
+
+      return;
+    }
 
     const childrenRes = await axios.get(
-      `${API.CROSSREF_WORKS_URL}?filter=doi:${requestDoiString}&select=DOI,title,is-referenced-by-count,created,author&mailto=${MAILTO}`
+      `${API.CROSSREF_WORKS_URL}?filter=doi:${requestDoiList.slice(0, 20).join(",doi:")}&mailto=${MAILTO}`
     );
     const childrenResponse = childrenRes?.data?.message;
     const childrenList = childrenResponse?.items;
