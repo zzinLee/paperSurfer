@@ -26,7 +26,7 @@ function TablePage() {
 
   return (
     <div className="content-center my-auto">
-      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
+      <button className="absolute z-30 p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
         <RiArrowGoBackLine className="size-28" onClick={() => navigator(-1)} />
       </button>
       <div className="relative mx-10 overflow-x-auto font-nanumNeo">
