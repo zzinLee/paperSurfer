@@ -185,7 +185,7 @@ function PaperChart({ data }) {
     <>
       <div className="w-full h-full p-20 m-12 rounded-md">
         {isModalOpen && (
-          <Modal>
+          <Modal setModal={setIsModalOpen}>
             <PaperNodeCard
               nodeData={nodeRef.current}
               setModalOpen={setIsModalOpen}

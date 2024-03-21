@@ -33,7 +33,7 @@ function Paper({ paper }) {
       className="relative p-8 m-10 text-left bg-white rounded-sm shadow-md w-200 hover:bg-slate-50"
       onClick={clickPaper}
     >
-      {isPaperCardOpen && <Modal><PaperCard paper={paper} /></Modal>}
+      {isPaperCardOpen && <Modal setModal={setIsPaperCardOpen}><PaperCard paper={paper} /></Modal>}
       <div className="font-extrabold truncate text-14">{paper?.title || "제목 정보 없음"}</div>
       <div className="truncate text-10 text-stone-400">{paper?.authors || "저자 정보 없음"}</div>
       <div className="inline-flex justify-between w-full">
