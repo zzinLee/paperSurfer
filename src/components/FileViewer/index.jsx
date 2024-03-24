@@ -4,6 +4,8 @@ import { BiHighlight } from "react-icons/bi";
 import { Document, Page, pdfjs } from "react-pdf";
 import { escapeRegExp } from "lodash";
 
+import Highlighted from "../Highlighted";
+
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
@@ -68,9 +70,10 @@ function FileViewer({ pdfFile }) {
     const dragElem = {
       targetString,
       left: left - pdfContainer.left,
-      top: top - pdfContainer.top + scrollY,
+      top: top - pdfContainer.top,
       width,
-      height
+      height,
+      id: `${targetString}_${height}`
     };
 
     setHighlightElemList([...highlightElemList, dragElem]);
@@ -116,6 +119,10 @@ function FileViewer({ pdfFile }) {
     }
   };
 
+  const highlightedElements = highlightElemList.map((elem) => (
+    <Highlighted key={elem.id} elem={elem} resetElemList={setHighlightElemList} elemList={highlightElemList} />
+  ));
+
   return (
     <div className="m-auto font-nanumNeo">
       <div className="font-bold text-zinc-700">
@@ -132,6 +139,10 @@ function FileViewer({ pdfFile }) {
           >
             하이라이터 지우기
           </button>
+          <ul className="absolute flex flex-col p-5 font-semibold text-center right-30 text-16 top-200 max-w-250">
+            <li className="text-slate-600 w-170">하이라이트 리스트</li>
+            {highlightedElements}
+          </ul>
           <button className="p-8 text-white rounded-full shadow-xl text-32 bg-zinc-800 hover:bg-violet-700">
             <AiOutlineArrowLeft onClick={prevPage} />
           </button>
