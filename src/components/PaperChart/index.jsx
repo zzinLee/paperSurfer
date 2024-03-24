@@ -90,7 +90,7 @@ function PaperChart({ data }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  function doubleClick(ev, d) {
+  const doubleClick = (ev, d)  => {
     nodeRef.current = d.data;
 
     if (nodeRef.current.doi === NONE) {
@@ -98,7 +98,7 @@ function PaperChart({ data }) {
     }
 
     setIsModalOpen(true);
-  }
+  };
 
   useEffect(() => {
     const width = window.innerWidth;
