@@ -29,6 +29,9 @@ const paperStore = persist(
     initPaperCollection: (key, starPaperCollection) => set((state) => {
       state.paperCollection[key] = starPaperCollection;
     }),
+    deleteAllPaper: () => set((state) => {
+      state.paperCollection = {};
+    }),
   })),
   {
     name: "paper-storage",
