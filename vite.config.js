@@ -15,12 +15,19 @@ export default defineConfig({
   plugins: [
     react(),
     viteStaticCopy({
-    targets:[{
-      src: cMapsDir,
-      dest: "",
-    }],
-  })],
+      targets: [
+        {
+          src: cMapsDir,
+          dest: ""
+        }
+      ]
+    })
+  ],
   test: {
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+    },
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/setupTests.js",
