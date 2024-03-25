@@ -30,7 +30,7 @@ export default defineConfig({
     },
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/setupTests.js",
+    setupFiles: "./setupTests.js",
     testMatch: ["./src/spec/*.spec.jsx"]
   }
 });
