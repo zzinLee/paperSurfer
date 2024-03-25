@@ -8,18 +8,24 @@ const collectionStore = persist(
       set((prev) => ({
         collection: {
           ...prev.collection,
-          [key]: name,
+          [key]: name
         }
       })),
-    deleteCollectionFromStore: (key) => set((prev) => {
-      delete prev.collection[key];
+    deleteCollectionFromStore: (key) =>
+      set((prev) => {
+        delete prev.collection[key];
 
-      return { ...prev };
-    }),
+        return { ...prev };
+      }),
+    deleteAllCollection: () =>
+      set((prev) => ({
+        ...prev,
+        collection: {},
+      }))
   }),
   {
     name: "collection-storage",
-    storage: createJSONStorage(() => sessionStorage),
+    storage: createJSONStorage(() => sessionStorage)
   }
 );
 
