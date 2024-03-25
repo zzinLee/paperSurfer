@@ -80,6 +80,12 @@ const chartStore = persist(
       set((state) => {
         delete state.starCollection[key];
       }),
+    deleteAllChart: () => {
+      set((state) => {
+        state.rootCollection = {};
+        state.starCollection = {};
+      });
+    }
   })),
   {
     name: "chart-storage",
