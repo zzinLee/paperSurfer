@@ -112,7 +112,7 @@ function FileViewer({ pdfFile }) {
 
       return textItem.str.replace(
         regexPattern,
-        (text) => `<span style="background-color: rgba(239, 223, 0, 0.5);">${text}<span>`
+        (text) => `<span style="background-color: rgba(239, 223, 0, 0.4);">${text}<span>`
       );
     } else {
       return textItem.str;
@@ -122,6 +122,8 @@ function FileViewer({ pdfFile }) {
   const highlightedElements = highlightElemList.map((elem) => (
     <Highlighted key={elem.id} elem={elem} resetElemList={setHighlightElemList} elemList={highlightElemList} />
   ));
+
+  const isHighlightedElemntsExist = highlightElemList && highlightElemList.length > 0;
 
   return (
     <div className="m-auto font-nanumNeo">
@@ -139,8 +141,8 @@ function FileViewer({ pdfFile }) {
           >
             하이라이터 지우기
           </button>
-          <ul className="absolute flex flex-col p-5 font-semibold text-center right-30 text-16 top-200 max-w-250">
-            <li className="text-slate-600 w-170">하이라이트 리스트</li>
+          <ul className="absolute flex flex-col gap-2 p-5 font-semibold text-center right-30 text-16 top-200 max-w-250">
+            {isHighlightedElemntsExist && <li className="text-slate-600 w-250">하이라이트 리스트</li>}
             {highlightedElements}
           </ul>
           <button className="p-8 text-white rounded-full shadow-xl text-32 bg-zinc-800 hover:bg-violet-700">

@@ -1,0 +1,754 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 27841,
+    "items": [
+      {
+        "DOI": "10.1007/bf00133961",
+        "title": ["Enantioselective esterification of ibuprofen in supercritical carbon dioxide by immobilized lipase"],
+        "is-referenced-by-count": 37,
+        "created": {
+          "date-parts": [[2004, 11, 5]],
+          "date-time": "2004-11-05T11:02:25Z",
+          "timestamp": 1099652545000
+        },
+        "author": [
+          {
+            "given": "Markku",
+            "family": "Rantakyl�",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Olli",
+            "family": "Aaltonen",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/bf00133961",
+        "container-title": ["Biotechnology Letters"],
+        "references-count": 23
+      },
+      {
+        "DOI": "10.1007/bf01023939",
+        "title": ["Lipase-catalyzed esterification of hydrophilic diols in organic solvents"],
+        "is-referenced-by-count": 33,
+        "created": {
+          "date-parts": [[2005, 1, 20]],
+          "date-time": "2005-01-20T08:31:05Z",
+          "timestamp": 1106209865000
+        },
+        "author": [
+          {
+            "given": "Matthias",
+            "family": "Berger",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Kurt",
+            "family": "Laumen",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Manfred P.",
+            "family": "Schneider",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/bf01023939",
+        "container-title": ["Biotechnology Letters"],
+        "references-count": 11
+      },
+      {
+        "DOI": "10.1007/s10529-012-0928-1",
+        "title": ["Esterification of fatty acids using Candida antarctica lipase A in water-abundant systems"],
+        "is-referenced-by-count": 21,
+        "created": {
+          "date-parts": [[2012, 4, 17]],
+          "date-time": "2012-04-17T05:33:58Z",
+          "timestamp": 1334640838000
+        },
+        "author": [
+          {
+            "given": "Rudolf",
+            "family": "Brenneis",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Burkhard",
+            "family": "Baeck",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/s10529-012-0928-1",
+        "container-title": ["Biotechnology Letters"],
+        "references-count": 14
+      },
+      {
+        "DOI": "10.1002/chir.530060808",
+        "title": [
+          "Enantioselective esterification of 2‐methylbutyric acid catalyzed via lipase immobilized in microemulsion‐based organogels"
+        ],
+        "is-referenced-by-count": 17,
+        "created": {
+          "date-parts": [[2005, 1, 7]],
+          "date-time": "2005-01-07T15:25:03Z",
+          "timestamp": 1105111503000
+        },
+        "author": [
+          {
+            "given": "Isamu",
+            "family": "Uemasu",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Willie L.",
+            "family": "Hinze",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1002/chir.530060808",
+        "container-title": ["Chirality"],
+        "references-count": 27
+      },
+      {
+        "DOI": "10.1016/j.bej.2007.01.030",
+        "title": [
+          "Carica papaya lipase: An effective biocatalyst for esterification resolution of (RS)-2-(chlorophenoxy)propionic acid"
+        ],
+        "is-referenced-by-count": 11,
+        "created": {
+          "date-parts": [[2007, 2, 5]],
+          "date-time": "2007-02-05T16:03:22Z",
+          "timestamp": 1170691402000
+        },
+        "author": [
+          {
+            "given": "Yu-Chi",
+            "family": "Cheng",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Shau-Wei",
+            "family": "Tsai",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.bej.2007.01.030",
+        "container-title": ["Biochemical Engineering Journal"],
+        "references-count": 27
+      },
+      {
+        "DOI": "10.1016/j.procbio.2005.07.006",
+        "title": ["Lipase-catalyzed enantioselective esterification of racemic ibuprofen coupled with pervaporation"],
+        "is-referenced-by-count": 31,
+        "created": {
+          "date-parts": [[2005, 8, 4]],
+          "date-time": "2005-08-04T19:57:38Z",
+          "timestamp": 1123185458000
+        },
+        "author": [
+          {
+            "given": "Keehoon",
+            "family": "Won",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Jung-Ki",
+            "family": "Hong",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Kwang-Je",
+            "family": "Kim",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Sang-Jin",
+            "family": "Moon",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.procbio.2005.07.006",
+        "container-title": ["Process Biochemistry"],
+        "references-count": 34
+      },
+      {
+        "DOI": "10.1021/ol0514395",
+        "title": ["Lipase-Catalyzed Regioselective Esterification of Rapamycin:  Synthesis of Temsirolimus (CCI-779)"],
+        "is-referenced-by-count": 32,
+        "created": {
+          "date-parts": [[2005, 8, 25]],
+          "date-time": "2005-08-25T04:49:30Z",
+          "timestamp": 1124945370000
+        },
+        "author": [
+          {
+            "given": "Jianxin",
+            "family": "Gu",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Bioprocess Development, Wyeth Research, 401 North Middletown Road, Pearl River, New York 10965"
+              }
+            ]
+          },
+          {
+            "given": "Mark E.",
+            "family": "Ruppen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Bioprocess Development, Wyeth Research, 401 North Middletown Road, Pearl River, New York 10965"
+              }
+            ]
+          },
+          {
+            "given": "Ping",
+            "family": "Cai",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Bioprocess Development, Wyeth Research, 401 North Middletown Road, Pearl River, New York 10965"
+              }
+            ]
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1021/ol0514395",
+        "container-title": ["Organic Letters"],
+        "references-count": 23
+      },
+      {
+        "DOI": "10.1002/chin.199603309",
+        "title": [
+          "ChemInform Abstract: Enzymatic Esterification and De‐Esterification of Carbohydrates: Synthesis of a Naturally Occurring Rhamnopyranoside of p‐ Hydroxybenzaldehyde and a Systematic Investigation of Lipase‐Catalyzed Acylation of Selected Arylpyranosides"
+        ],
+        "is-referenced-by-count": 0,
+        "created": {
+          "date-parts": [[2010, 8, 13]],
+          "date-time": "2010-08-13T05:28:59Z",
+          "timestamp": 1281677339000
+        },
+        "author": [
+          {
+            "given": "N. B.",
+            "family": "BASHIR",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "S. J.",
+            "family": "PHYTHIAN",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "A. J.",
+            "family": "REASON",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "S. M.",
+            "family": "ROBERTS",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1002/chin.199603309",
+        "container-title": ["ChemInform"],
+        "references-count": 1
+      },
+      {
+        "DOI": "10.1002/chin.199517194",
+        "title": [
+          "ChemInform Abstract: Regioselective Esterification of Polyhydroxylated Steroids by Candida antarctica Lipase B."
+        ],
+        "is-referenced-by-count": 0,
+        "created": {
+          "date-parts": [[2010, 8, 22]],
+          "date-time": "2010-08-22T06:23:07Z",
+          "timestamp": 1282458187000
+        },
+        "author": [
+          {
+            "given": "A.",
+            "family": "BERTINOTTI",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "G.",
+            "family": "CARREA",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "G.",
+            "family": "OTTOLINA",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "S.",
+            "family": "RIVA",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1002/chin.199517194",
+        "container-title": ["ChemInform"],
+        "references-count": 1
+      },
+      {
+        "DOI": "10.1016/s0141-0229(02)00269-7",
+        "title": [
+          "Activation of powdered lipase by cluster water and the use of lipase powders for commercial esterification of food oils"
+        ],
+        "is-referenced-by-count": 38,
+        "created": {
+          "date-parts": [[2002, 12, 10]],
+          "date-time": "2002-12-10T21:10:39Z",
+          "timestamp": 1039554639000
+        },
+        "author": [
+          {
+            "given": "Satoshi",
+            "family": "Negishi",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Seiichi",
+            "family": "Shirasawa",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Yuri",
+            "family": "Arai",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Junko",
+            "family": "Suzuki",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Sukekuni",
+            "family": "Mukataka",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1016/s0141-0229(02)00269-7",
+        "container-title": ["Enzyme and Microbial Technology"],
+        "references-count": 10
+      },
+      {
+        "DOI": "10.1002/chin.199722040",
+        "title": [
+          "ChemInform Abstract: Remote Control of Stereoselectivity: Lipase‐Catalyzed Enantioselective Esterification of Racemic α‐Lipoic Acid."
+        ],
+        "is-referenced-by-count": 0,
+        "created": {
+          "date-parts": [[2010, 8, 10]],
+          "date-time": "2010-08-10T01:32:12Z",
+          "timestamp": 1281403932000
+        },
+        "author": [
+          {
+            "given": "N. W.",
+            "family": "FADNAVIS",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "K.",
+            "family": "KOTESHWAR",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1002/chin.199722040",
+        "container-title": ["ChemInform"],
+        "references-count": 1
+      },
+      {
+        "DOI": "10.1007/bf01027576",
+        "title": [
+          "The role of water on the equilibrium of esterification by immobilized lipase packed-bed column reactor"
+        ],
+        "is-referenced-by-count": 20,
+        "created": {
+          "date-parts": [[2005, 1, 20]],
+          "date-time": "2005-01-20T10:15:06Z",
+          "timestamp": 1106216106000
+        },
+        "author": [
+          {
+            "given": "Ibrahim Che",
+            "family": "Omar",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Naomichi",
+            "family": "Nishio",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Shiro",
+            "family": "Nagai",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/bf01027576",
+        "container-title": ["Biotechnology Letters"],
+        "references-count": 8
+      },
+      {
+        "DOI": "10.1615/catalgreenchemeng.2022042022",
+        "title": [
+          "KINETICS AND OPTIMIZATION OF LIPASE-ASSISTED ESTERIFICATION OF ISOAMYL PROPIONATE IN SOLVENT-FREE SYSTEMS"
+        ],
+        "is-referenced-by-count": 1,
+        "created": {
+          "date-parts": [[2022, 8, 25]],
+          "date-time": "2022-08-25T18:09:41Z",
+          "timestamp": 1661450981000
+        },
+        "author": [
+          {
+            "given": "Sneha R.",
+            "family": "Bansode",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Virendra K.",
+            "family": "Rathod",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1615/catalgreenchemeng.2022042022",
+        "container-title": ["Catalysis in Green Chemistry and Engineering"],
+        "references-count": 32
+      },
+      {
+        "DOI": "10.1016/s1381-1177(03)00067-5",
+        "title": [
+          "Stereoselective esterification of 2,6-dimethyl-1,7-heptanedioic acid, catalysed by Candida rugosa lipase"
+        ],
+        "is-referenced-by-count": 6,
+        "created": {
+          "date-parts": [[2003, 7, 7]],
+          "date-time": "2003-07-07T13:48:27Z",
+          "timestamp": 1057585707000
+        },
+        "author": [
+          {
+            "given": "Erik",
+            "family": "Hedenström",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Helen",
+            "family": "Edlund",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Susan",
+            "family": "Lund",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1016/s1381-1177(03)00067-5",
+        "container-title": ["Journal of Molecular Catalysis B: Enzymatic"],
+        "references-count": 20
+      },
+      {
+        "DOI": "10.1016/j.supflu.2011.11.006",
+        "title": ["Lipase-catalyzed esterification of lactic acid in supercritical carbon dioxide"],
+        "is-referenced-by-count": 34,
+        "created": {
+          "date-parts": [[2011, 11, 12]],
+          "date-time": "2011-11-12T04:20:50Z",
+          "timestamp": 1321071650000
+        },
+        "author": [
+          {
+            "given": "Željko",
+            "family": "Knez",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Sabina",
+            "family": "Kavčič",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "László",
+            "family": "Gubicza",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Katalin",
+            "family": "Bélafi-Bakó",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Gergely",
+            "family": "Németh",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Mateja",
+            "family": "Primožič",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Maja",
+            "family": "Habulin",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1016/j.supflu.2011.11.006",
+        "container-title": ["The Journal of Supercritical Fluids"],
+        "references-count": 29
+      },
+      {
+        "DOI": "10.1002/cite.201700051",
+        "title": [
+          "Intensification of Lipase‐Catalyzed Esterification using Ultrasound: Process Engineering Perspectives"
+        ],
+        "is-referenced-by-count": 1,
+        "created": {
+          "date-parts": [[2017, 9, 11]],
+          "date-time": "2017-09-11T15:41:26Z",
+          "timestamp": 1505144486000
+        },
+        "author": [
+          {
+            "given": "Muhammad",
+            "family": "Ajmal",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Hamburg University of Technology Institute of Process and Plant Engineering  Am Schwarzenberg-Campus 4 21073 Hamburg Germany"
+              }
+            ]
+          },
+          {
+            "given": "Georg",
+            "family": "Fieg",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Hamburg University of Technology Institute of Process and Plant Engineering  Am Schwarzenberg-Campus 4 21073 Hamburg Germany"
+              }
+            ]
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1002/cite.201700051",
+        "container-title": ["Chemie Ingenieur Technik"],
+        "references-count": 23
+      },
+      {
+        "DOI": "10.1007/s00449-012-0874-2",
+        "title": [
+          "Esterification of polyglycerol with polycondensed ricinoleic acid catalysed by immobilised Rhizopus oryzae lipase"
+        ],
+        "is-referenced-by-count": 6,
+        "created": {
+          "date-parts": [[2012, 12, 22]],
+          "date-time": "2012-12-22T06:16:55Z",
+          "timestamp": 1356157015000
+        },
+        "author": [
+          {
+            "given": "S.",
+            "family": "Ortega",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "M. F.",
+            "family": "Máximo",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "M. C.",
+            "family": "Montiel",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "M. D.",
+            "family": "Murcia",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "G.",
+            "family": "Arnold",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "J.",
+            "family": "Bastida",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/s00449-012-0874-2",
+        "container-title": ["Bioprocess and Biosystems Engineering"],
+        "references-count": 45
+      },
+      {
+        "DOI": "10.1007/s10295-007-0232-6",
+        "title": [
+          "A novel thermostable lipase from Basidiomycete Bjerkandera adusta R59: characterisation and esterification studies"
+        ],
+        "is-referenced-by-count": 17,
+        "created": {
+          "date-parts": [[2007, 6, 14]],
+          "date-time": "2007-06-14T06:21:28Z",
+          "timestamp": 1181802088000
+        },
+        "author": [
+          {
+            "given": "Renata",
+            "family": "Bancerz",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Grażyna",
+            "family": "Ginalska",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1007/s10295-007-0232-6",
+        "container-title": ["Journal of Industrial Microbiology &amp; Biotechnology"],
+        "references-count": 42
+      },
+      {
+        "DOI": "10.1080/10242420310001597810",
+        "title": [
+          "Pervaporation Aided Esterification of Carboxylic Acids with Ethanol Catalyzed by <i>Porcine pancreatic</i> Lipase"
+        ],
+        "is-referenced-by-count": 6,
+        "created": {
+          "date-parts": [[2003, 9, 30]],
+          "date-time": "2003-09-30T20:25:01Z",
+          "timestamp": 1064953501000
+        },
+        "author": [
+          {
+            "given": "Swapnali",
+            "family": "Hazarika",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "A.",
+            "family": "Dutta",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "N.N.",
+            "family": "Dutta",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1080/10242420310001597810",
+        "container-title": ["Biocatalysis and Biotransformation"],
+        "references-count": 1
+      },
+      {
+        "DOI": "10.1080/00021369.1991.10870901",
+        "title": [
+          "Esterification of Glycosides with Glycerol and Trimethylolpropane Moieties by<i>Candida cylidracea</i>Lipase"
+        ],
+        "is-referenced-by-count": 0,
+        "created": {
+          "date-parts": [[2016, 4, 13]],
+          "date-time": "2016-04-13T14:12:25Z",
+          "timestamp": 1460556745000
+        },
+        "author": [
+          {
+            "given": "Hirofumi",
+            "family": "Nakano",
+            "sequence": "first",
+            "affiliation": []
+          },
+          {
+            "given": "Sumio",
+            "family": "Kitahata",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Yoshio",
+            "family": "Tominaga",
+            "sequence": "additional",
+            "affiliation": []
+          },
+          {
+            "given": "Shigeyuki",
+            "family": "Takenishi",
+            "sequence": "additional",
+            "affiliation": []
+          }
+        ],
+        "URL": "http://dx.doi.org/10.1080/00021369.1991.10870901",
+        "container-title": ["Agricultural and Biological Chemistry"],
+        "references-count": 1
+      }
+    ],
+    "items-per-page": 20,
+    "query": {
+      "start-index": 0,
+      "search-terms": "lipase esterification"
+    }
+  }
+}

@@ -8,8 +8,8 @@ function Highlighted({ elem, resetElemList, elemList }) {
   };
 
   return (
-    <li className="flex items-center justify-between text-12 bg-stone-50 text-stone-700">
-      <div className="px-4 mr-2 text-pretty">{elem.targetString}</div>
+    <li className="flex items-center justify-between text-12 text-stone-700">
+      <div className="w-full px-4 mr-2 text-pretty bg-stone-50">{elem.targetString}</div>
       <button className="px-4 text-white rounded-md bg-stone-700 min-w-35 text-pretty" onClick={deleteHighlightedElem}>
         삭제
       </button>
