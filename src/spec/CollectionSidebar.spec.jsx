@@ -8,6 +8,7 @@ import useCollectionStore from "../stores/collection";
 describe("[Collection Sidebar Component] 단위 테스트", () => {
   beforeEach(() => {
     const initialState = useCollectionStore.getState();
+
     useCollectionStore.setState(initialState);
 
     sessionStorage.clear();
@@ -21,7 +22,9 @@ describe("[Collection Sidebar Component] 단위 테스트", () => {
 
   afterEach(() => {
     const { deleteAllCollection } = useCollectionStore.getState();
+
     deleteAllCollection();
+
     sessionStorage.clear();
 
     cleanup();
@@ -44,38 +47,63 @@ describe("[Collection Sidebar Component] 단위 테스트", () => {
     fireEvent.click(screen.getByText("새로운 문서"));
 
     const inputElement = screen.getByRole("textbox");
-    fireEvent.change(inputElement, { target: { value: "테스트 문서 200" } });
-
     const submitButton = screen.getByRole("button", { name: "제출" });
+
+    fireEvent.change(inputElement, { target: { value: "테스트 문서 200" } });
     fireEvent.click(submitButton);
 
     const listItem = screen.getByRole("listitem");
+
     expect(listItem).toBeInTheDocument();
     expect(listItem).toHaveTextContent("테스트 문서 200");
   });
 
-  it("(4) 렌더링 된 리스트 아이템이 여러개일 때, 삭제 버튼을 누르면 해당 아이템만 리스트에서 삭제됩니다.", () => {
+  it("(4) 렌더링 된 리스트 아이템이 여러 개일 때, 삭제 버튼을 누르면 해당 아이템만 리스트에서 삭제됩니다.", async () => {
     fireEvent.click(screen.getByText("새로운 문서"));
-    const inputElement = screen.getByRole("textbox");
-    const submitButton = screen.getByRole("button", { name: "제출" });
 
-    act(async () => {
-      for (let repeat = 0; repeat < 3; repeat++) {
-        fireEvent.change(inputElement, { target: { value: `테스트 문서_${repeat}` } });
-        fireEvent.click(submitButton);
-      }
+    const inputElementFirstRender = screen.getByRole("textbox");
+    const submitButtonFirstRender = screen.getByRole("button", { name: "제출" });
 
-      await waitFor(() => {
-        const listItemList = screen.getAllByRole("listitem");
+    fireEvent.change(inputElementFirstRender, { target: { value: "테스트 문서_0" } });
+    fireEvent.click(submitButtonFirstRender);
 
-        expect(listItemList.length).toBe(3);
+    await waitFor(() => {
+      const listItemListFirstRender = screen.getAllByRole("listitem");
 
-        const expectedTexts = ["테스트 문서_0", "테스트 문서_1", "테스트 문서_2"];
-        listItemList.forEach((item, index) => {
-          expect(item).toHaveTextContent(expectedTexts[index]);
-        });
-      });
+      expect(listItemListFirstRender.length).toBe(1);
+      expect(listItemListFirstRender[0]).toHaveTextContent("테스트 문서_0");
     });
+
+    fireEvent.click(screen.getByText("새로운 문서"));
+
+    const inputElementSecondRender = screen.getByRole("textbox");
+    const submitButtonSecondRender = screen.getByRole("button", { name: "제출" });
+
+    fireEvent.change(inputElementSecondRender, { target: { value: "테스트 문서_1" } });
+    fireEvent.click(submitButtonSecondRender);
+
+    await waitFor(() => {
+      const listItemListSecondRender = screen.getAllByRole("listitem");
+
+      expect(listItemListSecondRender.length).toBe(2);
+      expect(listItemListSecondRender[1]).toHaveTextContent("테스트 문서_1");
+    });
+
+    const deleteItem = screen.getByText("테스트 문서_0");
+    const deleteButton = deleteItem.closest("li").querySelector("svg");
+
+    fireEvent.click(deleteButton);
+
+    await waitFor(() => {
+      const listItemList = screen.getAllByRole("listitem");
+      const deletedItem = screen.queryByText("테스트 문서_0");
+      const existItem = screen.queryByText("테스트 문서_1");
+
+      expect(listItemList.length).toBe(1);
+      expect(deletedItem).toBeNull();
+      expect(existItem).toBeInTheDocument();
+    });
+
   });
 });
 
