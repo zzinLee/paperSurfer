@@ -46,7 +46,10 @@ function PaperCard({ paper }) {
 
 
   return (
-    <div className="flex flex-col p-4 mb-8 bg-white border rounded-lg shadow border-slate-700 max-w-[900px]">
+    <div
+      className="flex flex-col p-4 mb-8 bg-white border rounded-lg shadow border-slate-700 max-w-[900px]"
+      data-testid="papercard"
+    >
       <h1 className="px-12 py-4 m-2 font-semibold tracking-tight">
         <p className="p-4">{paper.title}</p>
       </h1>
