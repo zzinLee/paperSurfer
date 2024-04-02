@@ -1,5 +1,5 @@
 import { describe, beforeEach, it, vi } from "vitest";
-import { render, screen, cleanup, waitFor, act, fireEvent } from "@testing-library/react";
+import { render, screen, cleanup, fireEvent } from "@testing-library/react";
 
 import useCollectionStore from "../stores/collection";
 import usePaperStore from "../stores/paper";

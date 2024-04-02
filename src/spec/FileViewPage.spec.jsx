@@ -1,4 +1,4 @@
-import { describe, beforeEach, it, vi, afterEach } from "vitest";
+import { describe, beforeEach, it, afterEach } from "vitest";
 import { render, screen, cleanup, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 

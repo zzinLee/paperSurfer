@@ -1,6 +1,6 @@
 import axios from "axios";
 import { describe, beforeEach, it, vi } from "vitest";
-import { render, screen, cleanup, waitFor, act, fireEvent } from "@testing-library/react";
+import { render, screen, cleanup, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import App from "../App";

@@ -1,5 +1,5 @@
 import { describe, beforeEach, afterEach, it } from "vitest";
-import { render, fireEvent, screen, cleanup, waitFor, act } from "@testing-library/react";
+import { render, fireEvent, screen, cleanup, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import CollectionSidebar from "../components/CollectionSidebar";
