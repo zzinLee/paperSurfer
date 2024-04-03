@@ -30,11 +30,11 @@
   ## 🛠️ Tech Stacks
   
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
-  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
   <img src="https://img.shields.io/badge/tailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
   <br>
-  <img src="https://img.shields.io/badge/D3.js-F9A03C?style=for-the-badge&logo=D3.js&logoColor=white">
+  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
   <img src="https://img.shields.io/badge/zustand-8A385D?style=for-the-badge">
+  <img src="https://img.shields.io/badge/D3.js-F9A03C?style=for-the-badge&logo=D3.js&logoColor=white">
   <img src="https://img.shields.io/badge/reactpdf-F12200?style=for-the-badge">
   <br>
   
@@ -53,6 +53,10 @@
     * [(3) 테이블 뷰 제공](#3-테이블-뷰-제공)
     * [(4) PDF 파일 웹 뷰어](#4-pdf-파일-웹-뷰어)
   * [⛰ Challenge](#-challenge)
+    * [1. 참고 문헌 정보는 어디서, 어떻게 가져올 것인가?](#1-참고-문헌-정보는-어디서-어떻게-가져올-것인가)
+    * [2. 그래프 뷰는 어떤 구조로 그릴 것인가?](#2-그래프-뷰는-어떤-구조로-그릴-것인가)
+    * [3. 개선된 UI/UX를 위한 Web Storage 사용과 zustand 사용](#3-개선된-uiux를-위한-web-storage-사용과-zustand-사용)
+    * [4. PDF를 웹에서 다루기](#4-pdf를-웹에서-다루기)
   
 </div> 
 
@@ -217,13 +221,78 @@
 
   ## ⛰ Challenge
 
+  ### 0. 프로젝트 시작하기 전, 기술 검증과 논문 데이터 처리에 대한 고민
+  
+  #### 0 - 1. 각 논문을 어떻게 구분할 수 있을까?
+
+  논문 데이터를 수집하고 저장하기 위해서 논문 간 구분을 지을 수 있는 고유한 값이 있어야 합니다. <br>
+  따라서, 실제로 논문이 어떻게 관리되고 있는지 확인해보았습니다. <br>
+
+  - ISSN (International Standard Serial Number)
+    - 국제 표준 연속 간행물 번호
+    - 인쇄물이나 정기적 전자 간행물을 식별하는데 쓰이는 8자리 고유번호 *(ex. 0000-0000)*
+    - 논문은 저널(Journal)과 같이 정기적 간행물에 출판되는 출판물이므로 ISSN 을 갖고 있습니다.
+
+  - DOI (Digital Object Identifier)
+    - ISO 표준화를 거친 객체 영구 식별자
+    - 인터넷 주소가 변경되어도 그 문서의 새 주소로 찾아갈 수 있도록 영구적으로 부여된 식별자 *(ex. https://doi.org/10.1000/182)*
+
+  <br>
+  
+  두 식별자 모두 논문 데이터를 고유의 값(id)으로 관리할 수 있습니다. <br>
+  다만, 본 프로젝트에서는 아래와 같은 이유로 Digital Object Identifier, 즉 **DOI 값이 더 적절한 선택지로 판단하고 적용**하였습니다. <br>
+  
+  1. 서적, 논문, 자료에 관계없이 디지털 객체이면 주어지므로 웹 환경에서 사용하기 더 좋겠다는 판단
+  2. 본 프로젝트에서는 논문 링크를 사용자에게 제공할 예정이므로, <br> 논문이 게시된 인터넷 주소의 변경에 관계 없이 올바른 링크로 리다이렉트*re-direct* 해주는 식별자 필요
+    
+  <br>
+
+  #### 0 - 2. 필요한 논문 메타 데이터를 정리하고, 시각화 대상을 명확히 하자
+
+  논문 메타 데이터는 끝도 없이 많습니다. <br>
+  논문의 저자, 제출*submit*된 날짜, 출판*publish*된 날짜, <br>
+  에디터, 제목, 저널명, 저널 호수, 인용 논문, 인용된 횟수, <br>
+  라이센스, DOI, ISSN, 등등 너무나도 많습니다. <br>
+
+  이 중에서 연구에 필요한 참고 문헌을 찾기 위해 적절한 메타데이터와 <br>
+  시각화에 꼭 필요한 메타데이터를 확인할 필요가 있었습니다. <br>
+
+  - 불변하는 논문 메타 데이터 : 연구자가 논문을 구분하기 위하여 필요합니다.
+    - 제목
+    - 저자
+    - DOI
+    - 출판일
+    - 저널
+    - 인용 논문 갯수
+
+  - 가변적인 논문 메타데이터 : 시간에 따라 달라지는 데이터, 연구자가 논문의 신뢰도를 판단하기 위하여 필요합니다.
+    - 해당 논문의 피인용 횟수
+
+  <br>
+  
+  여기에서 신뢰도와 관련있는 메타데이터는 : 해당 논문의 피인용 횟수와 인용 논문의 갯수 로 추렸습니다.
+  
+  <br>
+
+  
+
+  </br>
+
   ### 1. 참고 문헌 정보는 어디서, 어떻게 가져올 것인가?
 
-  ### 2. 그래프는 어떤 구조로 그릴 것인가?
+  </br>
+  
+  ### 2. 그래프 뷰는 어떤 구조로 그릴 것인가?
+
+  </br>
 
   ### 3. 개선된 UI/UX를 위한 Web Storage 사용과 zustand 사용
+
+  </br>
   
   ### 4. PDF를 웹에서 다루기
+
+  </br>
   
 </div>
 
