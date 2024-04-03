@@ -48,6 +48,10 @@
   * [🪽 Motivation](#-motivation)
   * [🎨 Concept](#-concept)
   * [✨ Feature](#-feature)
+    * [(1) 키워드 검색 기능](#1-키워드-검색-기능)
+    * [(2) 그래프 뷰 제공](#2-그래프-뷰-제공)
+    * [(3) 테이블 뷰 제공](#3-테이블-뷰-제공)
+    * [(4) PDF 파일 웹 뷰어](#4-pdf-파일-웹-뷰어)
   * [⛰ Challenge](#-challenge)
   
 </div> 
