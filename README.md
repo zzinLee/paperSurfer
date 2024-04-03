@@ -18,7 +18,7 @@
   <br>
   
   
-  ### 🔗 Links
+  ## 🔗 Links
 
   [![Deploy Site Badge](https://img.shields.io/badge/papersurfer.zzinlee.dev-grey?style=for-the-badge&logo=netlify&link=https://papersurfer.zzinlee.dev)](https://papersurfer.zzinlee.dev)
   [![Notion Badge](https://img.shields.io/badge/papersurfer-grey?style=for-the-badge&logo=Notion&logoColor=white&link=https://zzinlee.notion.site/PAPERSURFER-04cfe46820e74477a5580b581c74816f?pvs=4)](https://zzinlee.notion.site/PAPERSURFER-04cfe46820e74477a5580b581c74816f?pvs=4)
@@ -27,7 +27,7 @@
   <br>
   
 
-  ### 🛠️ Tech Stacks
+  ## 🛠️ Tech Stacks
   
   <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
   <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
@@ -40,23 +40,26 @@
   
 </div>
 
-<!-- <div>
+<div>
 
   ## Contents
+  * [🔗 Links](#-links)
+  * [🛠️ Tech Stacks](#%EF%B8%8F-tech-stacks)
+  * [Contents](#contents)
+  * [🪽 Motivation](#-motivation)
+  * [🎨 Concept](#-concept)
+
   
 </div> 
 
-
+<!-- 
 <div>
 
   ## 👀 Project Preview
-
-  
   
 </div>
+--> 
 
-<br></br>
--->
 
 <div>
 
