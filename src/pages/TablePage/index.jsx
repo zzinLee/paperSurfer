@@ -25,7 +25,7 @@ function TablePage() {
   const tableRowElemList = paperList.map((paper) => <TableRow key={paper.doi} paper={paper} />);
 
   return (
-    <div className="content-center my-auto">
+    <div className="content-center m-auto">
       <button className="absolute z-30 p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
         <RiArrowGoBackLine className="size-28" onClick={() => navigator(-1)} />
       </button>
