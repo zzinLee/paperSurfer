@@ -60,7 +60,7 @@ describe("[SearchPage] 테스트", () => {
     cleanup();
   });
 
-  it("검색하기 버튼을 누른 후 (1)예상한 API 가 호출, (2)예상한 데이터 반환 후 (3)20개의 paperCard 컴포넌트가 렌더링 되어야 합니다.", async () => {
+  it("(1) 검색하기 버튼을 누른 후 1) 예상한 API 가 호출, 2) 예상한 데이터 반환 후 3) 20개의 paperCard 컴포넌트가 렌더링 되어야 합니다.", async () => {
     const searchButton = document.querySelector("button[type='submit']");
     const inputElem = screen.getByPlaceholderText("키워드를 검색하세요...");
 
@@ -75,7 +75,7 @@ describe("[SearchPage] 테스트", () => {
     expect(screen.getAllByTestId("papercard")).toHaveLength(20);
   });
 
-  it("Paper Card에서 `이 문서에 추가`버튼을 누르면, paperSideBar에서 Paper컴포넌트가 올바르게 렌더링 되어야 합니다.", async () => {
+  it("(2) Paper Card에서 `이 문서에 추가`버튼을 누르면, paperSideBar에서 Paper컴포넌트가 올바르게 렌더링 되어야 합니다.", async () => {
     const searchButton = document.querySelector("button[type='submit']");
     const inputElem = screen.getByPlaceholderText("키워드를 검색하세요...");
 
