@@ -38,6 +38,13 @@
   <img src="https://img.shields.io/badge/D3.js-F9A03C?style=for-the-badge&logo=D3.js&logoColor=white">
   <img src="https://img.shields.io/badge/reactpdf-F12200?style=for-the-badge">
   <br>
+
+<!--
+  ### Deploy and Test
+  <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+  <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
+  <img src="https://img.shields.io/badge/vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white">
+-->
   
 </div>
 
