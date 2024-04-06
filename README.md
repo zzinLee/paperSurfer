@@ -1,3 +1,5 @@
+  <div align=center>
+    
   # **PaperSurfur**
   
   <img width="341" alt="papersurferHome" src="https://github.com/zzinLee/paperSurfer/assets/91821887/4fe5ac79-f4b8-4629-ac74-436a09c41454">
