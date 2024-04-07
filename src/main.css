@@ -30,3 +30,13 @@
   font-style: normal;
 }
 
+@media screen and (max-width: 600px) {
+  .desktop-content {
+    display: none;
+  }
+
+  .mobile-alert {
+    display: block;
+  }
+}
+
