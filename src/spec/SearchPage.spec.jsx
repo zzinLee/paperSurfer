@@ -10,7 +10,7 @@ import useChartStore from "../stores/chart";
 import searchMockData from "../mocks/json/search_mock.json";
 
 const SEARCH_URI =
-  "https://api.crossref.org/works?filter=type:journal-article,has-references:1&sample=20&query=lipase&select=DOI,title,is-referenced-by-count,created,author,URL,container-title,references-count&mailto=sujin951017@gmail.com";
+  "https://api.crossref.org/works?filter=type:journal-article,has-references:1&query=lipase&mailto=sujin951017@gmail.com";
 
 vi.mock("axios", () => ({
   default: {
