@@ -14,12 +14,7 @@ function CollectionList() {
   );
 
   return (
-    <>
-      <div className="self-start p-6 m-6 overflow-auto text-black font-nanumNeo">
-        <h1>문서 목록</h1>
-      </div>
-      <ul className="flex flex-col w-full gap-5 font-nanumNeo">{collectionElemList}</ul>
-    </>
+    <ul className="flex flex-col w-full gap-5 font-nanumNeo">{collectionElemList}</ul>
   );
 }
 

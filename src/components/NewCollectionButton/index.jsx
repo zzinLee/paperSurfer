@@ -4,10 +4,10 @@ function NewCollectionButton({ toggle }) {
   return (
     <button
       onClick={toggle}
-      className="flex flex-row gap-16 p-10 m-10 shadow-md rounded-xl w-208 font-nanumNeo bg-stone-100"
+      className="flex flex-row gap-16 p-10 m-10 rounded-xl w-208 font-pretendard hover:bg-violet-400 hover:text-white"
     >
       <FaFolderPlus className="size-24" />
-      <p>새로운 문서</p>
+      <p className="font-extrabold text-20">Document</p>
     </button>
   );
 }

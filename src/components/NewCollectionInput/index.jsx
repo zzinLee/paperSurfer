@@ -41,7 +41,7 @@ function NewCollectionInput({ toggle }) {
         <button onClick={toggle}>
           <FaRegFolderOpen className="size-24" />
         </button>
-        <p className="text-18 font-nanumNeo">새로운 문서</p>
+        <p className="font-extrabold text-20 font-pretendard">New</p>
       </div>
       <form className="flex flex-col gap-10" onSubmit={submitCollection}>
         <input
@@ -63,7 +63,7 @@ function NewCollectionInput({ toggle }) {
             type="submit"
             className="px-6 py-2 text-white rounded-md bg-zinc-900 hover:bg-violet-700"
           >
-            제출
+            submit
           </button>
         </div>
       </form>
