@@ -16,7 +16,7 @@ function CollectionSidebar() {
   return (
     <aside className={`flex flex-col items-center bg-white ${width}`}>
       <button className="self-end p-4 m-4 bg-white" onClick={() => setIsFold(!isFolded)}>
-        {isFolded ? <IoReorderThreeOutline size={20} /> : <IoClose size={20} />}
+        {isFolded ? <IoReorderThreeOutline size={28} /> : <IoClose size={28} />}
       </button>
       {!isFolded && (
         <div>

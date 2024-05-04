@@ -76,26 +76,23 @@ function PaperSearchBar({ getSearchList }) {
         }}
         className="w-2/3 p-10"
       >
-        <label htmlFor="search">
-          <h1 className="m-4 text-xl font-extrabold font-nanumNeo">논문 검색</h1>
-        </label>
-        <div className="flex flex-row gap-5">
-          <input
-            ref={searchInput}
-            type="search"
-            id="search"
-            className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm font-pretendard focus:outline-violet-400"
-            placeholder="키워드를 검색하세요..."
-            required
-          />
-          {isLoading ? (
-            <SearchLoading />
-          ) : (
-            <button type="submit" className="px-6 py-2 text-base text-black w-50">
-              <AiOutlineSearch className="size-28" />
-            </button>
-          )}
-        </div>
+      <div className="flex flex-row gap-5 m-24">
+        <input
+          ref={searchInput}
+          type="search"
+          id="search"
+          className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm font-pretendard focus:outline-violet-400"
+          placeholder="키워드를 검색하세요..."
+          required
+        />
+        {isLoading ? (
+          <SearchLoading />
+        ) : (
+          <button type="submit" className="px-6 py-2 text-base text-black w-50">
+            <AiOutlineSearch className="size-28" />
+          </button>
+        )}
+      </div>
       </form>
     </div>
   );

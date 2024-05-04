@@ -175,7 +175,7 @@ function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }) {
               <p className="text-sm text-slate-600">{decodedString(paper?.containerTitle) || "저널 정보 없음"}</p>
             </div>
             <div className={CLASS_CARD_PROP}>
-              <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일자</p>
+              <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일</p>
               <p className="text-sm text-slate-600 min-w-80">{paper?.createdAt || "출판일 정보 없음"}</p>
             </div>
             <div className="inline-flex">

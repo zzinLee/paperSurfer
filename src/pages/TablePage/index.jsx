@@ -41,7 +41,7 @@ function TablePage() {
                 저자
               </th>
               <th scope="col" className="w-1/12 px-2 py-8">
-                출판일자
+                출판일
               </th>
               <th scope="col" className="w-2/12 px-2 py-8">
                 저널명

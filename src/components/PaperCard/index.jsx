@@ -63,7 +63,7 @@ function PaperCard({ paper }) {
           <p className="text-sm text-slate-600 max-w-680">{paper.authors}</p>
         </div>
         <div className={CLASS_CARD_PROP}>
-          <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일자</p>
+          <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일</p>
           <p className="text-sm text-slate-600">{paper.createdAt}</p>
         </div>
       </div>
