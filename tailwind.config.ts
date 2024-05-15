@@ -6,7 +6,7 @@ const px0_200 = { ...Array.from(Array(201)).map((_, i) => `${i}px`) };
 const px0_300 = { ...Array.from(Array(301)).map((_, i) => `${i}px`) };
 
 export default {
-  content: ["./index.html", "./src/**/*.jsx"],
+  content: ["./index.html", "./src/**/*.jsx", "./src/**/*.tsx"],
   theme: {
     fontFamily: {
       pretendard: ["Pretendard-Regular"],
