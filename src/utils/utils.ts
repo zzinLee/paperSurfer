@@ -1,10 +1,11 @@
 import _ from "lodash";
+import { SearchResponse, Paper } from "./interface";
 
-function decodedString(string) {
-  return _.unescape(string).replace(/<\/?[^>]+(>|$)/g, "");
+function decodedString(str: string) {
+  return _.unescape(str).replace(/<\/?[^>]+(>|$)/g, "");
 }
 
-function formattingResponse(response) {
+function formattingResponse(response: SearchResponse): Paper {
   const rawAuthorList = response.author;
   const authorList =
     rawAuthorList &&
