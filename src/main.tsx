@@ -6,7 +6,7 @@ import App from "./App";
 
 import "./main.css";
 
-const rootElement = document.getElementById("root");
+const rootElement = document.getElementById("root") as HTMLElement;
 const router = createBrowserRouter([
   {
     path: "*",
