@@ -21,7 +21,7 @@ function App() {
       <div className="relative flex flex-col h-screen desktop-content">
         <Header />
         <Routes>
-          <Route path="/" exact element={<Home />}>
+          <Route path="/" element={<Home />}>
             <Route path="/:collectionId/search" element={<SearchPage />} />
             <Route path="/:collectionId/view" element={<ViewPage />} />
             <Route path="/:collectionId/table" element={<TablePage />} />
