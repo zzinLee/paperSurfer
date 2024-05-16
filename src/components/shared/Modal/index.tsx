@@ -1,9 +1,14 @@
-import { useRef } from "react";
+import { MouseEvent, useRef, ReactNode } from "react";
 
-function Modal({ children, setModal }) {
-  const outside = useRef();
-  const clickOutside = (ev) => {
-    if (ev.target === outside.current && setModal) {
+interface ModalProps {
+  children: ReactNode;
+  setModal?: (state: boolean) => void;
+};
+
+function Modal({ children, setModal }: ModalProps) {
+  const outsideArea = useRef(null);
+  const clickOutside = (ev: MouseEvent<HTMLElement>) => {
+    if (ev.target === outsideArea.current && setModal) {
       setModal(false);
     }
   };
@@ -14,7 +19,7 @@ function Modal({ children, setModal }) {
     >
       <div
         className="fixed inset-0 bg-black opacity-25"
-        ref={outside}
+        ref={outsideArea}
         onClick={clickOutside}
       ></div>
       <div className="fixed flex justify-center transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">

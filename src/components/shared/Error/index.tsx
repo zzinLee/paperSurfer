@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { BiX } from "react-icons/bi";
 
-function Error({ message }) {
+function Error({ message }: { message?: string }) {
   const navigator = useNavigate();
 
   return (
