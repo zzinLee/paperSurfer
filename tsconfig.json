@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es2015",
     "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "lib": ["ES2015", "DOM", "DOM.Iterable"],
     "module": "Preserve",
     "rootDir": "./",
