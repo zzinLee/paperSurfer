@@ -5,11 +5,12 @@ import Paper from "../Paper";
 
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
+import { PaperInterface } from "../../utils/interface";
 
 function PaperSidebar() {
-  const { collectionId } = useParams();
+  const { collectionId } = useParams() as { collectionId: string};
   const { collection } = useCollectionStore();
-  const { paperCollection } = usePaperStore();
+  const { paperCollection } = usePaperStore() as { paperCollection: Record<string, Array<PaperInterface>> };
   const currentCollectionName = collection[collectionId];
   const currentPaperCollection = paperCollection[collectionId];
   const paperListElements =
