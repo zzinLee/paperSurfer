@@ -12,7 +12,7 @@ interface Reference {
   author: string;
 }
 
-interface SearchResponse {
+interface SearchResponseInterface {
   DOI: string;
   URL: string;
   author: Array<Author>;
@@ -26,7 +26,7 @@ interface SearchResponse {
   abstract?: string;
 }
 
-interface Paper {
+interface PaperInterface {
   authors: string;
   citations: number;
   containerTitle: string;
@@ -39,4 +39,4 @@ interface Paper {
   abstract?: string;
 }
 
-export { SearchResponse, Paper };
+export { SearchResponseInterface, PaperInterface };
