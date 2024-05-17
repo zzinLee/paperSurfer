@@ -1,7 +1,11 @@
 import Modal from "../../components/shared/Modal";
 import Error from "../../components/shared/Error";
 
-function ErrorPage({ message }: { message?: string }) {
+interface ErrorPageProps {
+  message?: string;
+}
+
+function ErrorPage({ message }: ErrorPageProps) {
   return (
     <Modal>
       <Error message={message} />
