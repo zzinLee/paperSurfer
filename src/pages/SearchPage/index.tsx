@@ -6,12 +6,12 @@ import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
 
-import { PaperInterface } from "../../utils/interface";
+import { PaperConfig } from "../../types/interface";
 
 function SearchPage() {
   const navigator = useNavigate();
   const { collectionId } = useParams();
-  const [searchList, setSearchList] = useState<Array<PaperInterface>>([]);
+  const [searchList, setSearchList] = useState<Array<PaperConfig>>([]);
   const isSearchListExist = searchList.length !== 0;
 
   return (
