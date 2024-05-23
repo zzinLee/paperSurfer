@@ -8,10 +8,10 @@ import SearchLoading from "../shared/SearchLoading";
 import API from "../../utils/configAPI";
 import { decodedString } from "../../utils/utils";
 import { MAILTO } from "../../utils/constants";
-import { PaperInterface, SearchResponseInterface } from "../../utils/interface";
+import { PaperConfig, SearchResponseConfig } from "../../types/interface";
 
 interface PaperSearchBarProps {
-  getSearchList: Dispatch<SetStateAction<Array<PaperInterface>>>;
+  getSearchList: Dispatch<SetStateAction<Array<PaperConfig>>>;
 }
 
 function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
@@ -48,7 +48,7 @@ function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
         setIsLoading(false);
       }
 
-      const responseItems = response?.data?.message?.items as Array<SearchResponseInterface>;
+      const responseItems = response?.data?.message?.items as Array<SearchResponseConfig>;
       const searchList = responseItems.map((eachPaper) => {
         const rawAuthorList = eachPaper.author;
         const authorList =

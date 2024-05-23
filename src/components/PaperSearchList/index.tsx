@@ -1,8 +1,8 @@
 import PaperCard from "../PaperCard";
-import { PaperInterface } from "../../utils/interface";
+import { PaperConfig } from "../../types/interface";
 
 interface PaperSearchListProps {
-  searchList: Array<PaperInterface>
+  searchList: Array<PaperConfig>
 }
 
 function PaperSearchList({ searchList }: PaperSearchListProps) {
