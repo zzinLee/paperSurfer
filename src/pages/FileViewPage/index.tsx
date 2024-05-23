@@ -4,7 +4,7 @@ import FileUploader from "../../components/FileUploader";
 import FileViewer from "../../components/FileViewer";
 
 function FileViewPage() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const clickReset = () => {
     setSelectedFile(null);
