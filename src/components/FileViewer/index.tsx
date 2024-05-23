@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type MouseEvent } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiHighlight } from "react-icons/bi";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -8,22 +8,28 @@ import Highlighted from "../Highlighted";
 
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
+import type { TextItem } from "pdfjs-dist/types/src/display/api.d.ts";
+import type { DragElemConfig } from "../../types/interface";
 
 pdfjs.GlobalWorkerOptions.workerSrc = "//cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-function FileViewer({ pdfFile }) {
-  const pdfContainerElem = useRef(null);
-  const [scrollY, setScrollY] = useState(0);
-  const [pdfContainer, setPdfContainer] = useState(null);
-  const [highlightElemList, setHighlightElemList] = useState([]);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+interface FileViewerInterace {
+  pdfFile: File;
+}
 
-  const onDocumentLoadSuccess = ({ numPages }) => {
+function FileViewer({ pdfFile }: FileViewerInterace) {
+  const pdfContainerElem = useRef<HTMLDivElement>(null);
+  const [scrollY, setScrollY] = useState<number>(0);
+  const [pdfContainer, setPdfContainer] = useState<null | DOMRect>(null);
+  const [highlightElemList, setHighlightElemList] = useState<Array<DragElemConfig>>([]);
+  const [numPages, setNumPages] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
 
-  const prevPage = (ev) => {
+  const prevPage = (ev: MouseEvent<SVGElement>) => {
     ev.preventDefault();
 
     if (pageNumber > 1) {
@@ -31,7 +37,7 @@ function FileViewer({ pdfFile }) {
     }
   };
 
-  const nextPage = (ev) => {
+  const nextPage = (ev: MouseEvent<SVGAElement>) => {
     ev.preventDefault();
 
     if (pageNumber < numPages) {
@@ -53,19 +59,25 @@ function FileViewer({ pdfFile }) {
 
   useEffect(() => {
     if (pdfContainerElem) {
-      const pdfContainerRect = pdfContainerElem.current.getBoundingClientRect();
+      const pdfContainerRect =
+        pdfContainerElem.current && pdfContainerElem.current.getBoundingClientRect();
 
       setPdfContainer(pdfContainerRect);
     }
   }, [scrollY]);
 
-  const highlightText = (ev) => {
+  const highlightText = (ev: MouseEvent<SVGElement>) => {
     ev.preventDefault();
 
     const drag = window.getSelection();
+
+    if (!drag) return;
+
     const range = drag.getRangeAt(0);
     const targetString = drag.toString();
     const { top, left, width, height } = range.getBoundingClientRect();
+
+    if (!pdfContainer) return;
 
     const dragElem = {
       targetString,
@@ -79,14 +91,15 @@ function FileViewer({ pdfFile }) {
     setHighlightElemList([...highlightElemList, dragElem]);
   };
 
-  const clearHighlight = (ev) => {
+  const clearHighlight = (ev: MouseEvent<HTMLButtonElement>) => {
     ev.preventDefault();
 
     setHighlightElemList([]);
   };
 
-  const customTextRenderer = (textItem) => {
-    if (!textItem) return;
+  const customTextRenderer = (textItem: TextItem) => {
+    if (!textItem) return "";
+    if (!pdfContainer) return "";
 
     const textWidth = textItem.width;
     const textHeight = textItem.height;
@@ -112,7 +125,7 @@ function FileViewer({ pdfFile }) {
 
       return textItem.str.replace(
         regexPattern,
-        (text) => `<span style="background-color: rgba(239, 223, 0, 0.4);">${text}<span>`
+        (text: string) => `<span style="background-color: rgba(239, 223, 0, 0.4);">${text}<span>`
       );
     } else {
       return textItem.str;
@@ -152,7 +165,7 @@ function FileViewer({ pdfFile }) {
             <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
               <Page pageNumber={pageNumber} customTextRenderer={customTextRenderer} />
             </Document>
-          </div>
+          </div>x
           <button className="p-8 text-white rounded-full shadow-xl text-32 bg-zinc-800 hover:bg-violet-700">
             <AiOutlineArrowRight onClick={nextPage} />
           </button>
