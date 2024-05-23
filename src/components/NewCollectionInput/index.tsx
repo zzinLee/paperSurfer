@@ -1,27 +1,31 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa6";
 
 import useCollectionStore from "../../stores/collection";
 
-function NewCollectionInput({ toggle }) {
+interface NewCollectionInputInterface {
+  toggle: () => void;
+}
+
+function NewCollectionInput({ toggle }: NewCollectionInputInterface) {
   const { setCollection } = useCollectionStore();
   const [showAlert, setShowAlert] = useState(false);
   const [collectionName, setCollectionName] = useState("");
 
-  const submitCollection = (ev) => {
+  const submitCollection = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
     if (!collectionName.length || collectionName.length > 28) {
       return;
     }
 
-    const collectionKey = Date.now();
+    const collectionKey = Date.now().toString();
 
     setCollection(collectionKey, collectionName);
     toggle();
   };
 
-  const typeInput = (ev) => {
+  const typeInput = (ev: ChangeEvent<HTMLInputElement>) => {
     if (showAlert) {
       setShowAlert(false);
     }

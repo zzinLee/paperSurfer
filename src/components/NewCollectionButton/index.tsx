@@ -1,6 +1,10 @@
 import { FaFolderPlus } from "react-icons/fa6";
 
-function NewCollectionButton({ toggle }) {
+interface NewCollectionButtonInterface {
+  toggle: () => void;
+}
+
+function NewCollectionButton({ toggle }: NewCollectionButtonInterface) {
   return (
     <button
       onClick={toggle}
