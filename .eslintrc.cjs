@@ -1,5 +1,6 @@
 module.exports = {
   root: true,
+  parser: "@typescript-eslint/parser",
   env: { browser: true, es2020: true },
   extends: [
     "eslint:recommended",
@@ -36,7 +37,7 @@ module.exports = {
     "react/jsx-no-bind": "off",
     "react/self-closing-comp": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": ["warn", { extensions: [".jsx"] }],
+    "react/jsx-filename-extension": ["warn", { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
     "no-param-reassign": 0,
     "no-underscore-dangle": "off",
     "react/jsx-no-target-blank": "off",
