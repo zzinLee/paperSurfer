@@ -8,11 +8,13 @@ import ErrorPage from "../ErrorPage";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 
+import { PaperCollectionConfig } from "../../types/interface";
+
 function TablePage() {
   const navigator = useNavigate();
   const { collection } = useCollectionStore();
-  const { paperCollection } = usePaperStore();
-  const { collectionId } = useParams();
+  const { paperCollection } = usePaperStore() as { paperCollection: PaperCollectionConfig };
+  const { collectionId } = useParams() as { collectionId: string };
   const paperList = paperCollection[collectionId];
   const isTableDataExist = paperList?.length > 0;
 

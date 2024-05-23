@@ -1,4 +1,10 @@
-function TableRow({ paper }) {
+import { PaperConfig } from "../../types/interface.ts";
+
+interface TableRowProps {
+  paper: PaperConfig;
+}
+
+function TableRow({ paper }: TableRowProps) {
   return (
     <tr className="bg-white border-b">
       <th scope="row" className="w-1/4 p-8 font-extrabold text-gray-900">
