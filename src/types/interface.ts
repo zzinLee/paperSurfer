@@ -43,6 +43,15 @@ interface PaperCollectionConfig {
   [key: string]: Array<PaperConfig>;
 }
 
+interface DragElemConfig {
+  targetString: string;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  id: string;
+}
+
 interface PaperStoreState {
   paperCollection: PaperCollectionConfig;
   addPaperToCollection: (key: string, paper: PaperConfig) => void;
@@ -59,8 +68,9 @@ interface CollectionStoreState {
   deleteAllCollection: () => void;
 }
 
-export {
+export type{
   SearchResponseConfig,
   PaperStoreState, PaperConfig, PaperCollectionConfig,
+  DragElemConfig,
   CollectionStoreState,
 };
