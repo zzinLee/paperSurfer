@@ -1,5 +1,5 @@
 import PaperCard from "../PaperCard";
-import { PaperConfig } from "../../types/interface";
+import type { PaperConfig } from "../../types/interface";
 
 interface PaperSearchListProps {
   searchList: Array<PaperConfig>

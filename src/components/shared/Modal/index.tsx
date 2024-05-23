@@ -1,4 +1,4 @@
-import { MouseEvent, useRef, ReactNode } from "react";
+import { type MouseEvent, useRef, type ReactNode } from "react";
 
 interface ModalProps {
   children: ReactNode;

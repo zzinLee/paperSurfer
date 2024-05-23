@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect, FormEvent, Dispatch, SetStateAction } from "react";
+import { useRef, useState, useEffect, type FormEvent, type Dispatch, type SetStateAction } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 
@@ -8,7 +8,7 @@ import SearchLoading from "../shared/SearchLoading";
 import API from "../../utils/configAPI";
 import { decodedString } from "../../utils/utils";
 import { MAILTO } from "../../utils/constants";
-import { PaperConfig, SearchResponseConfig } from "../../types/interface";
+import type { PaperConfig, SearchResponseConfig } from "../../types/interface";
 
 interface PaperSearchBarProps {
   getSearchList: Dispatch<SetStateAction<Array<PaperConfig>>>;

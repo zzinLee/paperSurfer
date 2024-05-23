@@ -8,7 +8,7 @@ import ErrorPage from "../ErrorPage";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 
-import { PaperCollectionConfig } from "../../types/interface";
+import type { PaperCollectionConfig } from "../../types/interface";
 
 function TablePage() {
   const navigator = useNavigate();

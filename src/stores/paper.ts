@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PaperConfig, PaperStoreState } from "../types/interface";
+import type { PaperConfig, PaperStoreState } from "../types/interface";
 
 const paperStore = persist(
   (set) => ({

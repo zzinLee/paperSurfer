@@ -6,7 +6,7 @@ import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
 
-import { PaperConfig } from "../../types/interface";
+import type { PaperConfig } from "../../types/interface";
 
 function SearchPage() {
   const navigator = useNavigate();

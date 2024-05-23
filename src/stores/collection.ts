@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
-import { CollectionStoreState } from "../types/interface";
+import type { CollectionStoreState } from "../types/interface";
 
 const collectionStore = persist<CollectionStoreState>(
   (set) => ({

@@ -5,7 +5,7 @@ import Paper from "../Paper";
 
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
-import { PaperCollectionConfig } from "../../types/interface";
+import type { PaperCollectionConfig } from "../../types/interface";
 
 function PaperSidebar() {
   const { collectionId } = useParams() as { collectionId: string };

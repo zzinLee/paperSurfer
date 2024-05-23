@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { SearchResponseConfig, PaperConfig } from "../types/interface";
+import type { SearchResponseConfig, PaperConfig } from "../types/interface";
 
 function decodedString(str: string) {
   return _.unescape(str).replace(/<\/?[^>]+(>|$)/g, "");

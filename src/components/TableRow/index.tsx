@@ -1,4 +1,4 @@
-import { PaperConfig } from "../../types/interface.ts";
+import type { PaperConfig } from "../../types/interface.ts";
 
 interface TableRowProps {
   paper: PaperConfig;

@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { FaRegFolderOpen } from "react-icons/fa6";
 
 import useCollectionStore from "../../stores/collection";
