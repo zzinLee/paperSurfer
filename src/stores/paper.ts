@@ -2,32 +2,17 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PaperInterface } from "../utils/interface";
-
-interface PaperStoreState {
-  paperCollection: Record<string, Array<PaperInterface>>;
-  addPaperToCollection: (key: string, paper: PaperInterface) => void;
-  deleteAllPaperFromCollection: (key: string,) => void;
-  deletePaperFromCollection: (key: string, doi: string) => void;
-  initPaperCollection: (key: string, starPaperCollection: Array<PaperInterface>) => void;
-  deleteAllPaper: () => void;
-}
+import { PaperConfig, PaperStoreState } from "../types/interface";
 
 const paperStore = persist(
   (set) => ({
     paperCollection: {},
-    addPaperToCollection: (key: string, paper: PaperInterface) =>
+    addPaperToCollection: (key: string, paper: PaperConfig) =>
       set((state: PaperStoreState) => {
         if (state.paperCollection[key]) {
-          state.paperCollection = {
-            ...state.paperCollection,
-            [key]: [...state.paperCollection[key], paper]
-          };
+          state.paperCollection[key].push(paper);
         } else {
-          state.paperCollection = {
-            ...state.paperCollection,
-            [key]: [paper]
-          };
+          state.paperCollection[key] = [paper];
         }
       }),
     deleteAllPaperFromCollection: (key: string) =>
@@ -36,11 +21,9 @@ const paperStore = persist(
       }),
     deletePaperFromCollection: (key: string, doi: string) =>
       set((state: PaperStoreState) => {
-        const deletedArray = state.paperCollection[key].filter((paper: PaperInterface) => paper.doi !== doi);
-
-        state.paperCollection[key] = deletedArray;
+        state.paperCollection[key] = state.paperCollection[key].filter((paper: PaperConfig) => paper.doi !== doi);
       }),
-    initPaperCollection: (key: string, starPaperCollection: Array<PaperInterface>) =>
+    initPaperCollection: (key: string, starPaperCollection: Array<PaperConfig>) =>
       set((state: PaperStoreState) => {
         state.paperCollection[key] = starPaperCollection;
       }),
@@ -58,5 +41,3 @@ const paperStore = persist(
 const usePaperStore = create(immer(devtools(paperStore)));
 
 export default usePaperStore;
-
-export { PaperStoreState };

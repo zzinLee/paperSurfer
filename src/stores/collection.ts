@@ -1,12 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 
-interface CollectionStoreState {
-  collection: Record<string, string>;
-  setCollection: (key: string, name: string) => void;
-  deleteCollectionFromStore: (key: string) => void;
-  deleteAllCollection: () => void;
-}
+import { CollectionStoreState } from "../types/interface";
 
 const collectionStore = persist<CollectionStoreState>(
   (set) => ({
