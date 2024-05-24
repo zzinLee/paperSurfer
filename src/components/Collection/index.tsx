@@ -1,21 +1,28 @@
+import type { MouseEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
 
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
+import type { PaperStoreState, ChartStoreState } from "../../types/interface";
 
-function Collection({ collectionKey, collectionName }) {
+interface CollectionProps {
+  collectionKey: string;
+  collectionName: string;
+}
+
+function Collection({ collectionKey, collectionName }: CollectionProps) {
   const navigator = useNavigate();
   const { collectionId } = useParams();
   const { deleteCollectionFromStore } = useCollectionStore();
-  const { deleteCollectionFromChart, deleteStarCollection } = useChartStore();
-  const { deleteAllPaperFromCollection } = usePaperStore();
+  const { deleteCollectionFromChart, deleteStarCollection } = useChartStore() as ChartStoreState;
+  const { deleteAllPaperFromCollection } = usePaperStore() as PaperStoreState;
   const isRoot = collectionKey === collectionId;
   const backgroundColor = isRoot ? "bg-violet-700" : "bg-transWhite";
   const fontColor = isRoot ? "text-white" : "text-black";
 
-  const deleteCollection = (ev) => {
+  const deleteCollection = (ev: MouseEvent<SVGElement>) => {
     ev.stopPropagation();
 
     deleteCollectionFromStore(collectionKey);
