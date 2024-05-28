@@ -21,7 +21,7 @@ function FileViewer({ pdfFile }: FileViewerInterace) {
   const pdfContainerElem = useRef<HTMLDivElement>(null);
   const [scrollY, setScrollY] = useState<number>(0);
   const [pdfContainer, setPdfContainer] = useState<null | DOMRect>(null);
-  const [highlightElemList, setHighlightElemList] = useState<Array<DragElemConfig>>([]);
+  const [highlightElemList, setHighlightElemList] = useState<DragElemConfig[]>([]);
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
 

@@ -4,7 +4,7 @@ import type { DragElemConfig } from "../../types/interface";
 interface HighlightedProps {
   elem: DragElemConfig;
   resetElemList: Dispatch<SetStateAction<DragElemConfig[]>>;
-  elemList: Array<DragElemConfig>;
+  elemList: DragElemConfig[];
 }
 
 function Highlighted({ elem, resetElemList, elemList }: HighlightedProps) {
