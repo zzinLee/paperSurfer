@@ -1,13 +1,13 @@
-interface Author {
+interface AuthorConfig {
   family: string;
   given: string;
 }
 
-interface Created {
-  "date-parts": Array<Array<string>>;
+interface CreatedConfig {
+  "date-parts": string[][];
 }
 
-interface Reference {
+interface ReferenceConfig {
   DOI: string;
   author: string;
 }
@@ -15,19 +15,19 @@ interface Reference {
 interface SearchResponseConfig {
   DOI: string;
   URL: string;
-  author: Array<Author>;
-  "container-title": Array<string>;
+  author: AuthorConfig[];
+  "container-title": string[];
   "is-referenced-by-count": number;
-  created: Created;
-  reference: Array<Reference>;
+  created: CreatedConfig;
+  reference: ReferenceConfig[];
   "references-count": number;
   "reference-count": number;
-  title: Array<string>;
+  title: string[];
   abstract?: string;
 }
 
 interface PaperConfig {
-  authors: string;
+  author: string;
   citations: number;
   containerTitle: string;
   createdAt: string;
@@ -35,12 +35,29 @@ interface PaperConfig {
   references: number;
   title: string;
   url: string;
-  refs?: Array<string>;
   abstract?: string;
+  children?: string[] | PaperConfig[];
+}
+
+interface DefaultRootConfig {
+  citations: number;
+  doi: string;
+  status: string;
+  title: string;
+  author: string;
+}
+
+interface RootConfig extends DefaultRootConfig {
+  createdAt?: string;
+  children: RootConfig[];
+}
+
+interface InitRootConfig extends DefaultRootConfig {
+  children: PaperConfig[];
 }
 
 interface PaperCollectionConfig {
-  [key: string]: Array<PaperConfig>;
+  [key: string]: PaperConfig[];
 }
 
 interface DragElemConfig {
@@ -57,7 +74,7 @@ interface PaperStoreState {
   addPaperToCollection: (key: string, paper: PaperConfig) => void;
   deleteAllPaperFromCollection: (key: string) => void;
   deletePaperFromCollection: (key: string, doi: string) => void;
-  initPaperCollection: (key: string, starPaperCollection: Array<PaperConfig>) => void;
+  initPaperCollection: (key: string, starPaperCollection: PaperConfig[]) => void;
   deleteAllPaper: () => void;
 }
 
@@ -68,9 +85,49 @@ interface CollectionStoreState {
   deleteAllCollection: () => void;
 }
 
-export type{
+interface RootCollectionConfig {
+  [key: string]: RootConfig;
+}
+
+interface StarCollectionConfig {
+  [key: string]: PaperConfig[];
+}
+
+interface InitChartFunction {
+  (key: string, root: RootConfig): void;
+}
+
+interface ChartStoreState {
+  rootCollection: RootCollectionConfig;
+  starCollection: StarCollectionConfig;
+  initChart: InitChartFunction;
+  deleteCollectionFromChart: (key: string) => void;
+  deletePaperFromChart: (key: string, doi: string) => void;
+  changeNodeStatus: (key: string, nodeData: RootConfig, status: string) => void;
+  addChildrenToNode: (key: string, nodeData: RootConfig, childrenList: RootConfig[]) => void;
+  addStarPaper: (key: string, paper: PaperConfig) => void;
+  deletePaperFromStarCollection: (key: string, doi: string) => void;
+  deleteStarCollection: (key: string) => void;
+  deleteAllChart: () => void;
+}
+
+interface formattingRootFunction {
+  (paper: PaperConfig[], collectionName: string): InitRootConfig;
+}
+
+export type {
   SearchResponseConfig,
-  PaperStoreState, PaperConfig, PaperCollectionConfig,
+  PaperStoreState,
+  PaperConfig,
+  ReferenceConfig,
+  PaperCollectionConfig,
   DragElemConfig,
   CollectionStoreState,
+  RootConfig,
+  InitRootConfig,
+  RootCollectionConfig,
+  StarCollectionConfig,
+  ChartStoreState,
+  InitChartFunction,
+  formattingRootFunction,
 };
