@@ -2,7 +2,9 @@ import { create } from "zustand";
 import { persist, createJSONStorage, devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-const changeTargetStatus = (root, target, status) => {
+import type { ChartStoreState, RootConfig, PaperConfig } from "../types/interface";
+
+const changeTargetStatus = (root: RootConfig, target: RootConfig, status: string) => {
   if (root.doi === target.doi) {
     root.status = status;
 
@@ -18,10 +20,9 @@ const changeTargetStatus = (root, target, status) => {
   return root;
 };
 
-const transplantChildren = (root, target, childrenList) => {
+const transplantChildren = (root: RootConfig, target: RootConfig, childrenList: RootConfig[]) => {
   if (root.doi === target.doi) {
     root.children = childrenList;
-
     return root;
   }
 
@@ -38,50 +39,44 @@ const chartStore = persist(
   immer((set) => ({
     rootCollection: {},
     starCollection: {},
-    initChart: (key, root) =>
-      set((state) => {
-        state.rootCollection = {
-          ...state.rootCollection,
-          [key]: root
-        };
+    initChart: (key: string, root: RootConfig) =>
+      set((state: ChartStoreState) => {
+        state.rootCollection[key] = root;
       }),
-    deleteCollectionFromChart: (key) =>
-      set((state) => {
+    deleteCollectionFromChart: (key: string) =>
+      set((state: ChartStoreState) => {
         delete state.rootCollection[key];
       }),
-    deletePaperFromChart: (key, doi) =>
-      set((state) => {
+    deletePaperFromChart: (key: string, doi: string) =>
+      set((state: ChartStoreState) => {
         state.rootCollection[key].children = state.rootCollection[key].children.filter((paper) => paper.doi !== doi);
       }),
-    changeNodeStatus: (key, nodeData, status) =>
-      set((state) => {
+    changeNodeStatus: (key: string, nodeData: RootConfig, status: string) =>
+      set((state: ChartStoreState) => {
         state.rootCollection[key] = changeTargetStatus(state.rootCollection[key], nodeData, status);
       }),
-    addChildrenToNode: (key, nodeData, childrenList) =>
-      set((state) => {
+    addChildrenToNode: (key: string, nodeData: RootConfig, childrenList: RootConfig[]) =>
+      set((state: ChartStoreState) => {
         state.rootCollection[key] = transplantChildren(state.rootCollection[key], nodeData, childrenList);
       }),
-    addStarPaper: (key, paper) =>
-      set((state) => {
+    addStarPaper: (key: string, paper: PaperConfig) =>
+      set((state: ChartStoreState) => {
         if (state.starCollection[key]) {
-          state.starCollection[key] = [...state.starCollection[key], paper];
+          state.starCollection[key].push(paper);
         } else {
-          state.starCollection = {
-            ...state.starCollection,
-            [key]: [paper]
-          };
+          state.starCollection[key] = [paper];
         }
       }),
-    deletePaperFromStarCollection: (key, doi) =>
-      set((state) => {
+    deletePaperFromStarCollection: (key: string, doi: string) =>
+      set((state: ChartStoreState) => {
         state.starCollection[key] = state.starCollection[key].filter((paper) => paper.doi !== doi);
       }),
-    deleteStarCollection: (key) =>
-      set((state) => {
+    deleteStarCollection: (key: string) =>
+      set((state: ChartStoreState) => {
         delete state.starCollection[key];
       }),
     deleteAllChart: () => {
-      set((state) => {
+      set((state: ChartStoreState) => {
         state.rootCollection = {};
         state.starCollection = {};
       });
