@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type MouseEvent } from "react";
 import { useParams } from "react-router-dom";
 import { FcEmptyTrash } from "react-icons/fc";
 
@@ -7,14 +7,19 @@ import PaperCard from "../PaperCard";
 
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
+import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
 
-function Paper({ paper }) {
+interface PaperProps {
+  paper: PaperConfig;
+}
+
+function Paper({ paper }: PaperProps) {
   const [isPaperCardOpen, setIsPaperCardOpen] = useState(false);
-  const { collectionId } = useParams();
-  const { deletePaperFromCollection } = usePaperStore();
-  const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore();
+  const { collectionId } = useParams() as { collectionId: string };
+  const { deletePaperFromCollection } = usePaperStore() as PaperStoreState;
+  const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore() as ChartStoreState;
 
-  const deletePaper = (ev) => {
+  const deletePaper = (ev: MouseEvent<SVGElement>) => {
     ev.stopPropagation();
 
     deletePaperFromCollection(collectionId, paper.doi);
@@ -22,7 +27,7 @@ function Paper({ paper }) {
     deletePaperFromStarCollection(collectionId, paper.doi);
   };
 
-  const clickPaper = (ev) => {
+  const clickPaper = (ev: MouseEvent<HTMLDivElement>) => {
     ev.preventDefault();
 
     setIsPaperCardOpen(!isPaperCardOpen);
@@ -40,7 +45,7 @@ function Paper({ paper }) {
         </Modal>
       )}
       <div className="font-extrabold truncate text-14">{paper?.title || "제목 정보 없음"}</div>
-      <div className="truncate text-10 text-stone-400">{paper?.authors || "저자 정보 없음"}</div>
+      <div className="truncate text-10 text-stone-400">{paper?.author || "저자 정보 없음"}</div>
       <div className="inline-flex justify-between w-full">
         <p className="text-10">{paper?.createdAt || "출판일 정보 없음"}</p>
         <button className="p-2 text-20">
