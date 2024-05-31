@@ -15,8 +15,21 @@ import { formattingResponse } from "../../utils/utils";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 import useChartStore from "../../stores/chart";
+import type {
+  ChartStoreState,
+  PaperConfig,
+  PaperStoreState,
+  RootConfig,
+  formattingRootFunction,
+  InitChartFunction,
+  InitRootConfig,
+  SearchResponseConfig,
+} from "../../types/interface";
+import type { AxiosResponse } from "axios";
 
-const fetchChildrenNodes = async (root, initChart, collectionKey) => {
+const fetchChildrenNodes = async (root: RootConfig | InitRootConfig, initChart: InitChartFunction, collectionKey: string) => {
+  if (!root.children || root.children.length <= 0) return;
+
   const childrenList =
     root.children &&
     root.children.map((node) => ({
@@ -24,6 +37,7 @@ const fetchChildrenNodes = async (root, initChart, collectionKey) => {
       title: node.title,
       children: node.children,
       citations: node.citations,
+      author: node.author,
       status: STATUS.STAR,
     }));
 
@@ -31,17 +45,19 @@ const fetchChildrenNodes = async (root, initChart, collectionKey) => {
     const descendants = node.children;
 
     return descendants?.length
-      ? `${API.CROSSREF_WORKS_URL}?filter=doi:${descendants.join(",doi:")}&select=DOI,title,is-referenced-by-count`
+      ? `${API.CROSSREF_WORKS_URL}?filter=doi:${descendants.join(",doi:")}`
       : null;
   });
   const childrenPromiseList = reqUrlList.map((node) => node && axios.get(node));
   const allResponse = await Promise.all(childrenPromiseList);
-  const childrenDataList = allResponse.map((res) => {
-    const items = res?.data?.message?.items;
-    const formattedItems = items?.map((item) => ({
+  const childrenDataList: RootConfig[][] = allResponse.map((res) => {
+    const items = res && res.data.message.items;
+
+    const formattedItems: RootConfig[] = items.map((item: SearchResponseConfig) => ({
       title: item?.title?.[0] || "제목 정보 없음",
       doi: item.DOI,
       citations: item["is-referenced-by-count"],
+      author: item.author.filter((person) => person.family && person.given).map((person) => `${person.family} ${person.given}`),
       status: STATUS.DEFAULT,
       children: [],
     }));
@@ -49,42 +65,34 @@ const fetchChildrenNodes = async (root, initChart, collectionKey) => {
     return formattedItems;
   });
 
-  const newRoot = {
+  const newRoot: RootConfig = {
     ...root,
     children: childrenList.map((subTree, index) => ({
-      ...subTree,
-      children: childrenDataList[index]
-    }))
+        ...subTree,
+        children: childrenDataList[index]
+      }))
   };
 
   initChart(collectionKey, newRoot);
 };
 
-const formattingRoot = (paperList, collectionName)=>  {
+const formattingRoot: formattingRootFunction = (paperList, collectionName) => {
   return {
     title: collectionName,
     doi: NONE,
     status: STATUS.COLLECTION,
     citations: COLLECTION_RADIUS,
-    children:
-      paperList?.map((paper) => ({
-        doi: paper.doi,
-        url: paper.url,
-        title: paper.title,
-        citations: paper.citations,
-        createdAt: paper.createdAt,
-        authors: paper.authors,
-        children: paper.refs
-      })) || []
+    author: "user",
+    children: paperList
   };
 };
 
 function ViewPage() {
   const navigator = useNavigate();
-  const { collectionId } = useParams();
-  const { rootCollection, initChart, starCollection } = useChartStore();
+  const { collectionId } = useParams() as { collectionId: string };
+  const { rootCollection, initChart, starCollection } = useChartStore() as ChartStoreState;
   const { collection } = useCollectionStore();
-  const { paperCollection, initPaperCollection } = usePaperStore();
+  const { paperCollection, initPaperCollection } = usePaperStore() as PaperStoreState;
   const isCurrentPaperListExist = Object.values(paperCollection).length > 0;
   const currentCollectionName = collection[collectionId];
   const isDataExist = rootCollection[collectionId] && Object.keys(rootCollection[collectionId]).length > 0;
@@ -102,23 +110,27 @@ function ViewPage() {
       navigator("/");
     }
 
-    const getReferences = async (currentPaperList) => {
+    const getReferences = async (currentPaperList: PaperConfig[]) => {
       const getReferencesPromiseList = currentPaperList.map((paper) => {
-
         return axios.get(`${API.CROSSREF_WORKS_URL}/${API.PAPER_URL}/${paper.doi}`);
       });
+      const makeReferenceList = (responePromiseArray: AxiosResponse[]) => {
+        const allRefList: PaperConfig[] = [];
+
+        responePromiseArray.forEach((res) => {
+          if (res?.data?.status === "ok") {
+            const response = res?.data?.message;
+
+            allRefList.push(formattingResponse(response));
+          }
+        });
+
+        return allRefList;
+      };
+
 
       const allResponse = await Promise.all(getReferencesPromiseList);
-      const allReferencesList = allResponse.map((res) => {
-        if (res?.data?.status !== "ok") {
-          return;
-        }
-
-        const response = res?.data?.message;
-
-        return formattingResponse(response);
-      });
-
+      const allReferencesList = makeReferenceList(allResponse);
       const rootNode = formattingRoot(allReferencesList, currentCollectionName);
 
       fetchChildrenNodes(rootNode, initChart, collectionId);
@@ -128,6 +140,8 @@ function ViewPage() {
       getReferences(currentPaperList);
     }
   }, [paperCollection]);
+
+
 
   return (
     <>
