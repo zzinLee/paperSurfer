@@ -23,7 +23,7 @@ const paperStore = persist(
       set((state: PaperStoreState) => {
         state.paperCollection[key] = state.paperCollection[key].filter((paper: PaperConfig) => paper.doi !== doi);
       }),
-    initPaperCollection: (key: string, starPaperCollection: Array<PaperConfig>) =>
+    initPaperCollection: (key: string, starPaperCollection: PaperConfig[]) =>
       set((state: PaperStoreState) => {
         state.paperCollection[key] = starPaperCollection;
       }),

@@ -2,7 +2,7 @@ import PaperCard from "../PaperCard";
 import type { PaperConfig } from "../../types/interface";
 
 interface PaperSearchListProps {
-  searchList: Array<PaperConfig>
+  searchList: PaperConfig[];
 }
 
 function PaperSearchList({ searchList }: PaperSearchListProps) {

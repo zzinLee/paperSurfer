@@ -11,7 +11,7 @@ import { MAILTO } from "../../utils/constants";
 import type { PaperConfig, SearchResponseConfig } from "../../types/interface";
 
 interface PaperSearchBarProps {
-  getSearchList: Dispatch<SetStateAction<Array<PaperConfig>>>;
+  getSearchList: Dispatch<SetStateAction<PaperConfig[]>>;
 }
 
 function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
@@ -48,7 +48,7 @@ function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
         setIsLoading(false);
       }
 
-      const responseItems = response?.data?.message?.items as Array<SearchResponseConfig>;
+      const responseItems = response?.data?.message?.items as SearchResponseConfig[];
       const searchList = responseItems.map((eachPaper) => {
         const rawAuthorList = eachPaper.author;
         const authorList =
@@ -65,7 +65,7 @@ function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
           citations: eachPaper["is-referenced-by-count"],
           createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join(".") || "출판일 정보 없음",
           containerTitle: eachPaper?.["container-title"]?.[0] || "저널 정보 없음",
-          authors: authorList?.join(", ") || "저자 정보 없음"
+          author: authorList?.join(", ") || "저자 정보 없음"
         };
       });
 

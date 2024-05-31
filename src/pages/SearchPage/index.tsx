@@ -11,7 +11,7 @@ import type { PaperConfig } from "../../types/interface";
 function SearchPage() {
   const navigator = useNavigate();
   const { collectionId } = useParams();
-  const [searchList, setSearchList] = useState<Array<PaperConfig>>([]);
+  const [searchList, setSearchList] = useState<PaperConfig[]>([]);
   const isSearchListExist = searchList.length !== 0;
 
   return (
