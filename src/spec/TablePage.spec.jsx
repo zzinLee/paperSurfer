@@ -60,7 +60,7 @@ describe("[TablePage] 테스트", () => {
       citations: 113,
       createdAt: "2005.3.4",
       containerTitle: "European Journal of Biochemistry",
-      authors: "PERSSON Bengt, BENGTSSON-OLIVECRONA Gunilla, ENERBÄCK Sven, OLIVECRONA Thomas, JÖRNVALL Hans"
+      author: "PERSSON Bengt, BENGTSSON-OLIVECRONA Gunilla, ENERBÄCK Sven, OLIVECRONA Thomas, JÖRNVALL Hans"
     };
 
     const paper2 = {
@@ -71,7 +71,7 @@ describe("[TablePage] 테스트", () => {
       citations: 0,
       createdAt: "2010.9.9",
       containerTitle: "Journal of Life Science",
-      authors: "저자 정보 없음"
+      author: "저자 정보 없음"
     };
 
     usePaperStore.setState({

@@ -10,7 +10,7 @@ function TableRow({ paper }: TableRowProps) {
       <th scope="row" className="w-1/4 p-8 font-extrabold text-gray-900">
         {paper.title}
       </th>
-      <td className="w-2/12 px-2 py-8">{paper.authors}</td>
+      <td className="w-2/12 px-2 py-8">{paper.author}</td>
       <td className="w-1/12 px-2 py-8">{paper.createdAt}</td>
       <td className="w-2/12 px-2 py-8">{paper.containerTitle}</td>
       <td className="px-2 py-8">{paper.citations}</td>

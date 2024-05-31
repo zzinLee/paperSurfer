@@ -22,8 +22,8 @@ function formattingResponse(response: SearchResponseConfig): PaperConfig {
     createdAt: publishedAt || "날짜 정보 없음",
     citations: response["is-referenced-by-count"],
     containerTitle: decodedString(response["container-title"]?.[0]) || "저널 정보 없음",
-    authors: decodedString(authorList?.join(", ")) || "저자 정보 없음",
-    refs: response?.reference?.map((value) => value.DOI).filter((val) => val),
+    author: decodedString(authorList?.join(", ")) || "저자 정보 없음",
+    children: response?.reference?.map((value) => value.DOI).filter((val) => val),
     abstract: response?.abstract,
   };
 }

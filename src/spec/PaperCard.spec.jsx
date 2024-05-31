@@ -50,7 +50,7 @@ const mockPaper = {
   citations: eachPaper["is-referenced-by-count"],
   createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join(".") || "출판일 정보 없음",
   containerTitle: eachPaper?.["container-title"]?.[0] || "저널 정보 없음",
-  authors: authorList?.join(", ") || "저자 정보 없음"
+  author: authorList?.join(", ") || "저자 정보 없음"
 };
 
 describe("[PaperCard Component] 단위 테스트", () => {
