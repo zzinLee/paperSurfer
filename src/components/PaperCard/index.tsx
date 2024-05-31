@@ -5,17 +5,22 @@ import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
+import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
 
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
 const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
 const CLASS_CARD_PROP = "flex flex-row items-center gap-3 px-10 py-5";
 const CLASS_CARD_BUTTON = "px-8 py-4 m-8 text-center text-white rounded-lg shadow-md text-14 w-fit hover:cursor-pointer";
 
-function PaperCard({ paper }) {
-  const { collectionId } = useParams();
+interface PaperCardProps {
+  paper: PaperConfig;
+}
+
+function PaperCard({ paper }: PaperCardProps) {
+  const { collectionId } = useParams() as { collectionId: string };
   const { collection } = useCollectionStore();
-  const { addPaperToCollection, paperCollection } = usePaperStore();
-  const { initChart, addStarPaper } = useChartStore();
+  const { addPaperToCollection, paperCollection } = usePaperStore() as PaperStoreState;
+  const { initChart, addStarPaper } = useChartStore() as ChartStoreState;
 
   const [isLinkClick, setIsLinkClick] = useState(false);
   const currentCollectionName = collection[collectionId];
@@ -29,6 +34,8 @@ function PaperCard({ paper }) {
       title: currentCollectionName || "문서명 없음",
       status: STATUS.COLLECTION,
       children: [],
+      doi: "null",
+      author: "null",
     };
 
     addPaperToCollection(collectionId, paper);
@@ -60,7 +67,7 @@ function PaperCard({ paper }) {
       <div className="inline-flex">
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-indigo-100 text-indigo-800`}>저자</p>
-          <p className="text-sm text-slate-600 max-w-680">{paper.authors}</p>
+          <p className="text-sm text-slate-600 max-w-680">{paper.author}</p>
         </div>
         <div className={CLASS_CARD_PROP}>
           <p className={`${CLASS_BADGE} bg-blue-100 text-blue-800`}>출판일</p>
