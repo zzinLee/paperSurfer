@@ -1,24 +1,26 @@
 import { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-import Modal from "../../components/shared/Modal";
+import Modal from "../shared/Modal";
 import PaperNodeCard from "../PaperNodeCard";
 import LoadingCircle from "../shared/LoadingCircle";
 
 import { PALETTE, STATUS, NONE } from "../../utils/constants";
 import { decodedString } from "../../utils/utils";
 
-const getStrokeColor = (status) => {
+import type { RootConfig } from "../../types/interface";
+
+const getStrokeColor = (status: string) => {
   return status === STATUS.DEFAULT ? PALETTE.GRAY : status;
 };
 
-const getTitleText = (text) => {
+const getTitleText = (text: string) => {
   const MAX_LENGTH = 20;
 
   return text.length > MAX_LENGTH ? decodedString(`${text.slice(0, MAX_LENGTH)}...`) : decodedString(text);
 };
 
-const getNodeRadius = (citations) => {
+const getNodeRadius = (citations: number) => {
   const radiusLimit = [
     [1, 4],
     [10, 10],
@@ -30,18 +32,24 @@ const getNodeRadius = (citations) => {
     [Infinity, 18]
   ];
 
+  let rad = 0;
+
   for (const [limit, radius] of radiusLimit) {
     if (!citations) {
-      return 5;
+      rad = 5;
+
+      break;
     }
 
     if (citations <= limit) {
-      return radius;
+      rad = radius;
     }
   }
+
+  return rad;
 };
 
-const getTextColor = (status) => {
+const getTextColor = (status: string) => {
   switch (status) {
     case STATUS.DEFAULT:
       return PALETTE.DARKER;
@@ -57,8 +65,16 @@ const getTextColor = (status) => {
   }
 };
 
-const drag = (simulation) => {
-  const dragstarted = (ev, d) => {
+interface NodeData extends d3.HierarchyNode<RootConfig> {
+  data: RootConfig;
+  x?: number;
+  y?: number;
+  fx?: number | null;
+  fy?: number | null;
+}
+
+const drag = (simulation: d3.Simulation<NodeData, undefined>) => {
+  const dragstarted = (ev: d3.D3DragEvent<SVGCircleElement, NodeData, NodeData>, d: NodeData): void => {
     if (!ev.active) {
       simulation.alphaTarget(0.3).restart();
     }
@@ -67,12 +83,12 @@ const drag = (simulation) => {
     d.fy = d.y;
   };
 
-  const dragged = (ev, d) => {
+  const dragged = (ev: d3.D3DragEvent<SVGCircleElement, NodeData, NodeData>, d: NodeData): void => {
     d.fx = ev.x;
     d.fy = ev.y;
   };
 
-  const dragended = (ev, d) => {
+  const dragended = (ev: d3.D3DragEvent<SVGCircleElement, NodeData, NodeData>, d: NodeData): void => {
     if (!ev.active) {
       simulation.alphaTarget(0);
     }
@@ -81,19 +97,27 @@ const drag = (simulation) => {
     d.fy = null;
   };
 
-  return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
+  return d3
+    .drag<SVGCircleElement, NodeData>()
+    .on("start", dragstarted)
+    .on("drag", dragged)
+    .on("end", dragended);
 };
 
-function PaperChart({ data }) {
+interface PaperChartProps {
+  data: RootConfig;
+}
+
+function PaperChart({ data }: PaperChartProps) {
   const chartRef = useRef(null);
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<null | RootConfig>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const doubleClick = (ev, d)  => {
+  const doubleClick = (ev: MouseEvent, d: d3.HierarchyNode<RootConfig>): void => {
     nodeRef.current = d.data;
 
-    if (nodeRef.current.doi === NONE) {
+    if (nodeRef.current && nodeRef.current.doi === NONE) {
       return;
     }
 
@@ -113,10 +137,9 @@ function PaperChart({ data }) {
       .force(
         "link",
         d3
-          .forceLink(links)
-          .id((d) => d.id)
-          .distance(1)
-          .strength(0.7)
+        .forceLink(links)
+        .distance(1)
+        .strength(0.7)
       )
       .force("charge", d3.forceManyBody().strength(-700))
       .force("x", d3.forceX())
@@ -147,8 +170,8 @@ function PaperChart({ data }) {
       .attr("stroke", (d) => getStrokeColor(d.data.status))
       .attr("stroke-width", 1)
       .attr("r", (d) => getNodeRadius(d.data.citations))
-      .call(drag(simulation))
-      .on("dblclick", doubleClick);
+      .on("dblclick", (ev, d) => doubleClick(ev, d))
+      .call(drag(simulation) as any);
 
     const text = svg
       .append("g")
@@ -156,9 +179,9 @@ function PaperChart({ data }) {
       .data(nodes)
       .join("text")
       .text((d) => getTitleText(d.data.title))
-      .attr("x", (d) => d.x + 10)
-      .attr("y", (d) => d.y - 10)
-      .attr("fill", (d) => getTextColor(d.data.status))
+      .attr("x", (d) => d.x as number+ 10)
+      .attr("y", (d) => d.y as number - 10)
+      .attr("fill", (d) => getTextColor(d.data.status) as string)
       .attr("font-weight", (d) => (d.children ? "bold" : "regular"))
       .attr("font-size", 10);
 
@@ -166,13 +189,13 @@ function PaperChart({ data }) {
 
     simulation.on("tick", () => {
       link
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
+        .attr("x1", (d) => d.source.x as number)
+        .attr("y1", (d) => d.source.y as number)
+        .attr("x2", (d) => d.target.x as number)
+        .attr("y2", (d) => d.target.y as number);
 
-      node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
-      text.attr("x", (d) => d.x + 10).attr("y", (d) => d.y - 10);
+      node.attr("cx", (d) => d.x as number).attr("cy", (d) => d.y as number);
+      text.attr("x", (d) => d.x as number + 10).attr("y", (d) => d.y as number - 10);
     });
 
     return () => {
@@ -186,11 +209,13 @@ function PaperChart({ data }) {
       <div className="w-full h-full p-20 m-12 rounded-md">
         {isModalOpen && (
           <Modal setModal={setIsModalOpen}>
-            <PaperNodeCard
-              nodeData={nodeRef.current}
-              setModalOpen={setIsModalOpen}
-              setIsLoadingChild={setIsLoading}
-            />
+            {nodeRef.current &&
+              <PaperNodeCard
+                nodeData={nodeRef.current}
+                setModalOpen={setIsModalOpen}
+                setIsLoadingChild={setIsLoading}
+              />
+            }
           </Modal>
         )}
         {isLoading && (<Modal><LoadingCircle /></Modal>)}
