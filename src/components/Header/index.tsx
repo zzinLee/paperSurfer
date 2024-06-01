@@ -1,21 +1,33 @@
 import { Link } from "react-router-dom";
+import { IoHomeSharp } from "react-icons/io5";
+import { FaFilePdf } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+
 
 function Header() {
   return (
-    <>
-      <img src="/assets/papersurferHome.png" className="absolute w-200 top-1 left-2"></img>
-      <nav className="relative z-10 font-pretendard">
-        <ul className="flex flex-row-reverse w-screen shadow-md min-h-72 text-22">
-          <Link to="/file">
-            <li className="py-10 my-10 border-l-2 px-28">PDF Viewer</li>
-          </Link>
-          <Link to="/">
-            <li className="py-10 my-10 px-28">HOME</li>
-          </Link>
-          <li className="px-32 py-10 my-10 font-semibold border-r-2 text-16">Enjoy your paperSurfing!</li>
-        </ul>
-      </nav>
-    </>
+    <nav className="flex flex-row justify-between border-b-gray-200 border">
+      <img src="/assets/papersurferHome.png" className="h-68"></img>
+      <ul className="flex items-center mr-52 gap-12">
+        <Link to="/file">
+          <li className="inline-flex items-center gap-4 py-8 px-12 rounded-full hover:bg-slate-100 text-center font-semibold cursor-default">
+            <FaFilePdf size="18" />
+            PDF Viewer
+          </li>
+        </Link>
+        <Link to="/">
+          <li className="inline-flex items-center gap-4 py-8 px-12 rounded-full hover:bg-slate-100 text-center font-semibold cursor-default">
+            <IoHomeSharp size="18" />
+            HOME
+          </li>
+        </Link>
+        <a href="https://github.com/zzinLee/paperSurfer">
+          <li className="hover:bg-slate-100 rounded-full p-10 cursor-default">
+            <FaGithub size="18" color="grey" />
+          </li>
+        </a>
+      </ul>
+    </nav>
   );
 }
 
