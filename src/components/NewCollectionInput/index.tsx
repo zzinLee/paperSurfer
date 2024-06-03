@@ -15,7 +15,7 @@ function NewCollectionInput({ toggle }: NewCollectionInputInterface) {
   const submitCollection = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
-    if (!collectionName.length || collectionName.length > 28) {
+    if (!collectionName.length || collectionName.length > 20) {
       return;
     }
 
@@ -30,7 +30,7 @@ function NewCollectionInput({ toggle }: NewCollectionInputInterface) {
       setShowAlert(false);
     }
 
-    if (ev.target.value.length > 28 || !ev.target.value.length) {
+    if (ev.target.value.length > 20 || !ev.target.value.length) {
       setShowAlert(true);
     }
 
@@ -40,36 +40,30 @@ function NewCollectionInput({ toggle }: NewCollectionInputInterface) {
   };
 
   return (
-    <div className="p-10 m-10 shadow-md w-208 rounded-xl h-fit bg-stone-100">
-      <div className="inline-flex gap-16 text-black">
-        <button onClick={toggle}>
-          <FaRegFolderOpen className="size-24" />
-        </button>
-        <p className="font-extrabold text-20 font-pretendard">New</p>
+    <div className="relative w-196 my-10 mx-8 shadow-md px-4 h-fit">
+      <div
+        className="flex flex-row justify-center items-center gap-16 rounded-xl p-8 hover:bg-slate-100 mb-8"
+        onClick={toggle}
+      >
+        <FaRegFolderOpen size="20" />
+        <div className="font-extrabold text-18 w-84">New</div>
       </div>
-      <form className="flex flex-col gap-10" onSubmit={submitCollection}>
+      <form onSubmit={submitCollection}>
         <input
           type="text"
-          className="p-5 rounded-sm text-14 focus: outline-violet-400"
+          className="rounded-sm p-4 text-14 outline-slate-500 w-[100%] mb-4"
           onChange={typeInput}
           autoFocus
           placeholder="문서 이름을 입력하세요"
         />
-        <div
-          className="flex flex-row justify-between w-full font-nanumNeo text-14"
-        >
-          {showAlert ? (
-            <p className="inline text-violet-700">1자 이상 28자 이내</p>
-          ) : (
-            <p className="invisible inline">1자 이상 28자 이내</p>
-          )}
-          <button
-            type="submit"
-            className="px-6 py-2 text-white rounded-md bg-zinc-900 hover:bg-violet-700"
-          >
-            submit
-          </button>
+        <div className="font-nanumNeo">
+          {showAlert && <p className="absolute bottom-6 right-8 text-12 text-right text-indigo-700">1자 이상 20자 이내</p>}
         </div>
+        <button
+          type="submit"
+          className="text-white bg-slate-400 text-14 w-64 rounded-md m-4 hover:bg-indigo-100">
+          submit
+        </button>
       </form>
     </div>
   );

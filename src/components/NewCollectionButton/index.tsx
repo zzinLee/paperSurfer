@@ -8,10 +8,10 @@ function NewCollectionButton({ toggle }: NewCollectionButtonInterface) {
   return (
     <button
       onClick={toggle}
-      className="flex flex-row gap-16 p-10 m-10 rounded-xl w-208 font-pretendard hover:bg-violet-400 hover:text-white"
+      className="flex flex-row justify-center items-center gap-16 p-8 my-10 mx-8 rounded-xl w-196 hover:bg-slate-100"
     >
-      <FaFolderPlus className="size-24" />
-      <p className="font-extrabold text-20">Document</p>
+      <FaFolderPlus size="20" />
+      <p className="font-extrabold text-18 w-84">Document</p>
     </button>
   );
 }
