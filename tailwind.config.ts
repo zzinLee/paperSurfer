@@ -10,7 +10,8 @@ export default {
   theme: {
     fontFamily: {
       pretendard: ["Pretendard-Regular"],
-      nanumNeo: ["NanumSquareNeo-Variable"]
+      nanumNeo: ["NanumSquareNeo-Variable"],
+      sarala: ["sarala-regular"],
     },
     extend: {
       colors: {
