@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply text-lg font-normal cursor-default font-pretendard
+  body, html {
+    @apply text-lg font-normal cursor-default font-pretendard h-screen w-screen
   }
 
   li {
@@ -13,6 +13,10 @@
 
   h1 {
     @apply font-medium
+  }
+
+  #root {
+    @apply h-full
   }
 }
 
@@ -30,13 +34,20 @@
   font-style: normal;
 }
 
-@media screen and (max-width: 600px) {
-  .desktop-content {
-    display: none;
-  }
-
-  .mobile-alert {
-    display: block;
-  }
+@font-face {
+  font-family: "sarala-regular";
+  src: url("https://fonts.googleapis.com/css2?family=Sarala:wght@400;700&display=swap");
+  font-style: normal;
 }
 
+@layer components {
+  .blind {
+    overflow: hidden !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    color: transparent !important;
+    clip: rect(0px, 0px, 0px, 0px) !important;
+  }
+}
