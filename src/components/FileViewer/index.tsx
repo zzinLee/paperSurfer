@@ -67,7 +67,7 @@ function FileViewer({ pdfFile }: FileViewerInterace) {
   }, [scrollY]);
 
   const highlightText = (ev: MouseEvent<SVGElement>) => {
-    ev.preventDefault();
+    ev.stopPropagation();
 
     const drag = window.getSelection();
 
@@ -75,6 +75,9 @@ function FileViewer({ pdfFile }: FileViewerInterace) {
 
     const range = drag.getRangeAt(0);
     const targetString = drag.toString();
+
+    if (!targetString) return;
+
     const { top, left, width, height } = range.getBoundingClientRect();
 
     if (!pdfContainer) return;
@@ -145,7 +148,7 @@ function FileViewer({ pdfFile }: FileViewerInterace) {
       </div>
       <div>
         <div className="flex flex-row items-center">
-          <button className="absolute z-30 p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-150">
+          <button className="absolute z-30 p-8 text-white rounded-full shadow-xl text-32 top-150 bg-orange-400">
             <BiHighlight className="size-28" onClick={highlightText} />
           </button>
           <button
@@ -165,7 +168,7 @@ function FileViewer({ pdfFile }: FileViewerInterace) {
             <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
               <Page pageNumber={pageNumber} customTextRenderer={customTextRenderer} />
             </Document>
-          </div>x
+          </div>
           <button className="p-8 text-white rounded-full shadow-xl text-32 bg-zinc-800 hover:bg-violet-700">
             <AiOutlineArrowRight onClick={nextPage} />
           </button>
