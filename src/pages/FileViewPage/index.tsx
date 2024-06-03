@@ -11,7 +11,7 @@ function FileViewPage() {
   };
 
   return (
-    <>
+    <div className="flex flex-row w-full min-h-full h-fit">
       {!selectedFile && <FileUploader uploadFile={setSelectedFile} />}
       {selectedFile && <FileViewer pdfFile={selectedFile} />}
       {selectedFile && (
@@ -22,7 +22,7 @@ function FileViewPage() {
           파일 재선택
         </button>
       )}
-    </>
+    </div>
   );
 }
 
