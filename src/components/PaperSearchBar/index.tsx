@@ -85,20 +85,24 @@ function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
         }}
         className="w-2/3 p-10"
       >
-        <div className="flex flex-row gap-5 m-24">
+        <div className="flex flex-row gap-5 m-24 justify-center items-center">
           <input
             ref={searchInput}
             type="search"
             id="search"
-            className="w-full p-4 pl-10 text-lg rounded-lg shadow-sm font-pretendard focus:outline-violet-400"
+            className="w-full p-4 pl-10 text-16 rounded-lg shadow-sm font-pretendard focus:outline-blue-600"
             placeholder="키워드를 검색하세요..."
             required
           />
           {isLoading ? (
             <SearchLoading />
           ) : (
-            <button type="submit" className="px-6 py-2 text-base text-black w-50">
-              <AiOutlineSearch className="size-28" />
+            <button
+              type="submit"
+              className="flex flex-row justify-center items-center px-6 py-2 text-white text-18 min-w-fit bg-blue-600 rounded-md"
+            >
+              <AiOutlineSearch className="size-18" />
+              검색
             </button>
           )}
         </div>
