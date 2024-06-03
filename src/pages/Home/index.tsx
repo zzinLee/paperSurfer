@@ -4,7 +4,7 @@ import CollectionSidebar from "../../components/CollectionSidebar";
 
 function Home() {
   return (
-    <div className="relative z-0 flex flex-row h-full bg-bgColor">
+    <div className="flex flex-row w-full h-full">
       <CollectionSidebar />
       <Outlet />
     </div>
