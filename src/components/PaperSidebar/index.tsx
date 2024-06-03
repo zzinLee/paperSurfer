@@ -1,5 +1,4 @@
-import { Link, useParams } from "react-router-dom";
-import { FaTable } from "react-icons/fa";
+import { useParams } from "react-router-dom";
 
 import Paper from "../Paper";
 
@@ -36,13 +35,6 @@ function PaperSidebar() {
           )}
         </ul>
       </div>
-      {isPaperListExist && (
-        <Link to={`/${collectionId}/table`}>
-          <button className="absolute p-8 text-white rounded-full shadow-xl top-90 right-30 bg-violet-700 text-32">
-            <FaTable className="size-28" />
-          </button>
-        </Link>
-      )}
     </aside>
   );
 }

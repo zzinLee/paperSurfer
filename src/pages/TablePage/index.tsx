@@ -27,9 +27,13 @@ function TablePage() {
   const tableRowElemList = paperList.map((paper) => <TableRow key={paper.doi} paper={paper} />);
 
   return (
-    <div className="content-center m-auto">
-      <button className="absolute z-30 p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
-        <RiArrowGoBackLine className="size-28" onClick={() => navigator(-1)} />
+    <div className="relative content-center m-auto h-full">
+      <button
+        className="flex flex-row gap-4 absolute px-8 py-2 items-center text-white rounded-full shadow-xl hover:bg-indigo-700 text-18 top-30 right-30 bg-slate-700"
+        onClick={() => navigator(-1)}
+      >
+        <RiArrowGoBackLine size="18" />
+        뒤로가기
       </button>
       <div className="relative mx-10 overflow-x-auto font-nanumNeo">
         <h1 className="py-10 text-center text-white bg-black">{collection[collectionId]}</h1>

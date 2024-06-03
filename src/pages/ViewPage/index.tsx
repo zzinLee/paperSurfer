@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { LuRefreshCw } from "react-icons/lu";
+import { GoTable } from "react-icons/go";
 
 import PaperSidebar from "../../components/PaperSidebar";
 import PaperChart from "../../components/PaperChart";
@@ -146,7 +147,7 @@ function ViewPage() {
   return (
     <>
       <PaperSidebar />
-      <div className="flex flex-row items-center justify-center w-full">
+      <div className="relative flex flex-row items-center justify-center w-full">
         {isDataExist && isSameData ? (
           <PaperChart data={rootCollection[collectionId]} />
         ) : (
@@ -154,13 +155,26 @@ function ViewPage() {
             <LoadingCircle />
           </Modal>
         )}
+        <Link to={`/${collectionId}/search`}>
+          <button className="flex flex-row gap-4 absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-30 right-30 bg-slate-700 text-17 w-180">
+            <AiOutlineSearch size="18" />
+            다시 검색하러 가기
+          </button>
+        </Link>
+        <Link to={`/${collectionId}/table`}>
+          <button className="flex flex-row gap-4 absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl top-80 right-30 hover:bg-indigo-700 bg-slate-700 text-17 w-180">
+            <GoTable size="18" />
+            테이블로 보기
+          </button>
+        </Link>
+        <button
+          className="flex flex-row gap-4 px-8 py-2 items-center absolute justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-130 right-30 bg-slate-700 text-17 w-180"
+          onClick={clickRefresh}
+        >
+          <LuRefreshCw size="18" />
+          그래프 새로고침
+        </button>
       </div>
-      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-30 right-30">
-        <AiOutlineSearch className="size-28" onClick={() => navigator(`/${collectionId}/search`)} />
-      </button>
-      <button className="absolute p-8 text-white rounded-full shadow-xl bg-violet-700 text-32 top-150 right-30">
-        <LuRefreshCw className="size-28" onClick={clickRefresh} />
-      </button>
     </>
   );
 }
