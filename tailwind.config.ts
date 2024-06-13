@@ -33,7 +33,11 @@ export default {
       minWidth: px0_200,
       minHeight: px0_200,
       spacing: px0_300
-    }
+    },
+    screens: {
+      mb: { max: "464px" },
+      sm: { max: "640px" },
+    },
   },
   plugins: []
 };
