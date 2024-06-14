@@ -36,7 +36,7 @@ function Paper({ paper }: PaperProps) {
 
   return (
     <div
-      className="relative p-8 m-10 text-left bg-white rounded-sm shadow-md w-200 hover:bg-slate-50"
+      className="relative p-8 m-4 text-left bg-white rounded-sm shadow-md w-200 hover:bg-slate-50"
       onClick={clickPaper}
       data-testid="paper"
     >

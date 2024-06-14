@@ -10,7 +10,7 @@ function CollectionSidebar() {
   const { collection } = useCollectionStore();
   const isCollectionListExist = collection && Object.keys(collection).length > 0;
   const [isFolded, setIsFolded] = useState<boolean>(false);
-  const foldedWidthAnimation = isFolded ? "ease-in w-30" : "ease-out w-210";
+  const foldedStyle = isFolded ? "ease-in w-30" : "ease-out w-210";
   const handleClick: MouseEventHandler<SVGElement | HTMLButtonElement> = (ev) => {
     ev.stopPropagation();
 
@@ -18,9 +18,9 @@ function CollectionSidebar() {
   };
 
   return (
-      <aside className={`relative flex flex-col shadow-sm max-w-210 transition-all duration-100 ${foldedWidthAnimation} sm:text-[1rem] mb:text-[5rem]`}>
+      <aside className={`relative flex flex-col bg-slate-50 shadow-sm max-w-210 transition-all duration-100 ${foldedStyle} sm:text-[1rem] mb:text-[5rem]`}>
         {isFolded ? (
-          <IoIosArrowForward className="m-5 mt-12 hover:text-indigo-700" size="18" onClick={handleClick} />
+          <IoIosArrowForward className="m-5 mt-12 w-24 hover:text-indigo-700" onClick={handleClick} />
         ) : (
           <div className="w-210">
             <NewCollectionToggle />
