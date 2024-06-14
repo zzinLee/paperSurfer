@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 import type { CollectionStoreState } from "../types/interface";
 
@@ -31,6 +31,6 @@ const collectionStore = persist<CollectionStoreState>(
   }
 );
 
-const useCollectionStore = create(devtools(collectionStore));
+const useCollectionStore = create(collectionStore);
 
 export default useCollectionStore;

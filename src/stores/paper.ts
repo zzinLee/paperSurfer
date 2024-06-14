@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
 import type { PaperConfig, PaperStoreState } from "../types/interface";
 
-const paperStore = persist(
+const paperStore = immer<PaperStoreState>(
   (set) => ({
     paperCollection: {},
     addPaperToCollection: (key: string, paper: PaperConfig) =>
-      set((state: PaperStoreState) => {
+      set((state) => {
         if (state.paperCollection[key]) {
           state.paperCollection[key].push(paper);
         } else {
@@ -16,28 +16,29 @@ const paperStore = persist(
         }
       }),
     deleteAllPaperFromCollection: (key: string) =>
-      set((state: PaperStoreState) => {
+      set((state) => {
         delete state.paperCollection[key];
       }),
     deletePaperFromCollection: (key: string, doi: string) =>
-      set((state: PaperStoreState) => {
+      set((state) => {
         state.paperCollection[key] = state.paperCollection[key].filter((paper: PaperConfig) => paper.doi !== doi);
       }),
     initPaperCollection: (key: string, starPaperCollection: PaperConfig[]) =>
-      set((state: PaperStoreState) => {
+      set((state) => {
         state.paperCollection[key] = starPaperCollection;
       }),
     deleteAllPaper: () =>
-      set((state: PaperStoreState) => {
+      set((state) => {
         state.paperCollection = {};
       })
-  }),
-  {
-    name: "paper-storage",
-    storage: createJSONStorage(() => sessionStorage)
-  }
+  })
 );
 
-const usePaperStore = create(immer(devtools(paperStore)));
+const usePaperStore = create(
+  persist(paperStore, {
+    name: "paper-storage",
+    storage: createJSONStorage(() => sessionStorage)
+  }),
+);
 
 export default usePaperStore;

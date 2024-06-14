@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
 import type { ChartStoreState, RootConfig, PaperConfig } from "../types/interface";
@@ -35,32 +35,32 @@ const transplantChildren = (root: RootConfig, target: RootConfig, childrenList: 
   return root;
 };
 
-const chartStore = persist(
-  immer((set) => ({
+const chartStore = immer<ChartStoreState>(
+  (set) => ({
     rootCollection: {},
     starCollection: {},
     initChart: (key: string, root: RootConfig) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.rootCollection[key] = root;
       }),
     deleteCollectionFromChart: (key: string) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         delete state.rootCollection[key];
       }),
     deletePaperFromChart: (key: string, doi: string) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.rootCollection[key].children = state.rootCollection[key].children.filter((paper) => paper.doi !== doi);
       }),
     changeNodeStatus: (key: string, nodeData: RootConfig, status: string) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.rootCollection[key] = changeTargetStatus(state.rootCollection[key], nodeData, status);
       }),
     addChildrenToNode: (key: string, nodeData: RootConfig, childrenList: RootConfig[]) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.rootCollection[key] = transplantChildren(state.rootCollection[key], nodeData, childrenList);
       }),
     addStarPaper: (key: string, paper: PaperConfig) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         if (state.starCollection[key]) {
           state.starCollection[key].push(paper);
         } else {
@@ -68,26 +68,26 @@ const chartStore = persist(
         }
       }),
     deletePaperFromStarCollection: (key: string, doi: string) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.starCollection[key] = state.starCollection[key].filter((paper) => paper.doi !== doi);
       }),
     deleteStarCollection: (key: string) =>
-      set((state: ChartStoreState) => {
+      set((state) => {
         delete state.starCollection[key];
       }),
     deleteAllChart: () => {
-      set((state: ChartStoreState) => {
+      set((state) => {
         state.rootCollection = {};
         state.starCollection = {};
       });
     }
-  })),
-  {
-    name: "chart-storage",
-    storage: createJSONStorage(() => sessionStorage)
-  }
+  })
 );
 
-const useChartStore = create(devtools(chartStore));
+const useChartStore = create(persist(chartStore, {
+    name: "chart-storage",
+    storage: createJSONStorage(() => sessionStorage)
+  })
+);
 
 export default useChartStore;
