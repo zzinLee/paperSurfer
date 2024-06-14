@@ -1,96 +1,76 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect, type FormEvent, type Dispatch, type SetStateAction } from "react";
+import { useCallback, useRef, useState, useEffect, type FormEvent, type Dispatch, type SetStateAction } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 
 import SearchLoading from "../shared/SearchLoading";
 
 import API from "../../utils/configAPI";
-import { decodedString } from "../../utils/utils";
+import { formattingResponse } from "../../utils/utils";
 import { MAILTO } from "../../utils/constants";
 import type { PaperConfig, SearchResponseConfig } from "../../types/interface";
 
 interface PaperSearchBarProps {
-  getSearchList: Dispatch<SetStateAction<PaperConfig[]>>;
+  setSearchList: Dispatch<SetStateAction<PaperConfig[]>>;
 }
 
-function PaperSearchBar({ getSearchList }: PaperSearchBarProps) {
+function PaperSearchBar({ setSearchList }: PaperSearchBarProps) {
   const navigator = useNavigate();
   const searchInput = useRef<HTMLInputElement>(null);
-  const [isSubmit, setIsSubmit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const goErrorPage = useCallback(() => navigator("/error"), [navigator]);
 
   useEffect(() => {
     if (isSubmit) {
       submitSearchForm();
       setIsSubmit(false);
     }
-  }, [isSubmit]);
 
-  async function submitSearchForm() {
-    if (isLoading) return;
+    async function submitSearchForm() {
+      setIsLoading(true);
 
-    setIsLoading(true);
+      try {
+        const userInput = searchInput.current && searchInput.current.value;
 
-    try {
-      const userInput = searchInput.current && searchInput.current.value;
+        if (!userInput) return;
 
-      if (!userInput) {
-        return;
+        const searchUrl =
+          `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1` +
+          `&query=${encodeURIComponent(userInput)}&mailto=${MAILTO}`;
+        const response = await axios.get(searchUrl);
+
+        if (response?.data?.status === "ok") {
+          setIsLoading(false);
+        }
+
+        const responseItems = response?.data?.message?.items as SearchResponseConfig[];
+        const searchList = responseItems.map(eachPaper => formattingResponse(eachPaper));
+
+        setSearchList(searchList);
+      } catch (err) {
+        goErrorPage();
       }
-
-      const searchUrl =
-        `${API.CROSSREF_WORKS_URL}?filter=type:journal-article,has-references:1` +
-        `&query=${encodeURIComponent(userInput)}&mailto=${MAILTO}`;
-      const response = await axios.get(searchUrl);
-
-      if (response?.data?.status === "ok") {
-        setIsLoading(false);
-      }
-
-      const responseItems = response?.data?.message?.items as SearchResponseConfig[];
-      const searchList = responseItems.map((eachPaper) => {
-        const rawAuthorList = eachPaper.author;
-        const authorList =
-          rawAuthorList &&
-          rawAuthorList
-            .filter((author) => author.family && author.given)
-            .map((author) => `${author.family} ${author.given}`);
-
-        return {
-          doi: eachPaper.DOI,
-          url: eachPaper.URL,
-          title: decodedString(eachPaper?.title[0]) || "제목 정보 없음",
-          references: eachPaper["references-count"],
-          citations: eachPaper["is-referenced-by-count"],
-          createdAt: eachPaper?.created?.["date-parts"]?.[0]?.join(".") || "출판일 정보 없음",
-          containerTitle: eachPaper?.["container-title"]?.[0] || "저널 정보 없음",
-          author: authorList?.join(", ") || "저자 정보 없음"
-        };
-      });
-
-      getSearchList(searchList);
-    } catch (err) {
-      navigator("/error");
     }
-  }
+  }, [isSubmit, goErrorPage, setSearchList]);
 
   return (
     <div className="w-full pb-8 pl-8">
       <form
+        className="pr-[1em]"
         onSubmit={(ev: FormEvent<HTMLFormElement>) => {
           ev.preventDefault();
 
           setIsSubmit(true);
         }}
-        className="w-2/3 p-10"
       >
         <div className="flex flex-row gap-5 m-24 justify-center items-center">
           <input
             ref={searchInput}
             type="search"
             id="search"
-            className="w-full p-4 pl-10 text-16 rounded-lg shadow-sm font-pretendard focus:outline-blue-600"
+            disabled={isLoading}
+            className="w-full p-2 pl-10 text-16 min-w-60 rounded-lg border border-slate-300 shadow-sm font-pretendard focus:outline-blue-600"
             placeholder="키워드를 검색하세요..."
             required
           />
