@@ -1,12 +1,13 @@
 import { useState, type MouseEvent } from "react";
-import { useParams } from "react-router-dom";
 import { FcEmptyTrash } from "react-icons/fc";
 
 import Modal from "../shared/Modal";
 import PaperCard from "../PaperCard";
 
+import useCollectionId from "../../hooks/useCollectionId";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
+
 import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
 
 interface PaperProps {
@@ -15,7 +16,7 @@ interface PaperProps {
 
 function Paper({ paper }: PaperProps) {
   const [isPaperCardOpen, setIsPaperCardOpen] = useState(false);
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const { deletePaperFromCollection } = usePaperStore() as PaperStoreState;
   const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore() as ChartStoreState;
 

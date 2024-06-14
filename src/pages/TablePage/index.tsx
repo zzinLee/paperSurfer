@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { RiArrowGoBackLine } from "react-icons/ri";
-import { useParams } from "react-router-dom";
 
 import TableRow from "../../components/TableRow";
 import ErrorPage from "../ErrorPage";
 
+import useCollectionId from "../../hooks/useCollectionId";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 
@@ -14,7 +14,7 @@ function TablePage() {
   const navigator = useNavigate();
   const { collection } = useCollectionStore();
   const { paperCollection } = usePaperStore() as { paperCollection: PaperCollectionConfig };
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const paperList = paperCollection[collectionId];
   const isTableDataExist = paperList?.length > 0;
 

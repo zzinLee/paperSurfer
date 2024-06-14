@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { LuRefreshCw } from "react-icons/lu";
 import { GoTable } from "react-icons/go";
@@ -16,6 +16,8 @@ import { formattingResponse } from "../../utils/utils";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 import useChartStore from "../../stores/chart";
+import useCollectionId from "../../hooks/useCollectionId";
+
 import type {
   ChartStoreState,
   PaperConfig,
@@ -27,6 +29,7 @@ import type {
   SearchResponseConfig,
 } from "../../types/interface";
 import type { AxiosResponse } from "axios";
+
 
 const fetchChildrenNodes = async (root: RootConfig | InitRootConfig, initChart: InitChartFunction, collectionKey: string) => {
   if (!root.children || root.children.length <= 0) return;
@@ -90,7 +93,7 @@ const formattingRoot: formattingRootFunction = (paperList, collectionName) => {
 
 function ViewPage() {
   const navigator = useNavigate();
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const { rootCollection, initChart, starCollection } = useChartStore() as ChartStoreState;
   const { collection } = useCollectionStore();
   const { paperCollection, initPaperCollection } = usePaperStore() as PaperStoreState;

@@ -1,13 +1,12 @@
-import { useParams } from "react-router-dom";
-
 import Paper from "../Paper";
-
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
+import useCollectionId from "../../hooks/useCollectionId";
+
 import type { PaperCollectionConfig } from "../../types/interface";
 
 function PaperSidebar() {
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const { collection } = useCollectionStore();
   const { paperCollection } = usePaperStore() as { paperCollection: PaperCollectionConfig };
   const currentCollectionName = collection[collectionId];

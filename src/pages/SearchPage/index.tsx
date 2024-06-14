@@ -1,18 +1,19 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PiGraphLight } from "react-icons/pi";
 
 import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
 
-import type { PaperStoreState, PaperConfig } from "../../types/interface";
-
 import usePaperStore from "../../stores/paper";
+import useCollectionId from "../../hooks/useCollectionId";
+
+import type { PaperStoreState, PaperConfig } from "../../types/interface";
 
 function SearchPage() {
   const navigator = useNavigate();
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const [searchList, setSearchList] = useState<PaperConfig[]>([]);
   const { paperCollection } = usePaperStore() as PaperStoreState;
   const isSearchListExist = searchList.length !== 0;

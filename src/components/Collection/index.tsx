@@ -1,7 +1,8 @@
 import type { MouseEvent } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
 
+import useCollectionId from "../../hooks/useCollectionId";
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
@@ -14,7 +15,7 @@ interface CollectionProps {
 
 function Collection({ collectionKey, collectionName }: CollectionProps) {
   const navigator = useNavigate();
-  const { collectionId } = useParams();
+  const collectionId = useCollectionId();
   const { deleteCollectionFromStore } = useCollectionStore();
   const { deleteCollectionFromChart, deleteStarCollection } = useChartStore() as ChartStoreState;
   const { deleteAllPaperFromCollection } = usePaperStore() as PaperStoreState;

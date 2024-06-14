@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
+import useCollectionId from "../../hooks/useCollectionId";
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
+
 import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
 
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
@@ -17,7 +18,7 @@ interface PaperCardProps {
 }
 
 function PaperCard({ paper }: PaperCardProps) {
-  const { collectionId } = useParams() as { collectionId: string };
+  const collectionId = useCollectionId();
   const { collection } = useCollectionStore();
   const { addPaperToCollection, paperCollection } = usePaperStore() as PaperStoreState;
   const { initChart, addStarPaper } = useChartStore() as ChartStoreState;
