@@ -6,7 +6,7 @@ import useChartStore from "../../stores/chart";
 import useCollectionId from "../../hooks/useCollectionId";
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
 
-import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
+import type { PaperConfig } from "../../types/interface";
 
 const CLASS_BADGE = "text-sm font-semibold me-2 mr-4 px-2.5 py-0.5 rounded inline-flex items-center justify-center min-w-72";
 const CLASS_BADGE_PROP = "text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded me-4";
@@ -20,8 +20,8 @@ interface PaperCardProps {
 function PaperCard({ paper }: PaperCardProps) {
   const collectionId = useCollectionId();
   const { collection } = useCollectionStore();
-  const { addPaperToCollection, paperCollection } = usePaperStore() as PaperStoreState;
-  const { initChart, addStarPaper } = useChartStore() as ChartStoreState;
+  const { addPaperToCollection, paperCollection } = usePaperStore();
+  const { initChart, addStarPaper } = useChartStore();
 
   const [isLinkClick, setIsLinkClick] = useState(false);
   const currentCollectionName = collection[collectionId];

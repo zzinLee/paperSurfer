@@ -19,9 +19,7 @@ import useChartStore from "../../stores/chart";
 import useCollectionId from "../../hooks/useCollectionId";
 
 import type {
-  ChartStoreState,
   PaperConfig,
-  PaperStoreState,
   RootConfig,
   formattingRootFunction,
   InitChartFunction,
@@ -29,7 +27,6 @@ import type {
   SearchResponseConfig,
 } from "../../types/interface";
 import type { AxiosResponse } from "axios";
-
 
 const fetchChildrenNodes = async (root: RootConfig | InitRootConfig, initChart: InitChartFunction, collectionKey: string) => {
   if (!root.children || root.children.length <= 0) return;
@@ -94,9 +91,10 @@ const formattingRoot: formattingRootFunction = (paperList, collectionName) => {
 function ViewPage() {
   const navigator = useNavigate();
   const collectionId = useCollectionId();
-  const { rootCollection, initChart, starCollection } = useChartStore() as ChartStoreState;
   const { collection } = useCollectionStore();
-  const { paperCollection, initPaperCollection } = usePaperStore() as PaperStoreState;
+  const { paperCollection, initPaperCollection } = usePaperStore();
+  const { rootCollection, initChart, starCollection } = useChartStore();
+
   const isCurrentPaperListExist = Object.values(paperCollection).length > 0;
   const currentCollectionName = collection[collectionId];
   const isDataExist = rootCollection[collectionId] && Object.keys(rootCollection[collectionId]).length > 0;

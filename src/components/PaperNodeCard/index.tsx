@@ -9,7 +9,7 @@ import { STATUS, MAILTO } from "../../utils/constants";
 import { formattingResponse, decodedString } from "../../utils/utils";
 import useCollectionId from "../../hooks/useCollectionId";
 
-import type { ChartStoreState, ReferenceConfig, RootConfig, SearchResponseConfig, PaperConfig } from "../../types/interface";
+import type { ReferenceConfig, RootConfig, SearchResponseConfig, PaperConfig } from "../../types/interface";
 
 const CLASS_CARD_PROP = "flex flex-row gap-3 px-10 py-5";
 const CLASS_CARD_BUTTON = "px-8 py-2 text-white rounded-lg shadow-md hover:cursor-pointer text-16";
@@ -25,7 +25,7 @@ interface PaperNodeCardProps {
 
 function PaperNodeCard({ nodeData, setModalOpen, setIsLoadingChild }: PaperNodeCardProps) {
   const collectionId = useCollectionId();
-  const { changeNodeStatus, addChildrenToNode, addStarPaper } = useChartStore() as ChartStoreState;
+  const { changeNodeStatus, addChildrenToNode, addStarPaper } = useChartStore();
 
   const [paper, setPaper] = useState<null | PaperConfig>(null);
   const [isLinkClick, setIsLinkClick] = useState(false);

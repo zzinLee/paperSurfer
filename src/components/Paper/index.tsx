@@ -8,7 +8,7 @@ import useCollectionId from "../../hooks/useCollectionId";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
 
-import type { ChartStoreState, PaperStoreState, PaperConfig } from "../../types/interface";
+import type { PaperConfig } from "../../types/interface";
 
 interface PaperProps {
   paper: PaperConfig;
@@ -17,8 +17,8 @@ interface PaperProps {
 function Paper({ paper }: PaperProps) {
   const [isPaperCardOpen, setIsPaperCardOpen] = useState(false);
   const collectionId = useCollectionId();
-  const { deletePaperFromCollection } = usePaperStore() as PaperStoreState;
-  const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore() as ChartStoreState;
+  const { deletePaperFromCollection } = usePaperStore();
+  const { deletePaperFromChart, deletePaperFromStarCollection } = useChartStore();
 
   const deletePaper = (ev: MouseEvent<SVGElement>) => {
     ev.stopPropagation();

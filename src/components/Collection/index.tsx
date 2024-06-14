@@ -6,7 +6,6 @@ import useCollectionId from "../../hooks/useCollectionId";
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
-import type { PaperStoreState, ChartStoreState } from "../../types/interface";
 
 interface CollectionProps {
   collectionKey: string;
@@ -17,8 +16,8 @@ function Collection({ collectionKey, collectionName }: CollectionProps) {
   const navigator = useNavigate();
   const collectionId = useCollectionId();
   const { deleteCollectionFromStore } = useCollectionStore();
-  const { deleteCollectionFromChart, deleteStarCollection } = useChartStore() as ChartStoreState;
-  const { deleteAllPaperFromCollection } = usePaperStore() as PaperStoreState;
+  const { deleteCollectionFromChart, deleteStarCollection } = useChartStore();
+  const { deleteAllPaperFromCollection } = usePaperStore();
   const isRoot = collectionKey === collectionId;
   const backgroundColor = isRoot ? "bg-indigo-100" : "bg-transWhite";
   const fontColor = isRoot ? "text-indigo-700" : "text-black";

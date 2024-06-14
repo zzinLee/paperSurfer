@@ -9,13 +9,13 @@ import PaperSidebar from "../../components/PaperSidebar";
 import usePaperStore from "../../stores/paper";
 import useCollectionId from "../../hooks/useCollectionId";
 
-import type { PaperStoreState, PaperConfig } from "../../types/interface";
+import type { PaperConfig } from "../../types/interface";
 
 function SearchPage() {
   const navigator = useNavigate();
   const collectionId = useCollectionId();
   const [searchList, setSearchList] = useState<PaperConfig[]>([]);
-  const { paperCollection } = usePaperStore() as PaperStoreState;
+  const { paperCollection } = usePaperStore();
   const isSearchListExist = searchList.length !== 0;
   const isCurrentPaperListExist = paperCollection[collectionId] && paperCollection[collectionId].length > 0;
 
