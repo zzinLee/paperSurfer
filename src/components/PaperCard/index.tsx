@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
 import useChartStore from "../../stores/chart";
 import useCollectionId from "../../hooks/useCollectionId";
+import useRedirectWindow from "../../hooks/useRedirectWindow";
+
 import { STATUS, COLLECTION_RADIUS } from "../../utils/constants";
 
 import type { PaperConfig } from "../../types/interface";
@@ -21,15 +23,18 @@ function PaperCard({ paper }: PaperCardProps) {
   const collectionId = useCollectionId();
   const { collection } = useCollectionStore();
   const { addPaperToCollection, paperCollection } = usePaperStore();
-  const { initChart, addStarPaper } = useChartStore();
+  const { initChart, addStarPaper, rootCollection } = useChartStore();
 
   const [isLinkClick, setIsLinkClick] = useState(false);
+  const isRootExist = rootCollection[collectionId];
   const currentCollectionName = collection[collectionId];
   const currentPaperCollection = paperCollection[collectionId];
   const isPaperExistAlready = currentPaperCollection &&
     currentPaperCollection.some((storedPaper) => storedPaper.doi === paper.doi);
 
-  const savePaperStore = () => {
+  useRedirectWindow(paper.url, isLinkClick, setIsLinkClick);
+
+  const initDocument = () => {
     const tempRoot = {
       citations: COLLECTION_RADIUS,
       title: currentCollectionName || "문서명 없음",
@@ -39,18 +44,17 @@ function PaperCard({ paper }: PaperCardProps) {
       author: "null",
     };
 
-    addPaperToCollection(collectionId, paper);
-    addStarPaper(collectionId, paper);
     initChart(collectionId, tempRoot);
   };
 
-  useEffect(() => {
-    if (isLinkClick) {
-      window.open(paper.url, "_blank", "noopener, noreferrer");
-
-      setIsLinkClick(false);
+  const handleAddPaperToDocumentButton = () => {
+    if (!isRootExist) {
+      initDocument();
     }
-  }, [isLinkClick, paper.url]);
+
+    addPaperToCollection(collectionId, paper);
+    addStarPaper(collectionId, paper);
+  };
 
 
   return (
@@ -87,7 +91,10 @@ function PaperCard({ paper }: PaperCardProps) {
         {isPaperExistAlready ? (
           <div className="px-8 py-4 m-8 border rounded-lg text-slate-400 text-14">이미 추가된 논문 입니다</div>
         ) : (
-          <button className={`${CLASS_CARD_BUTTON} bg-purple-500 hover:bg-purple-800`} onClick={savePaperStore}>
+            <button
+              className={`${CLASS_CARD_BUTTON} bg-purple-500 hover:bg-purple-800`}
+              onClick={handleAddPaperToDocumentButton}
+            >
             이 문서에 추가
           </button>
         )}
