@@ -27,11 +27,15 @@ function SearchPage() {
         {isSearchListExist && <PaperSearchList searchList={searchList} />}
         {isCurrentPaperListExist && (
           <button
-            className="flex flex-row gap-4 absolute px-8 py-2 items-center text-white rounded-full shadow-xl bg-slate-700 top-30 right-30 text-18 hover:bg-indigo-700"
+            className="flex flex-row absolute px-8 py-2 items-center text-white rounded-full shadow-xl bg-slate-700 top-150 right-30 text-[0.8rem] hover:bg-indigo-700"
             onClick={() => navigator(`/${collectionId}/view`)}
           >
             <PiGraphLight size="28" />
-            그래프 뷰 보러가기
+            <p
+              className="ml-4 sm:invisible sm:w-0 sm:h-0 sm:ml-0"
+            >
+              그래프 뷰 보러가기
+            </p>
           </button>
         )}
       </section>

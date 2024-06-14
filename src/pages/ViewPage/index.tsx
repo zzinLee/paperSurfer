@@ -157,23 +157,23 @@ function ViewPage() {
           </Modal>
         )}
         <Link to={`/${collectionId}/search`}>
-          <button className="flex flex-row gap-4 absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-30 right-30 bg-slate-700 text-17 w-180">
-            <AiOutlineSearch size="18" />
-            다시 검색하러 가기
+          <button className="flex flex-row absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-150 right-30 bg-slate-700 text-[0.8rem] w-180 sm:w-fit">
+            <AiOutlineSearch size="28" />
+            <p className="ml-4 sm:invisible sm:w-0 sm:h-0 sm:m-0">다시 검색하러 가기</p>
           </button>
         </Link>
         <Link to={`/${collectionId}/table`}>
-          <button className="flex flex-row gap-4 absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl top-80 right-30 hover:bg-indigo-700 bg-slate-700 text-17 w-180">
-            <GoTable size="18" />
-            테이블로 보기
+          <button className="flex flex-row absolute px-8 py-2 items-center justify-center text-white rounded-full shadow-xl top-200 right-30 hover:bg-indigo-700 bg-slate-700 text-[0.8rem] w-180 sm:w-fit">
+            <GoTable size="28" />
+            <p className="ml-4 sm:invisible sm:w-0 sm:h-0 sm:m-0">테이블로 보기</p>
           </button>
         </Link>
         <button
-          className="flex flex-row gap-4 px-8 py-2 items-center absolute justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-130 right-30 bg-slate-700 text-17 w-180"
+          className="flex flex-row px-8 py-2 items-center absolute justify-center text-white rounded-full shadow-xl hover:bg-indigo-700 top-250 right-30 bg-slate-700 text-[0.8rem] w-180 sm:w-fit"
           onClick={clickRefresh}
         >
-          <LuRefreshCw size="18" />
-          그래프 새로고침
+          <LuRefreshCw size="28" />
+          <p className="ml-4 sm:invisible sm:w-0 sm:h-0 sm:m-0">그래프 새로고침</p>
         </button>
       </div>
     </>
