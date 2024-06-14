@@ -6,6 +6,7 @@ import PaperSearchBar from "../../components/PaperSearchBar";
 import PaperSearchList from "../../components/PaperSearchList";
 import PaperSidebar from "../../components/PaperSidebar";
 
+import { goViewPage } from "../../utils/utils";
 import usePaperStore from "../../stores/paper";
 import useCollectionId from "../../hooks/useCollectionId";
 
@@ -28,7 +29,7 @@ function SearchPage() {
         {isCurrentPaperListExist && (
           <button
             className="flex flex-row absolute px-8 py-2 items-center text-white rounded-full shadow-xl bg-slate-700 top-150 right-30 text-[0.8rem] hover:bg-indigo-700"
-            onClick={() => navigator(`/${collectionId}/view`)}
+            onClick={() => goViewPage(navigator, collectionId)}
           >
             <PiGraphLight size="28" />
             <p

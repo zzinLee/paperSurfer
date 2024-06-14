@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useCallback, useRef, useState, useEffect, type FormEvent, type Dispatch, type SetStateAction } from "react";
+import { useRef, useState, useEffect, type FormEvent, type Dispatch, type SetStateAction } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 
 import SearchLoading from "../shared/SearchLoading";
 
 import API from "../../utils/configAPI";
-import { formattingResponse } from "../../utils/utils";
+import { formattingResponse, goErrorPage } from "../../utils/utils";
 import { MAILTO } from "../../utils/constants";
+
 import type { PaperConfig, SearchResponseConfig } from "../../types/interface";
 
 interface PaperSearchBarProps {
@@ -19,7 +20,6 @@ function PaperSearchBar({ setSearchList }: PaperSearchBarProps) {
   const searchInput = useRef<HTMLInputElement>(null);
   const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const goErrorPage = useCallback(() => navigator("/error"), [navigator]);
 
   useEffect(() => {
     if (isSubmit) {
@@ -49,10 +49,10 @@ function PaperSearchBar({ setSearchList }: PaperSearchBarProps) {
 
         setSearchList(searchList);
       } catch (err) {
-        goErrorPage();
+        goErrorPage(navigator);
       }
     }
-  }, [isSubmit, goErrorPage, setSearchList]);
+  }, [isSubmit, setSearchList, navigator]);
 
   return (
     <div className="w-full pb-8 pl-8">

@@ -2,6 +2,7 @@ import type { MouseEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaDeleteLeft } from "react-icons/fa6";
 
+import { goHomePage, goSearchPage } from "../../utils/utils";
 import useCollectionId from "../../hooks/useCollectionId";
 import useCollectionStore from "../../stores/collection";
 import usePaperStore from "../../stores/paper";
@@ -30,26 +31,26 @@ function Collection({ collectionKey, collectionName }: CollectionProps) {
     deleteCollectionFromChart(collectionKey);
     deleteStarCollection(collectionKey);
 
-    navigator("/");
+    goHomePage(navigator);
   };
 
   const clickCollection = () => {
     if (!collectionId) {
-      navigator(`/${collectionKey}/search`);
+      goSearchPage(navigator, collectionKey);
 
       return;
     }
 
     if (collectionId === collectionKey) {
-      navigator("/");
+      goHomePage(navigator);
     } else {
-      navigator(`/${collectionKey}/search`);
+      goSearchPage(navigator, collectionKey);
     }
   };
 
   return (
     <li
-      className={`inline-flex hover:bg-indigo-400 hover:text-white p-8 rounded-sm mx-4 my-2 ${backgroundColor} ${fontColor}`}
+      className={`inline-flex hover:bg-indigo-400 shadow-sm hover:text-white p-8 rounded-sm mx-4 my-2 ${backgroundColor} ${fontColor}`}
       onClick={clickCollection}
     >
       <div className="flex-1 px-4 break-words min-w-120 text-balance font-pretendard">

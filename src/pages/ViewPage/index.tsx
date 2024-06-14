@@ -12,7 +12,7 @@ import Modal from "../../components/shared/Modal";
 
 import API from "../../utils/configAPI";
 import { STATUS, NONE, COLLECTION_RADIUS } from "../../utils/constants";
-import { formattingResponse } from "../../utils/utils";
+import { formattingResponse, goHomePage } from "../../utils/utils";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 import useChartStore from "../../stores/chart";
@@ -105,12 +105,12 @@ function ViewPage() {
     initPaperCollection(collectionId, starCollection[collectionId]);
   };
 
+  if (!isCurrentPaperListExist) {
+    goHomePage(navigator);
+  }
+
   useEffect(() => {
     const currentPaperList = paperCollection[collectionId];
-
-    if (!isCurrentPaperListExist) {
-      navigator("/");
-    }
 
     const getReferences = async (currentPaperList: PaperConfig[]) => {
       const getReferencesPromiseList = currentPaperList.map((paper) => {

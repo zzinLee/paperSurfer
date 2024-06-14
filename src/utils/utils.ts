@@ -1,11 +1,12 @@
 import _ from "lodash";
 import type { SearchResponseConfig, PaperConfig } from "../types/interface";
+import type { NavigateFunction } from "react-router-dom";
 
-function decodedString(str: string) {
+const decodedString = (str: string) => {
   return _.unescape(str).replace(/<\/?[^>]+(>|$)/g, "");
-}
+};
 
-function formattingResponse(response: SearchResponseConfig): PaperConfig {
+const formattingResponse = (response: SearchResponseConfig): PaperConfig => {
   const rawAuthorList = response.author;
   const authorList =
     rawAuthorList &&
@@ -26,9 +27,29 @@ function formattingResponse(response: SearchResponseConfig): PaperConfig {
     children: response?.reference?.map((value) => value.DOI).filter((val) => val),
     abstract: response?.abstract,
   };
-}
+};
+
+const goHomePage = (navigator: NavigateFunction) => {
+  navigator("/");
+};
+
+const goErrorPage = (navigator: NavigateFunction) => {
+  navigator("/error");
+};
+
+const goSearchPage = (navigator: NavigateFunction, collectionId: string) => {
+  navigator(`/${collectionId}/search`);
+};
+
+const goViewPage = (navigator: NavigateFunction, collectionId: string) => {
+  navigator(`/${collectionId}/view`);
+};
 
 export {
   decodedString,
   formattingResponse,
+  goHomePage,
+  goErrorPage,
+  goViewPage,
+  goSearchPage,
 };
