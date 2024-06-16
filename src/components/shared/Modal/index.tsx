@@ -7,9 +7,11 @@ interface ModalProps {
 
 function Modal({ children, setModal }: ModalProps) {
   const outsideArea = useRef(null);
+  const closeModal = () => setModal && setModal(false);
+
   const clickOutside = (ev: MouseEvent<HTMLElement>) => {
-    if (ev.target === outsideArea.current && setModal) {
-      setModal(false);
+    if (ev.target === outsideArea.current) {
+      closeModal();
     }
   };
 
