@@ -8,12 +8,10 @@ import useCollectionId from "../../hooks/useCollectionId";
 import usePaperStore from "../../stores/paper";
 import useCollectionStore from "../../stores/collection";
 
-import type { PaperCollectionConfig } from "../../types/interface";
-
 function TablePage() {
   const navigator = useNavigate();
   const { collection } = useCollectionStore();
-  const { paperCollection } = usePaperStore() as { paperCollection: PaperCollectionConfig };
+  const { paperCollection } = usePaperStore();
   const collectionId = useCollectionId();
   const paperList = paperCollection[collectionId];
   const isTableDataExist = paperList?.length > 0;
