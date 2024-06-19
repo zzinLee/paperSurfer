@@ -16,6 +16,7 @@ function FileUploader({ uploadFile }: FileUploaderProps) {
   return (
     <input
       type="file"
+      accept=".pdf"
       onChange={handleFileChange}
       className="m-auto text-18 file:px-20 file:py-5 file:rounded-full file:border-0 file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 w-300"
     />
